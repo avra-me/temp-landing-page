@@ -108,6 +108,3 @@ public
 # build directory
 build/
 
-#lockfiles
-yarn.lock
-
