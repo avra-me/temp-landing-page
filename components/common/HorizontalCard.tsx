@@ -4,6 +4,7 @@ import {Card, CardActionArea, CardProps, StyleRules, Theme, Typography, withStyl
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import AppearOnScroll from "./elements/AppearOnScroll";
+import Image from 'next/image'
 
 const styles = (theme: Theme): StyleRules => ({
     root: {
@@ -25,6 +26,7 @@ const styles = (theme: Theme): StyleRules => ({
     },
     media: {
         width: "100%",
+        height: "100%",
         margin: "auto",
     },
     dividerTop: {
@@ -97,7 +99,7 @@ const HorizontalCard: FunctionComponent<HorizontalCardProps> = ({
                             offScreenProperties={{opacity: 0, x: `${30 * (flip ? -1 : 1)}%`}}
                             onScreenProperties={{opacity: 1, x: 0}}
                         >
-                            <img src={image} className={classes.media}/>
+                            <Image src={image} alt={image} width={400} height={300} className={classes.media}/>
                         </AppearOnScroll>
                     </Grid>
                     <Grid item xs>

@@ -1,13 +1,11 @@
 import React, {Fragment, FunctionComponent, useCallback, useState} from "react";
 import createMuiTheme from "@material-ui/core/styles/createTheme";
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 import withStyles from "@material-ui/core/styles/withStyles";
 import RightHandNavigation from "./RightHandNavigation";
-import {motion} from "framer-motion";
 import Monogram from "../common/elements/Monogram";
-import {Theme} from "@material-ui/core";
+import {Theme, ThemeProvider} from "@material-ui/core";
 import {StyleRules} from "@material-ui/styles";
 import {Property} from "csstype";
 import NavigationDrawer from "./NavigationDrawer";
@@ -46,14 +44,13 @@ interface INavBarPropsInternal {
 export type INavBarProps = Omit<INavBarPropsInternal, 'classes'>
 
 const NavBar: FunctionComponent<INavBarPropsInternal> = ({
-                                                     menuItems,
-                                                     disabled,
-                                                     logo,
-                                                     classes,
-                                                     position,
-                                                     useDarkPalette,
-                                                     backgroundColor
-                                                 }) => {
+                                                             menuItems,
+                                                             disabled,
+                                                             logo,
+                                                             classes,
+                                                             useDarkPalette,
+                                                             backgroundColor
+                                                         }) => {
 
 
     const [selectedTab,] = useState(null);
@@ -70,31 +67,24 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
         return <Fragment/>;
     }
 
+    const theme = createMuiTheme({
+        palette: {
+            type: useDarkPalette ? 'dark' : 'light'
+        }
+    })
 
-    return (<>
-            <motion.div
-                style={{position, width: "100%", zIndex: 99}}
-                initial={false}
-                animate={position === "absolute" ? "visible" : "hidden"}
-                variants={{
-                    visible: {opacity: 1, top: 0, transition: {duration: .3, delay: .3}},
-                    hidden: {opacity: 0, top: "-200px", transition: {duration: .1, delay: 0}}
-                }}
+    return (<ThemeProvider theme={theme}>
+            <AppBar position={"absolute"} className={classes.appBar}
+                    style={backgroundColor ? {backgroundColor} : undefined}
             >
-                <AppBar position={"absolute"} className={classes.appBar}
-                        style={backgroundColor ? {backgroundColor} : undefined}
-                >
-                    <ThemeProvider theme={createMuiTheme({palette: {type: useDarkPalette ? "dark" : "light"}})}>
-                        <Toolbar className={classes.toolbar}>
-                            <Monogram logo={logo}/>
+                <Toolbar className={classes.toolbar}>
+                    <Monogram logo={logo}/>
 
-                            <RightHandNavigation menuItems={menuItems} onDrawerOpen={handleMobileDrawerOpen}
-                                                 onDrawerClose={handleMobileDrawerClose}/>
-                        </Toolbar>
-                    </ThemeProvider>
+                    <RightHandNavigation menuItems={menuItems} onDrawerOpen={handleMobileDrawerOpen}
+                                         onDrawerClose={handleMobileDrawerClose}/>
+                </Toolbar>
 
-                </AppBar>
-            </motion.div>
+            </AppBar>
 
             <NavigationDrawer
                 menuItems={menuItems}
@@ -103,7 +93,7 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
                 selectedItem={selectedTab}
                 onClose={handleMobileDrawerClose}
             />
-        </>
+        </ThemeProvider>
     );
 }
 

@@ -50,7 +50,7 @@ collections:
               - {label: "Summary", name: summary, widget: string, comment: "For SEO, becomes meta og:description"}
       - label: Site Theme
         name: theme
-        file: 'content/theme/theme.yaml'
+        file: 'content/theme/theme.json'
         description: Configure your site
         fields:
           - label: "Colour Palette"

@@ -27,6 +27,8 @@ function MyApp({Component, pageProps}: AppProps) {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles && jssStyles.parentElement) {
             jssStyles.parentElement.removeChild(jssStyles);
+        }else{
+            console.warn('No JSS to remove')
         }
     }, []);
     // @ts-ignore

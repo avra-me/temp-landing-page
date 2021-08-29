@@ -1,7 +1,6 @@
 import React, {FunctionComponent} from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import NavBar, {INavBarProps} from "../navigation/NavBar";
-import ChangeThemeButton from "../common/ChangeTheme";
 import {StyleRules, Theme} from "@material-ui/core";
 import {sortBy} from "lodash";
 import {connect} from "react-redux";
@@ -52,7 +51,7 @@ const NavigationBar: FunctionComponent<InternalProps> = ({menuButtons=[], menuIt
 
 
 NavigationBar.defaultProps = {
-    menuButtons: [<ChangeThemeButton key={"changeTheme"}/>]
+    menuButtons: []
 };
 
 export default withStyles(styles)(connect(mapStateToProps)(NavigationBar)) as FunctionComponent<INavigationBarProps>;

@@ -4,6 +4,9 @@ import {withStyles} from "@material-ui/core";
 import clsx from "clsx";
 
 const styles = {
+  uniqueId: {
+
+  },
   flip: {
     transform: "scale(1,-1)",
     "& reverse": {
@@ -36,7 +39,6 @@ const styles = {
  *  https://codepen.io/csspoints/pen/WNeOEqd
  */
 function WaveBorder(props) {
-  const id = String(Math.random());
 
   const wave = (duration, delay, opacity, x = undefined) => ({
     duration,
@@ -69,7 +71,7 @@ function WaveBorder(props) {
   const addWave = ({y, delay, duration, opacity = 1, x = 48, pause = false}) => {
     return <use
       key={y}
-      href={`#${id}`}
+      href={`#${classes.uniqueId}`}
       x={x}
       y={y}
       className={clsx()}
@@ -95,7 +97,7 @@ function WaveBorder(props) {
       <svg className={clsx(svgClasses)} style={{fill: background}} xmlns="http://www.w3.org/2000/svg"
            viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="geometricPrecision">
         <defs>
-          <path id={id} d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+          <path id={classes.uniqueId} d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
                 shapeRendering="geometricPrecision"/>
         </defs>
         <g className={classes.parallax}>
@@ -106,7 +108,7 @@ function WaveBorder(props) {
             if (pause) {
               timeDelay = delay;
             }
-            return addWave({y, duration, opacity, x, delay: timeDelay, pause});
+            return addWave({y, duration, opacity, x, delay: ~~timeDelay, pause});
           })}
         </g>
       </svg>
