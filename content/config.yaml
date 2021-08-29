@@ -1,0 +1,16 @@
+title: "Avra.Me, the online portfolio of Avrami Hammer"
+author:
+  first_name: "Avrami"
+  last_name: "Hammer"
+  summary: "I live and breathe cloud and big-data solution design, take a peak and see what I'm working on. I'm always open to messages through the 'contact me' section on each page!"
+  gender: 'n/a'
+description: "A simple website showcasing who I am and what I do."
+siteUrl: "https://avra.me/"
+logo: "/assets/monogram.svg"
+sitePreview: "/assets/128x128-animated.gif"
+icons:
+  - {size: "16x16", path: /assets/favicon-16.ico}
+  - {size: "32x32", path: /assets/favicon-32.ico}
+  - {size: "64x64", path: /assets/favicon-64.ico}
+  - {size: "128x128", path: /assets/favicon-128.ico}
+  - {size: "256x256", path: /assets/favicon-256.ico}

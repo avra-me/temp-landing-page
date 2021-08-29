@@ -1,0 +1,19 @@
+palette:
+  wavePoints: [0, 47, 93]
+  waveAngle: "45"
+  type: "light"
+  primary:
+    light: "#8C1E3A"
+    main: "#A51D27"
+    dark: "#BD1B15"
+  secondary:
+    light: "#74204C"
+    main: "#5B215F"
+    dark: "#432371"
+  tonalOffset: 0.2
+  spacing: 16
+border:
+  borderColor: "rgba(0, 0, 0, 0.13)"
+  borderWidth: 2
+typography:
+  useNextVariants: true
