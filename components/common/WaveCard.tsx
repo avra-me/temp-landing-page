@@ -3,7 +3,7 @@ import clsx from "clsx";
 import CardMedia from "@material-ui/core/CardMedia";
 import WaveBorder from "./elements/WaveBorder";
 import React, {FunctionComponent, ReactNode} from "react";
-import {createStyles, StyleRules, Theme, WithStyles, withStyles} from "@material-ui/core";
+import {createStyles, Theme, WithStyles, withStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import {ThemeProvider} from "./theming/ThemeProvider";
 

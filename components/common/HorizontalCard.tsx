@@ -1,11 +1,9 @@
 import Grid from "@material-ui/core/Grid";
-import React, {Fragment, FunctionComponent} from "react";
-import {Card, CardActionArea, CardMedia, CardProps, StyleRules, Theme, Typography, withStyles} from "@material-ui/core";
+import React, {FunctionComponent} from "react";
+import {Card, CardActionArea, CardProps, StyleRules, Theme, Typography, withStyles} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import AppearOnScroll from "./elements/AppearOnScroll";
-import WavyImage from "./elements/WavyImage";
 
 const styles = (theme: Theme): StyleRules => ({
     root: {

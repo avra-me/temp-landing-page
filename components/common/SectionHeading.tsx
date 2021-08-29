@@ -2,7 +2,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import React, {FunctionComponent} from "react";
 import {createStyles, PropTypes, StyleRules, Theme, WithStyles, withStyles} from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
+
 type Alignment = PropTypes.Alignment;
 
 const styles = (theme: Theme): StyleRules => createStyles({

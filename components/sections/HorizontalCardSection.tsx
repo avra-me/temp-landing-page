@@ -1,4 +1,4 @@
-import {Button, ButtonGroup, createStyles, Grid, Theme, Typography, withStyles, WithStyles} from "@material-ui/core";
+import {Button, ButtonGroup, createStyles, Grid, Theme, withStyles, WithStyles} from "@material-ui/core";
 import React, {FunctionComponent} from "react";
 import {HorizontalCardSection as IHorizontalCardSection, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";

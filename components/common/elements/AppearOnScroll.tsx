@@ -60,7 +60,7 @@ const AppearOnScroll: FunctionComponent<IAppearOnScrollProps> = (props) => {
                 setIsVisible(true);
             }
         }
-    }, [inView]);
+    }, [inView, repeat]);
 
     const animations = {
         hidden: offScreenProperties,

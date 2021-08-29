@@ -1,7 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import React, {FunctionComponent} from "react";
 import {createStyles, Theme, WithStyles, withStyles} from "@material-ui/core";
-import PropTypes from "prop-types";
 import WaveBorder from "./WaveBorder";
 
 
