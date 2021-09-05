@@ -6,8 +6,8 @@ import {StyleRules, ThemeProvider} from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
 import useTheme from "@material-ui/core/styles/useTheme";
 import {AttributionItem, SocialButton} from "../../store/types/footer";
-import WaveBorder from "../common/elements/WaveBorder";
 import ReactMarkdown from "react-markdown";
+import WaveBorderCanvas from "../common/elements/WaveBorderCanvas";
 
 const styles = (theme: Theme): StyleRules => ({
     footerInner: {
@@ -28,11 +28,6 @@ const styles = (theme: Theme): StyleRules => ({
             paddingRight: theme.spacing(10),
             paddingBottom: theme.spacing(10),
         },
-    },
-    brandText: {
-        fontFamily: "'Baloo Bhaijaan', cursive",
-        fontWeight: 400,
-        color: theme.palette.common.white,
     },
     footerLinks: {
         marginTop: theme.spacing(2.5),
@@ -101,10 +96,12 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
     return (
         <ThemeProvider theme={createTheme({palette: {type: "dark"}})}>
             <footer className="lg-p-top">
-                <WaveBorder
-                    background={theme.palette.grey["900"]}
-                    className={classes.border}
-                />
+                <div className={classes.border}>
+                    <WaveBorderCanvas
+                      background={theme.palette.grey["900"]}
+                      flip
+                    />
+                </div>
                 <Paper square className={classes.footerInner}>
                     <Grid container spacing={5}>
                         {children}
@@ -179,4 +176,4 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
     );
 }
 
-export default withStyles(styles, {withTheme: true})(Footer);
+export default withStyles(styles)(Footer);
