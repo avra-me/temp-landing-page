@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Box, createTheme, Grid, Hidden, IconButton, Theme, Typography, withStyles,} from "@material-ui/core";
+import {Box, createTheme, Grid, Hidden, IconButton, Theme, Typography, withStyles} from "@material-ui/core";
 import transitions from "@material-ui/core/styles/transitions";
 import Avatar from "@material-ui/core/Avatar";
 import {StyleRules, ThemeProvider} from "@material-ui/styles";

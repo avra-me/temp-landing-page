@@ -1,7 +1,21 @@
 import React from 'react';
 import Document, {Head, Html, Main, NextScript} from 'next/document';
 import {ServerStyleSheets} from '@material-ui/styles'; // works with @material-ui/core/styles, if you prefer to use it.
-import theme from '../components/common/theming/theme'; // Adjust here as well
+import theme from '../components/common/theming/theme';
+import jss from "jss"; // Adjust here as well
+let prefixer: any;
+let cleanCSS: any;
+if (process.env.NODE_ENV === 'production') {
+  /* eslint-disable global-require */
+  const postcss = require('postcss');
+  const autoprefixer = require('autoprefixer');
+  const CleanCSS = require('clean-css');
+  /* eslint-enable global-require */
+
+  prefixer = postcss([autoprefixer]);
+  cleanCSS = new CleanCSS();
+  jss.setup({id: {minify: true}})
+}
 
 export default class MyDocument extends Document {
     render() {
@@ -53,19 +67,35 @@ MyDocument.getInitialProps = async (ctx) => {
     // 4. page.render
 
     // Render app and page and get the context of the page with collected side effects.
-    const sheets = new ServerStyleSheets();
-    const originalRenderPage = ctx.renderPage;
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
 
-    ctx.renderPage = () =>
-        originalRenderPage({
-            enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-        });
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+    });
 
-    const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await Document.getInitialProps(ctx);
 
-    return {
+  let css = sheets.toString();
+  // It might be undefined, e.g. after an error.
+  if (css && process.env.NODE_ENV === 'production') {
+    const result1 = await prefixer.process(css, { from: undefined });
+    css = result1.css;
+    css = cleanCSS.minify(css).styles;
+  }
+
+  return {
         ...initialProps,
         // Styles fragment is rendered after the app and page rendering finish.
-        styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
+      <style
+        id="jss-server-side"
+        key="jss-server-side"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: css }}
+      />,
+    ],
     };
 };
