@@ -1,7 +1,7 @@
 ---
 type: experience
 order: 1
-image: "/assets/Consulting_Two Color.svg"
+image: "/assets/frontpage/consulting_deloitte.svg"
 link: "/experience/2020-06-24-software-developer"
 buttons:
     - {title: "Read More", link: "/experience/2020-06-24-software-developer"}

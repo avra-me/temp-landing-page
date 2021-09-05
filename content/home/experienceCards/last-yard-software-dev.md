@@ -1,7 +1,7 @@
 ---
 type: experience
 order: 0
-image: "/assets/User interface_Two Color.svg"
+image: "/assets/frontpage/interface_lastyard.svg"
 link: "/experience/2020-06-24-software-developer"
 buttons:
     - {title: "Read More", link: "/experience/2020-06-24-software-developer"}
