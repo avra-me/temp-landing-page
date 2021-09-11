@@ -4,7 +4,7 @@ import React, {FunctionComponent} from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import clsx from "clsx";
 import {Theme} from "@material-ui/core";
-import {StyleRules} from "@material-ui/styles";
+import {StyleRules} from "@material-ui/core/styles";
 import smoothScrollTop from "../../utilities/smoothScrollTop";
 import {useRouter} from "next/router";
 import {MenuItem} from "../../store/types/navigation";

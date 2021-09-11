@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
+import {withStyles} from '@material-ui/core/styles';
 import NavBar, {INavBarProps} from "../navigation/NavBar";
 import {StyleRules, Theme} from "@material-ui/core";
 import {sortBy} from "lodash";
@@ -44,7 +44,7 @@ const NavigationBar: FunctionComponent<InternalProps> = ({menuButtons=[], menuIt
 
     return (
         <div>
-            <NavBar menuItems={[...menuItems, ...menuButtons]} {...props} position={"absolute"}/>
+            <NavBar menuItems={[...menuItems, ...menuButtons]} {...props}/>
         </div>
     );
 }

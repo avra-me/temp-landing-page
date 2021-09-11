@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-    reactStrictMode: false,
-}
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled:true,
+})
+module.exports = withBundleAnalyzer({})

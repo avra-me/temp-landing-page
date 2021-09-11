@@ -1,7 +1,8 @@
 import Grid from "@material-ui/core/Grid";
 import React, {FunctionComponent} from "react";
-import {createStyles, Theme, WithStyles, withStyles} from "@material-ui/core";
+import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import WaveBorder from "./WaveBorder";
+import {Theme} from "@material-ui/core";
 
 
 const styles = (theme: Theme) => createStyles({

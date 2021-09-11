@@ -1,5 +1,7 @@
 import React, {FunctionComponent, memo} from "react";
-import {CardProps, lighten, StyleRules, Theme, withStyles} from "@material-ui/core";
+import {CardProps} from "@material-ui/core";
+import {lighten, StyleRules, Theme} from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";

@@ -1,7 +1,8 @@
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import React, {FunctionComponent} from "react";
-import {createStyles, PropTypes, StyleRules, Theme, WithStyles, withStyles} from "@material-ui/core";
+import {PropTypes, StyleRules, Theme} from "@material-ui/core";
+import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 
 type Alignment = PropTypes.Alignment;
 

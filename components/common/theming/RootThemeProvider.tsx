@@ -1,10 +1,11 @@
 import React from "react";
-import {ThemeOptions, ThemeProvider, useMediaQuery} from "@material-ui/core";
+import {ThemeProvider} from "@material-ui/core/styles";
 import useCookie from "react-use-cookie"
 import {connect} from "react-redux";
 import {AppState} from "../../../store";
 import {ThemeTypeContext} from "./ThemeContext";
 import {generateTheme, ThemeGlobals} from "./theme";
+import {ThemeOptions, useMediaQuery} from "@material-ui/core";
 
 
 const mapStateToProps = (state: AppState) => {

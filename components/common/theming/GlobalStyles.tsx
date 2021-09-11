@@ -1,5 +1,6 @@
-import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core";
+import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import {FunctionComponent} from "react";
+import {Theme} from "@material-ui/core";
 
 const styles = (theme: Theme) => createStyles({
     "@global": {

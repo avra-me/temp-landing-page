@@ -1,6 +1,9 @@
 import React, {FunctionComponent} from "react";
-import {createTheme, MuiThemeProvider, PaletteType, Theme, ThemeOptions, useTheme} from "@material-ui/core";
+import {createTheme, MuiThemeProvider, Theme, ThemeOptions} from "@material-ui/core/styles";
+import {useTheme} from "@material-ui/core/styles";
 import {ThemeTypeContext} from "./ThemeContext";
+import {PaletteType} from "@material-ui/core";
+
 
 
 interface IThemeProviderProps {

@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {createStyles, Theme, useTheme, WithStyles, withStyles} from "@material-ui/core";
+import {Theme, useTheme, createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import clsx from "clsx";
 import Container from "@material-ui/core/Container";
 // import {NavigationAppearContext} from "./elements/NavigationAppearContext";
@@ -85,6 +85,7 @@ const WaveJumbotron: FunctionComponent<IWaveJumbotronProps> = (props) => {
                 {children}
               </div>
           </Container>
+            <div id={"hide-navbar"}/>
               <div className={classes.waveBorder}>
                 <WaveBorderCanvas background={theme.palette.background.default} flip/>
               </div>

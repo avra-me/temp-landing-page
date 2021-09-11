@@ -2,7 +2,9 @@ import React, {Fragment, FunctionComponent} from "react";
 import WaveJumbotron from "../common/WaveJumbotronHeader";
 import {JumboHeaderSection as JumboHeaderSectionType} from "../../store/types/home";
 import ReactMarkdown from "react-markdown";
-import {createStyles, Grid, Hidden, Theme, Typography, withStyles, WithStyles} from "@material-ui/core";
+import {Grid, Hidden, Theme, Typography} from "@material-ui/core";
+import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
+
 import {HeadingComponent} from "react-markdown/lib/ast-to-react";
 import {Variant} from "@material-ui/core/styles/createTypography";
 

@@ -1,9 +1,8 @@
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import React, {FunctionComponent} from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import {createStyles, WithStyles} from "@material-ui/core";
-import {StyleRules} from "@material-ui/styles";
+import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
+import {StyleRules} from "@material-ui/core/styles";
 import smoothScrollTop from "../../../utilities/smoothScrollTop";
 
 const styles = (): StyleRules => createStyles({

@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from "react";
-import {Box, createTheme, Grid, Hidden, IconButton, Theme, Typography, withStyles} from "@material-ui/core";
+import {Box, Grid, Hidden, IconButton, Typography} from "@material-ui/core";
+import {createTheme, StyleRules, Theme, ThemeProvider, withStyles} from '@material-ui/core/styles';
 import transitions from "@material-ui/core/styles/transitions";
 import Avatar from "@material-ui/core/Avatar";
-import {StyleRules, ThemeProvider} from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
 import useTheme from "@material-ui/core/styles/useTheme";
 import {AttributionItem, SocialButton} from "../../store/types/footer";

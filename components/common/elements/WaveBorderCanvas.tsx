@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useCallback, useEffect, useRef} from "react";
-import {alpha, createStyles, WithStyles, withStyles} from "@material-ui/core";
+import {alpha, createStyles, WithStyles, withStyles} from '@material-ui/core/styles';
 
 const styles = () => createStyles({
   canvas: {
