@@ -20,7 +20,7 @@ const Monogram: FunctionComponent<IMonogramProps> = ({logo}) => {
     return <Box height={1}>
         {logo &&
         <Button color="default" onClick={smoothScrollTop}>
-            <img src={logo} alt={"icon"}/>
+            <img width={48} height={25} src={logo} alt={"icon"}/>
         </Button>}
     </Box>;
 };

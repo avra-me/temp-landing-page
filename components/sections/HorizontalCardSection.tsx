@@ -5,7 +5,7 @@ import React, {FunctionComponent} from "react";
 import {HorizontalCardSection as IHorizontalCardSection, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
 import SectionHeading from "../common/SectionHeading";
-import {slice} from "lodash";
+import {slice} from "lodash-es";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
 import HorizontalCard from "../common/HorizontalCard";
 
@@ -44,10 +44,7 @@ const HorizontalCardSection: FunctionComponent<HorizontalCardSectionProps> = ({c
                 className={classes.iconRoot}
                 title={card.title}
             >
-                <SectionContentMarkdown>
-                    {card.content}
-                </SectionContentMarkdown>
-
+                <SectionContentMarkdown content={card.content}/>
             </HorizontalCard>;
         })}
     </SectionContainer>;

@@ -1,5 +1,5 @@
 import {initializeStore} from '../index'
-import {merge} from "lodash";
+import {merge} from "lodash-es";
 import {getStaticThemeData} from "./rehydrateTheme";
 import {getSiteState} from "./rehydrateSite";
 import {getNavigationData} from "./rehydrateNavigation";

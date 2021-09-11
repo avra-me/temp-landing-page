@@ -61,7 +61,10 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
   useEffect(() => {
     const observer = new IntersectionObserver((e) => setIsPopout(e[0].intersectionRatio <= 0), {});
     // @ts-ignore
-    observer.observe(document.getElementById('hide-navbar'))
+    const ele = document.getElementById('hide-navbar')
+    if(ele){
+      observer.observe(ele)
+    }
     return () => observer.disconnect();
   }, []);
   const handleMobileDrawerOpen = useCallback(() => {

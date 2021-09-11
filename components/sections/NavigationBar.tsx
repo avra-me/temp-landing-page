@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import NavBar, {INavBarProps} from "../navigation/NavBar";
 import {StyleRules, Theme} from "@material-ui/core";
-import {sortBy} from "lodash";
+import {sortBy} from "lodash-es";
 import {connect} from "react-redux";
 import {AppState} from "../../store";
 import {MenuItem, NavigationState} from "../../store/types/navigation";

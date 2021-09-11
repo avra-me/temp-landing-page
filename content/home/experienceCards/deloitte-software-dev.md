@@ -6,8 +6,7 @@ link: "/experience/2020-06-24-software-developer"
 buttons:
     - {title: "Read More", link: "/experience/2020-06-24-software-developer"}
 ---
-### Deloitte
-## Software Developer
+## *Deloitte* Software Developer
 Consulting and developing software solutions for a wide range of
 industries and wide variety of roles.
 

@@ -5,7 +5,7 @@ import {IconCardSection as IconCardSectionType, InteractionItem} from "../../sto
 import SectionContainer from "../common/SectionContainer";
 import SectionHeading from "../common/SectionHeading";
 import IconCard from "../common/IconCard";
-import {slice} from "lodash";
+import {slice} from "lodash-es";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
 
 
@@ -55,10 +55,7 @@ const IconCardSection: FunctionComponent<IconCardSectionProps> = ({classes, item
         }
         className={classes.iconRoot}
       >
-        <SectionContentMarkdown>
-          {card.content}
-        </SectionContentMarkdown>
-
+        <SectionContentMarkdown content={card.content}/>
       </IconCard>;
     })}
   </SectionContainer>;

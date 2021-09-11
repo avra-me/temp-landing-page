@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {createTheme, makeStyles, responsiveFontSizes, StyleRules, Theme, ThemeOptions} from "@material-ui/core/styles";
-import {cloneDeep, merge} from "lodash";
+import {cloneDeep, merge} from "lodash-es";
 import {grey} from "@material-ui/core/colors";
 import userTheme from '../../../content/theme/theme.json'
 
