@@ -1,7 +1,8 @@
 import fs from "fs";
 import matter from "gray-matter";
-import {filter, includes, overEvery, overSome, sortBy, template} from "lodash-es";
+import {filter, includes, isArray, isObject, overEvery, overSome, sortBy, template} from "lodash-es";
 import showdown from "showdown";
+import yaml from 'js-yaml'
 
 export async function getHomeData() {
   return {items: await gatherItems(`${process.cwd()}/content/home`)}
@@ -21,29 +22,45 @@ const renderMarkdown = (content: string) => {
 const gatherItems = async (sourceDir: string): Promise<Record<string, unknown>[]> => {
   const items = [];
   for (const filename of fs.readdirSync(sourceDir)) {
+    let thisItem: Record<string, unknown> = {slug: filename}
+    const path = `${sourceDir}/${filename}`
+    const stat = fs.lstatSync(path)
+    if(!stat.isFile()){
+      continue;
+    }
+    const file = fs.readFileSync(path);
     if (filename.endsWith('.md')) {
-      const file = fs.readFileSync(`${sourceDir}/${filename}`);
       const md = matter(file.toString())
-      let thisItem: Record<string, unknown> = {...md.data, content: renderMarkdown(md.content), slug: filename}
-      if ('children' in md.data) {
-        if (md.data.children.map) {
-          for (const child of md.data.children) {
+      Object.assign(thisItem, {...md.data, content: renderMarkdown(md.content)});
+    }
+    if (filename.endsWith('.yaml')) {
+      const data = yaml.load(file.toString())
+      Object.assign(thisItem, data)
+    }
+    if ('children' in thisItem) {
+      const children = thisItem.children as ChildImport | ChildImport[];
+      delete thisItem["children"]
+      if (isArray(children)) {
+        for (const child of children) {
+          if (!thisItem[child.key]) {
+            thisItem[child.key] = [] as unknown[]
+          }
+          (thisItem[child.key] as unknown[]).push(...await handleChild(child))
+        }
+      } else {
+        const child = children as ChildImport;
+        if(isObject(child)) {
+          if('key' in child){
             if (!thisItem[child.key]) {
               thisItem[child.key] = [] as unknown[]
             }
             (thisItem[child.key] as unknown[]).push(...await handleChild(child))
           }
-        } else {
-          const child = md.data.children;
-          if (!thisItem[child.key]) {
-            thisItem[child.key] = [] as unknown[]
-          }
-          (thisItem[child.key] as unknown[]).push(...await handleChild(md.data.children))
         }
-        delete thisItem["children"]
       }
-      items.push(thisItem)
     }
+    recurseHydrateItem(thisItem, thisItem)
+    items.push(thisItem)
   }
   return sortBy(items, 'order');
 }
@@ -57,6 +74,25 @@ interface ChildImport {
   fields?: Record<string, string>
 }
 
+const recurseHydrateItem = (item: Record<string, unknown>, state: Record<string, unknown>): void => {
+  Object.keys(item).forEach(k => {
+    const value = item[k]
+    if (typeof value === "string") {
+      item[k] = hydrateTemplate(value, state)
+    } else {
+      if (isArray(value)) {
+        recurseHydrateItem(value as unknown as Record<string, unknown>, state)
+      } else if (isObject(value)) {
+        recurseHydrateItem(value as Record<string, unknown>, state)
+      }
+    }
+  })
+}
+const handleBarSelector = /{{([\s\S]+?)}}/g;
+const hydrateTemplate = (value: string, state: Record<string, unknown>): string => {
+  const templater = template(value, {interpolate: handleBarSelector})
+  return templater(state)
+}
 
 const handleChild = async (child: ChildImport) => {
   const {source, filter: filterBy, match, fields, orderBy} = child;
@@ -73,12 +109,10 @@ const handleChild = async (child: ChildImport) => {
     // @ts-ignore
     allItems = filter(allItems, overEvery(matchPredicate));
   }
-  const handleBarSelector = /{{([\s\S]+?)}}/g;
   if (fields) {
     return allItems.map(item => {
       return Object.keys(fields).reduce((newItem, key) => {
-        const templater = template(fields[key], {interpolate: handleBarSelector})
-        return Object.assign(newItem, {[key]: templater(item)})
+        return Object.assign(newItem, {[key]: hydrateTemplate(fields[key], item)})
       }, {})
     })
   }

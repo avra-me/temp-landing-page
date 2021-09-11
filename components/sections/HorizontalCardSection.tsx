@@ -4,10 +4,10 @@ import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import React, {FunctionComponent} from "react";
 import {HorizontalCardSection as IHorizontalCardSection, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
-import SectionHeading from "../common/SectionHeading";
 import {slice} from "lodash-es";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
 import HorizontalCard from "../common/HorizontalCard";
+import SectionTitleMarkdown from "../common/elements/SectionTitleMarkdown";
 
 
 const styles = (theme: Theme) => createStyles({
@@ -22,14 +22,14 @@ const styles = (theme: Theme) => createStyles({
 });
 
 type HorizontalCardSectionProps = WithStyles<typeof styles> & IHorizontalCardSection
-const HorizontalCardSection: FunctionComponent<HorizontalCardSectionProps> = ({classes, items, title, subTitle}) => {
+const HorizontalCardSection: FunctionComponent<HorizontalCardSectionProps> = ({classes, items, content}) => {
     const makeButtons = (button: InteractionItem) => {
         return <Button key={button.link} href={button.link}>{button.title}</Button>
     }
 
     return <SectionContainer>
         <Grid xs={12} item>
-            <SectionHeading title={title} subTitle={subTitle} id={title}/>
+            <SectionTitleMarkdown content={content}/>
         </Grid>
         {items && items.map((card, i) => {
             return <HorizontalCard

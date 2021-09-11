@@ -1,0 +1,5 @@
+type: multiline
+title: Your Message
+name: message
+required: true
+placeholder: "Hi Avrami, I wanted to reach out to you because..."

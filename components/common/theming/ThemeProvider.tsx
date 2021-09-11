@@ -1,9 +1,7 @@
 import React, {FunctionComponent} from "react";
 import {createTheme, MuiThemeProvider, Theme, ThemeOptions} from "@material-ui/core/styles";
-import {useTheme} from "@material-ui/core/styles";
 import {ThemeTypeContext} from "./ThemeContext";
 import {PaletteType} from "@material-ui/core";
-
 
 
 interface IThemeProviderProps {
@@ -14,15 +12,12 @@ interface IThemeProviderProps {
 }
 
 export const ThemeProvider: FunctionComponent<IThemeProviderProps> = ({isDarkMode, isLightMode, children, theme}) => {
-    const currentTheme = useTheme();
     return <ThemeTypeContext.Consumer>
         {(context) => {
             const paletteType: PaletteType = isDarkMode ? "dark" : isLightMode ? "light" : context.value
             const configOverride: ThemeOptions = {
                 ...theme,
                 palette: {
-                    ...currentTheme.palette,
-                    ...theme?.palette || {},
                     type: paletteType
                 }
             };

@@ -45,7 +45,7 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
       rootMargin: "-10px 0px",
       triggerOnce: repeat
     };
-    const observer = new IntersectionObserver((e) => setIsVisible(visible || !(e[0].intersectionRatio <= 0)), viewListenerOptions);
+    const observer = new IntersectionObserver((e) => setIsVisible(visible || (e[0].intersectionRatio > 0)), viewListenerOptions);
     // @ts-ignore
     if (viewportRef.current) {
       observer.observe(viewportRef.current)

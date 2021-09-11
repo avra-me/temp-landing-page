@@ -1,0 +1,6 @@
+type: email
+title: Your Email
+name: email
+required: true
+placeholder: 'email@example.com'
+icon: email

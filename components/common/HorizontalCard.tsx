@@ -28,6 +28,7 @@ const styles = (theme: Theme): StyleRules => ({
         width: "100%",
         height: "100%",
         margin: "auto",
+        maxHeight: "25em"
     },
     dividerTop: {
         width: "100%",
@@ -94,7 +95,7 @@ const HorizontalCard: FunctionComponent<HorizontalCardProps> = ({
                     justifyContent={"center"}
                 >
 
-                    <Grid item xs={12} md={5}>
+                    <Grid item xs={12} md={4}>
                         <AppearOnScroll
                           offScreenProperties={{opacity: 0, x: `${30 * (flip ? -1 : 1)}%`}}
                           onScreenProperties={{opacity: 1, x: 0}}

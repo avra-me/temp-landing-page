@@ -1,5 +1,6 @@
-import React, {FunctionComponent, useEffect, useRef} from 'react';
+import React, {FunctionComponent, useRef} from 'react';
 import clsx from "clsx";
+import {useTheme} from "@material-ui/core/styles";
 
 interface SectionContentMarkdownProps {
   content: string,
@@ -8,10 +9,10 @@ interface SectionContentMarkdownProps {
 
 const SectionContentMarkdown: FunctionComponent<SectionContentMarkdownProps> = ({content, className}) => {
   const markdownRef = useRef(null);
-  useEffect(() => {
-
-  }, [content])
-  return <div ref={markdownRef} className={clsx("markdown", className)} dangerouslySetInnerHTML={{__html: content}}/>;
+  const theme = useTheme();
+  return <div ref={markdownRef} style={{
+    color: theme.palette.text.primary
+  }} className={clsx("markdown", className)} dangerouslySetInnerHTML={{__html: content}}/>;
 }
 
 export default SectionContentMarkdown;

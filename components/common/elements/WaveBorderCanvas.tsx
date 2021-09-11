@@ -50,9 +50,11 @@ const drawWave = (ctx: CanvasRenderingContext2D, step: number, width: number, he
 const WaveBorder: FunctionComponent<IWaveBorder> = ({classes, background, flip, reverse, pause}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrame = useRef<number>(NaN)
+  const isMouseOver = useRef(false)
 
-  const drawFrame = useCallback((points = 2) => (i: number) => {
+  const drawFrame = useCallback((i, offset = 0, points = 2) => {
     const step = i / 60;
+
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext('2d', {
@@ -73,18 +75,23 @@ const WaveBorder: FunctionComponent<IWaveBorder> = ({classes, background, flip, 
       drawWave(ctx, step, width, height, 1, 2, points, alpha(background, .2))
       ctx.restore();
     }
-    animationFrame.current = window.requestAnimationFrame(drawFrame())
-  }, [background, flip]);
+    if (isMouseOver.current) {
+      animationFrame.current = window.requestAnimationFrame(ni => drawFrame(ni - offset, (ni - i)))
+    } else {
+      animationFrame.current = window.requestAnimationFrame(ni => drawFrame(ni - offset, offset))
+    }
+  }, [background, flip, reverse]);
 
 
   useEffect(() => {
     if (!pause) {
-      animationFrame.current = window.requestAnimationFrame(drawFrame());
+      animationFrame.current = window.requestAnimationFrame(drawFrame);
     }
     return () => window.cancelAnimationFrame(animationFrame.current);
   }, [drawFrame, pause])
 
-  return <canvas className={classes.canvas} ref={canvasRef}/>;
+  return <canvas onMouseEnter={() => isMouseOver.current = true} onMouseLeave={() => isMouseOver.current = false}
+                 className={classes.canvas} ref={canvasRef}/>;
 }
 
 export default withStyles(styles)(WaveBorder);

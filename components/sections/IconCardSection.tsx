@@ -3,10 +3,10 @@ import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import React, {FunctionComponent} from "react";
 import {IconCardSection as IconCardSectionType, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
-import SectionHeading from "../common/SectionHeading";
 import IconCard from "../common/IconCard";
 import {slice} from "lodash-es";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
+import SectionTitleMarkdown from "../common/elements/SectionTitleMarkdown";
 
 
 const styles = (theme: Theme) => createStyles({
@@ -21,7 +21,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 type IconCardSectionProps = WithStyles<typeof styles> & IconCardSectionType
-const IconCardSection: FunctionComponent<IconCardSectionProps> = ({classes, items, title, subTitle}) => {
+const IconCardSection: FunctionComponent<IconCardSectionProps> = ({classes, items, content}) => {
   const isMdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
 
@@ -38,7 +38,7 @@ const IconCardSection: FunctionComponent<IconCardSectionProps> = ({classes, item
 
   return <SectionContainer>
     <Grid xs={12} item>
-      <SectionHeading title={title} subTitle={subTitle} id={title}/>
+      <SectionTitleMarkdown content={content}/>
     </Grid>
     {items && items.map((card, i) => {
       const delay = isMdUp ? Math.min(Math.floor(i) * .100, .300) : Math.min(Math.floor(i) * .100, .600);

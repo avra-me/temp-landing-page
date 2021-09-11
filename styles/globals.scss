@@ -14,6 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.text-center {
+  text-align: center;
+}
+
 .markdown {
   h2 {
     em {
@@ -26,7 +31,22 @@ a {
   h1, h2, h3, h4, h5, h6, p{
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   }
+  &.title {
+    em {
+      margin: .5em 0;
+      display: block;
+      font-size: 60%;
+      opacity: 0.75;
+    }
+  }
+
   &.header {
+    em {
+      margin: .5em 0;
+      display: block;
+      font-size: 60%;
+      opacity: 0.75;
+    }
     h1 {
       font-size: 3rem;
       line-height: 1.167;

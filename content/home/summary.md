@@ -9,7 +9,4 @@ children:
     filter:
         type: tag
 ---
-# Professional Summary
-## My primary skill is my ability to learn, here are some others.
-
--------
+#### Professional Summary *My primary skill is my ability to learn, here are some others.*

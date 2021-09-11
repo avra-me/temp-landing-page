@@ -5,7 +5,7 @@ import theme from '../components/common/theming/theme';
 
 let prefixer: any;
 let cleanCSS: any;
-if (process.env.NODE_ENV === 'production') {
+if (process?.env?.NODE_ENV === 'production' && typeof window === 'undefined') {
   const jss = require("jss"); // Adjust here as well
   /* eslint-disable global-require */
   const postcss = require('postcss');

@@ -5,6 +5,8 @@ import JumboHeaderSection from "./JumboHeaderSection";
 import IconCardSection from "./IconCardSection";
 import { Fragment } from 'react';
 import HorizontalCardSection from "./HorizontalCardSection";
+import WaveCardSection from "./WaveCardSection";
+import ContactFormSection from "./ContactFormSection";
 
 
 const connector = connect((state: AppState) => {
@@ -22,6 +24,10 @@ const DynamicHomeContent: FunctionComponent<ReduxProps> = ({items}) => {
                 return <IconCardSection key={key} {...item}/>
             case 'HorizontalCardSection':
                 return <HorizontalCardSection key={key} {...item}/>
+            case 'WaveCardSection':
+                return <WaveCardSection key={key} {...item}/>
+            case 'ContactFormSection':
+                return <ContactFormSection key={key} {...item}/>
         }
     })
     return <Fragment>
