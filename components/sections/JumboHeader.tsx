@@ -16,7 +16,7 @@ const styles = (theme: Theme) => createStyles({
   }
 });
 
-const JumboHeaderSection: FunctionComponent<JumboHeaderSectionType & WithStyles<typeof styles>> = (props) => {
+const JumboHeader: FunctionComponent<JumboHeaderSectionType & WithStyles<typeof styles>> = (props) => {
   const {disabled, content} = props;
 
   const jumboProps = {
@@ -33,4 +33,4 @@ const JumboHeaderSection: FunctionComponent<JumboHeaderSectionType & WithStyles<
 };
 
 
-export default withStyles(styles)(JumboHeaderSection);
+export default withStyles(styles)(JumboHeader);

@@ -1,6 +1,6 @@
 ---
 type: education
-order: 1
+order: 2
 buttons:
     - {title: "Read More", link: "/experience/{{ slug }}"}
 ---
