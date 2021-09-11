@@ -106,14 +106,6 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
           </Toolbar>
 
         </AppBar>
-
-        <NavigationDrawer
-          menuItems={menuItems}
-          anchor="right"
-          open={isMobileDrawerOpen}
-          selectedItem={selectedTab}
-          onClose={handleMobileDrawerClose}
-        />
       </m.div>
     </LazyMotion>
   </ThemeProvider>
