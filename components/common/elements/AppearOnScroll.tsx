@@ -1,5 +1,4 @@
-import {IntersectionOptions, useInView} from "react-intersection-observer";
-import React, {FC, Fragment, useEffect, useState} from "react";
+import React, {FC, Fragment, useEffect, useRef, useState} from "react";
 import {LazyMotion, m, Variant, Variants} from "framer-motion";
 
 
@@ -11,7 +10,6 @@ interface IAppearOnScrollProps {
   animationDisabled?: boolean,
   animationDisabledState?: "popIn" | "hidden",
   repeat?: boolean,
-  viewportRef?: Element
 
   [additionalProps: string]: unknown
 }
@@ -26,7 +24,6 @@ const defaultProps: IAppearOnScrollProps = {
 const AppearOnScroll: FC<IAppearOnScrollProps> = (
   {
     children,
-    viewportRef,
     offScreenProperties,
     onScreenProperties,
     animationDisabled,
@@ -37,29 +34,24 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
     ...rest
   }) => {
 
-  const viewListenerOptions: IntersectionOptions = {
-    rootMargin: "-10px 0px",
-    triggerOnce: repeat
-  };
+
+  const [visible, setIsVisible] = useState(false);
 
 
-  if (viewportRef) {
-    viewListenerOptions.root = viewportRef;
-  }
-
-  const [ref, inView] = useInView(viewListenerOptions);
-
-  const [visible, setIsVisible] = useState(inView);
+  const viewportRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (repeat) {
-      setIsVisible(inView);
-    } else {
-      if (inView) {
-        setIsVisible(true);
-      }
+    const viewListenerOptions = {
+      rootMargin: "-10px 0px",
+      triggerOnce: repeat
+    };
+    const observer = new IntersectionObserver((e) => setIsVisible(visible || !(e[0].intersectionRatio <= 0)), viewListenerOptions);
+    // @ts-ignore
+    if (viewportRef.current) {
+      observer.observe(viewportRef.current)
     }
-  }, [inView, repeat]);
+    return () => observer.disconnect();
+  }, [visible, repeat]);
 
   const animations = {
     hidden: offScreenProperties,
@@ -69,7 +61,7 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
   const animationState = (animationDisabled && animationDisabledState) || (visible ? "popIn" : "hidden");
 
   return <Fragment>
-    <span ref={ref}/>
+    <span ref={viewportRef}/>
     <LazyMotion features={() => import('../../utils/lazyMotion').then(e => e.default)}>
       <m.div
         initial={false}
