@@ -1,6 +1,6 @@
 import {IntersectionOptions, useInView} from "react-intersection-observer";
 import React, {FC, Fragment, useEffect, useState} from "react";
-import {motion, Variant, Variants} from "framer-motion";
+import {LazyMotion, m, Variant, Variants} from "framer-motion";
 
 
 interface IAppearOnScrollProps {
@@ -70,7 +70,8 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
 
   return <Fragment>
     <span ref={ref}/>
-      <motion.div
+    <LazyMotion features={() => import('../../utils/lazyMotion').then(e => e.default)}>
+      <m.div
         initial={false}
         animate={animationState}
         variants={animations as Variants}
@@ -78,7 +79,8 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
         {...rest}
       >
         {children}
-      </motion.div>
+      </m.div>
+    </LazyMotion>
   </Fragment>;
 };
 

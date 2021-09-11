@@ -70,4 +70,5 @@ export const ThemeGlobals: FunctionComponent = ({children}) => {
 }
 
 // @ts-ignore
-export default generateTheme(userTheme)
+const theme = generateTheme(userTheme);
+export default theme

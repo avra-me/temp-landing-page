@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
-import {AnimatePresence, motion, Variants} from "framer-motion";
+import {AnimatePresence, LazyMotion, m, Variants} from "framer-motion";
 import CircleMenuButton from "./elements/CircleMenuButton";
 import {ThemeTypeContext} from "./theming/ThemeContext";
 
@@ -29,7 +29,7 @@ const animations: Variants = {
   hide: {x: "-40px", y: "10px", opacity: 0, position: "absolute"}
 };
 
-const LightMode = () => <motion.animate
+const LightMode = () => <m.animate
   initial={isSSR ? "visible" : "start"}
   animate={"visible"}
   variants={animations}
@@ -37,10 +37,10 @@ const LightMode = () => <motion.animate
   style={{lineHeight: 0}}
 >
   <WbSunnyIcon/>
-</motion.animate>;
+</m.animate>;
 
 const DarkMode = () => {
-  return <motion.animate
+  return <m.animate
     initial={isSSR ? "visible" : "start"}
     animate={"visible"}
     variants={animations}
@@ -48,7 +48,7 @@ const DarkMode = () => {
     style={{lineHeight: 0}}
   >
     <NightsStayIcon/>
-  </motion.animate>;
+  </m.animate>;
 };
 
 
@@ -59,10 +59,12 @@ function ChangeThemeButton() {
 
 
   return <CircleMenuButton aria-label={buttonContext} onClick={themeContext.onToggle}>
+    <LazyMotion features={() => import('../utils/lazyMotion').then(e => e.default)}>
       <AnimatePresence>
         {themeContext.value === "light" ? <LightMode key={"light"}/> : <DarkMode key={"dark"}/>}
       </AnimatePresence>
-    </CircleMenuButton>;
+    </LazyMotion>
+  </CircleMenuButton>;
 }
 
 ChangeThemeButton.order = 100;

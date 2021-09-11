@@ -8,7 +8,7 @@ import Monogram from "../common/elements/Monogram";
 import {StyleRules, ThemeProvider} from "@material-ui/core/styles";
 import NavigationDrawer from "./NavigationDrawer";
 import {MenuItem} from "../../store/types/navigation";
-import {motion} from "framer-motion";
+import {LazyMotion, m} from "framer-motion";
 import {Theme} from "@material-ui/core";
 
 const styles = (theme: Theme): StyleRules => ({
@@ -59,8 +59,7 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
   const [popout, setIsPopout] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((e) => setIsPopout(e[0].intersectionRatio <= 0), {
-    });
+    const observer = new IntersectionObserver((e) => setIsPopout(e[0].intersectionRatio <= 0), {});
     // @ts-ignore
     observer.observe(document.getElementById('hide-navbar'))
     return () => observer.disconnect();
@@ -83,35 +82,37 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
   })
 
   return <ThemeProvider theme={theme}>
-    <motion.div
-      style={{width: "100%", zIndex: 99}}
-      initial={false}
-      animate={popout ? "popout" : "top"}
-      variants={{
-        top: {position: "absolute", top: 0, transition: {duration: .3, delay: .3}},
-        popout: {position: "fixed", top: 0, transition: {duration: .1, delay: 0}}
-      }}
-    >
-      <AppBar position={"absolute"} className={classes.appBar}
-              style={popout ? undefined :{backgroundColor}}
+    <LazyMotion features={() => import('../utils/lazyMotion').then(e => e.default)}>
+      <m.div
+        style={{width: "100%", zIndex: 99}}
+        initial={false}
+        animate={popout ? "popout" : "top"}
+        variants={{
+          top: {position: "absolute", top: 0, transition: {duration: .3, delay: .3}},
+          popout: {position: "fixed", top: 0, transition: {duration: .1, delay: 0}}
+        }}
       >
-        <Toolbar className={classes.toolbar}>
-          <Monogram logo={logo}/>
+        <AppBar position={"absolute"} className={classes.appBar}
+                style={popout ? undefined : {backgroundColor}}
+        >
+          <Toolbar className={classes.toolbar}>
+            <Monogram logo={logo}/>
 
-          <RightHandNavigation menuItems={menuItems} onDrawerOpen={handleMobileDrawerOpen}
-                               onDrawerClose={handleMobileDrawerClose}/>
-        </Toolbar>
+            <RightHandNavigation menuItems={menuItems} onDrawerOpen={handleMobileDrawerOpen}
+                                 onDrawerClose={handleMobileDrawerClose}/>
+          </Toolbar>
 
-      </AppBar>
+        </AppBar>
 
-      <NavigationDrawer
-        menuItems={menuItems}
-        anchor="right"
-        open={isMobileDrawerOpen}
-        selectedItem={selectedTab}
-        onClose={handleMobileDrawerClose}
-      />
-    </motion.div>
+        <NavigationDrawer
+          menuItems={menuItems}
+          anchor="right"
+          open={isMobileDrawerOpen}
+          selectedItem={selectedTab}
+          onClose={handleMobileDrawerClose}
+        />
+      </m.div>
+    </LazyMotion>
   </ThemeProvider>
 
 }
