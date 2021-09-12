@@ -1,14 +1,12 @@
 ---
 title: Software Developer
 startDate: 2019-01-01T00:00:01.000Z
-endDate: ""
+endDate: 2020-14-03T00:00:01.000Z
 subTitle: Deloitte
 date: 2020-06-22T05:04:32.814Z
-short: Consulting and developing software solutions for a wide range of
-  industries and wide variety of roles.
 featured: true
 showYearOnly: false
-image: /assets/tech-differentiates.svg
+image: "/assets/frontpage/consulting_deloitte.svg"
 tags:
   - Deloitte
   - Natural Language
@@ -18,7 +16,14 @@ tags:
   - software development
   - communication
   - leadership
-  - solution design
+  - solution design 
+short: |
+    ## *Deloitte* Software Developer
+    Consulting and developing software solutions for a wide range of
+    industries and wide variety of roles.
+    
+    Primarily focused on building bespoke platform-based solutions for customers
+    in fin-tech and later retail.
 ---
 ### Projects Undertaken
 

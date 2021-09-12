@@ -1,8 +1,10 @@
+export type MarkdownString = string;
+
 interface BasicItem {
     order: number,
     disabled?: boolean
     visible?: boolean
-    content: string
+    content: MarkdownString
 }
 
 export interface JumboHeaderSection extends BasicItem {
@@ -71,11 +73,28 @@ interface ISubmitOverride {
 }
 
 
+export interface GenericItem extends Omit<BasicItem, 'order'>{
+    type: 'GenericItem';
+    header: MarkdownString;
+    title: string;
+    subTitle?: string;
+    startDate: string;
+    endDate: string;
+    link: string;
+    date: string;
+    short: MarkdownString;
+    featured: boolean;
+    image: string;
+    showYearOnly: boolean;
+    tages: string[];
+}
+
 
 export type HomeItems = JumboHeaderSection | IconCardSection | HorizontalCardSection | WaveCardSection | ContactFormSection
 
 export interface HomeState {
     items: (HomeItems)[]
+    item?: GenericItem
 }
 
 export const initialHomeState = {

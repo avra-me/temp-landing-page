@@ -1,15 +1,15 @@
 ---
 title: Technical Support - Vocational Education
-type: experience
 startDate: 2018-06-01T04:30:06.638Z
 endDate: 2018-08-01T04:30:06.673Z
 showYearOnly: true
 subTitle: RMIT University
 date: 2021-01-21T03:30:06.722Z
-short: Providing support for course designers around creating innovative and
+short: | 
+  ## *RMIT Vocational Education* Technical Support
+  Providing support for course designers around creating innovative and
   interactive new courses in the new university learning management system.
-featured: false
-image: /assets/rmit-logo.png
+image: /assets/frontpage/lms_rmit.svg
 tags:
   - Data Entry
   - Independent

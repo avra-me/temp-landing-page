@@ -18,6 +18,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@next/bundle-analyzer": "^11.1.2",
+    "date-fns": "^2.23.0",
     "framer-motion": "^4.1.17",
     "lodash-es": "^4.17.21",
     "next": "11.1.0",

@@ -1,0 +1,16 @@
+type: HorizontalCardSection
+order: 3
+content: |
+    #### Experience
+children:
+    source: experience/cards
+    key: items
+    orderBy: [ -endDate ]
+    filter: featured
+    fields:
+        type: experience
+        order: '{{endDate}}'
+        image: '{{ image }}'
+        content: '{{ short }}'
+        buttons:
+            - { title: "Read More", link: "/experience/{{slug}}" }

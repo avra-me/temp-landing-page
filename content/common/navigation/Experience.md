@@ -1,6 +1,6 @@
 ---
 title: Experience
-icon: build
+icon: work_outline
 type: navigation
 link: /experience/
 order: 3

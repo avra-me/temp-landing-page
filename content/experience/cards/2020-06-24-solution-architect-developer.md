@@ -5,10 +5,12 @@ endDate: 2019-11-01T00:00:01.000Z
 subTitle: RMIT Library (Capstone)
 link: https://nebula.avrami.me
 date: 2020-06-21T05:32:55.575Z
-short: Designing and developing a resilient, performant solution for visualizing
+short: |
+  ## *RMIT Library (Capstone)* Solution Architect and Engineer
+  Designing and developing a resilient, performant solution for visualizing
   thousands of record access per day from the RMIT library.
 featured: true
-image: /assets/project nebula.png
+image: "/assets/frontpage/integration_rmit.svg"
 showYearOnly: false
 tags:
   - Data Visualization

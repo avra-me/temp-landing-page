@@ -1,0 +1,16 @@
+---
+type: WaveCardSection
+order: 5
+children:
+    source: education/cards
+    key: items
+    orderBy: [ -endDate ]
+    fields:
+        type: education
+        order: '{{endDate}}'
+        content: |
+            ## *{{title}}* {{subTitle}}
+            {{ content }}
+        buttons: []
+content: |
+    #### Education *I'm always learning, but here is my formal education.*

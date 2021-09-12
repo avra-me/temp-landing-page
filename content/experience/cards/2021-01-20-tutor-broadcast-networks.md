@@ -1,15 +1,15 @@
 ---
 title: Tutor - Broadcast Networks
-type: experience
 startDate: 2018-01-05T13:00:00.000Z
 endDate: 2018-01-11T13:00:00.000Z
 subTitle: RMIT University
 date: 2021-01-20T22:53:14.902Z
-short: Independently tutored a class of 20 students including providing
+short: |
+  ## *RMIT School of Science* Tutor (Broadcast Networks)
+  Independently tutored a class of 20 students including providing
   assignment support, weekly knowledge tests, and  going through weekly content.
-featured: false
 showYearOnly: true
-image: /assets/rmit-logo.png
+image: /assets/frontpage/tutor_rmit.svg
 tags:
   - Leadership
   - Teaching

@@ -2,7 +2,7 @@
 title: Solution Design
 type: tag
 children:
-  - source: education
+  - source: education/cards
     key: buttons
     match:
       tags: [software architecture, solution design, architecture, cloud]
@@ -12,7 +12,7 @@ children:
       tooltip: '{{title}}'
       link: '/education/{{slug}}'
       icon: 'school'
-  - source: experience
+  - source: experience/cards
     key: buttons
     match:
       tags: [software architecture, solution design, architecture, cloud]

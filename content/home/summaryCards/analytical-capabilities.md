@@ -2,7 +2,7 @@
 title: Leadership
 type: tag
 children:
-  - source: education
+  - source: education/cards
     key: buttons
     match:
       tags: ['communication', 'leadership']
@@ -12,7 +12,7 @@ children:
       tooltip: '{{title}}'
       link: '/education/{{slug}}'
       icon: 'history_edu'
-  - source: experience
+  - source: experience/cards
     key: buttons
     match:
       tags: ['communication', 'leadership']

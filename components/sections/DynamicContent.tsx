@@ -8,15 +8,24 @@ import IconCardSection from './IconCardSection';
 import HorizontalCardSection from './HorizontalCardSection';
 import WaveCardSection from './WaveCardSection';
 
-const connector = connect((state: AppState) => {
-  return {items: state.home.items}
+type ValidSources = 'home' | 'experience' | 'education'
+
+const connector = connect((state: AppState, props: {source: ValidSources}) => {
+  if (props.source in state) {
+    return {items: state[props.source].items}
+  }
+  return {items: []}
 })
-type ReduxProps = ConnectedProps<typeof connector>
+
+interface DynamicContentProps extends ConnectedProps<typeof connector> {
+  source: ValidSources
+}
+
 
 const dynamicComponent = (componentName: HomeItems["type"]) => dynamic(() => import(`./${componentName}`), {ssr: true})
 
 
-const DynamicHomeContent: FunctionComponent<ReduxProps> = ({items}) => {
+const DynamicContent: FunctionComponent<DynamicContentProps> = ({items}) => {
   const children = items.map(item => {
     const key = `${item.order}_${item.type}`;
     const Component = dynamicComponent(item.type);
@@ -38,4 +47,4 @@ const DynamicHomeContent: FunctionComponent<ReduxProps> = ({items}) => {
   </Fragment>
 };
 
-export default connector(DynamicHomeContent);
+export default connector(DynamicContent);

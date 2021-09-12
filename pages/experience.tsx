@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       useDarkPalette
       backgroundColor={"inherit"}
     />
-    <DynamicContent source={"home"}/>
+    <DynamicContent source={"experience"}/>
     <FooterMenu/>
   </>
 }
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 export async function getStaticProps() {
   if (typeof window === 'undefined') {
     return await import('../store/rehydrate').then(
-      ({populatePageState}) => populatePageState('themes', 'home', 'site', 'navigation', 'footer'))
+      ({populatePageState}) => populatePageState('themes', 'experience', 'site', 'navigation', 'footer'))
   }
 }
 

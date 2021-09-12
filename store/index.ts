@@ -12,6 +12,8 @@ import {HomeState, initialHomeState} from "./types/home";
 export interface AppState {
     themes: ThemeOptions
     home: HomeState,
+    experience: HomeState,
+    education: HomeState,
     site: SiteState,
     navigation: NavigationState
     footer: FooterState
@@ -23,6 +25,8 @@ const initialState = {
     themes: initialThemeState,
     site: initialSiteState,
     home: initialHomeState,
+    experience: initialHomeState,
+    education: initialHomeState,
     navigation: initialNavigationState,
     footer: initialFooterState
 }

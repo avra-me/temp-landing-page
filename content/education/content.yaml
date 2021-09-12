@@ -1,0 +1,15 @@
+type: HorizontalCardSection
+order: 3
+title: "Experience"
+children:
+  source: education/cards
+  key: items
+  orderBy: [ -endDate ]
+  fields:
+    type: education
+    order: '{{endDate}}'
+    image: '{{image}}'
+    content: |
+      ## *{{title}}* {{subTitle}}
+      {{ content }}
+    buttons: []

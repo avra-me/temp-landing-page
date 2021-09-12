@@ -33,7 +33,7 @@ const styles = (theme: Theme): StyleRules => ({
 interface INavBarPropsInternal {
   menuItems: MenuItem[],
   classes: Record<string, string>,
-  backgroundColor: string
+  backgroundColor?: string
   disabled?: boolean,
   staticIconEnabled?: boolean,
   logo?: string,

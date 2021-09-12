@@ -1,0 +1,7 @@
+_markdownKeys:
+  - header
+  - short
+header: |
+  # *{{subTitle}}* {{title}}
+
+type: GenericItem
