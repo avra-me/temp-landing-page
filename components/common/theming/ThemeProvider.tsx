@@ -1,27 +1,34 @@
-import React, {FunctionComponent} from "react";
-import {createTheme, MuiThemeProvider, Theme, ThemeOptions} from "@material-ui/core/styles";
-import {ThemeTypeContext} from "./ThemeContext";
+import React, {FC} from "react";
+import {createTheme, MuiThemeProvider, Theme, ThemeOptions, useTheme} from "@material-ui/core/styles";
 import {PaletteType} from "@material-ui/core";
+import {connect, ConnectedProps} from "react-redux";
+import {AppState} from "../../../store";
 
+const mapStateToProps = connect((state: AppState) => {
+  return {currentPaletteType: state.themes?.palette?.type || "light"}
+})
 
 interface IThemeProviderProps {
-    isDarkMode?: boolean,
-    isLightMode?: boolean,
-    theme?: Partial<Theme>
-    children: React.ReactElement,
+  isDarkMode?: boolean,
+  isLightMode?: boolean,
+  theme?: Partial<Theme>
 }
 
-export const ThemeProvider: FunctionComponent<IThemeProviderProps> = ({isDarkMode, isLightMode, children, theme}) => {
-    return <ThemeTypeContext.Consumer>
-        {(context) => {
-            const paletteType: PaletteType = isDarkMode ? "dark" : isLightMode ? "light" : context.value
-            const configOverride: ThemeOptions = {
-                ...theme,
-                palette: {
-                    type: paletteType
-                }
-            };
-            return <MuiThemeProvider theme={createTheme(configOverride)}>{children}</MuiThemeProvider>;
-        }}
-    </ThemeTypeContext.Consumer>
+const ThemeProvider: FC<IThemeProviderProps & ConnectedProps<typeof mapStateToProps>> = ({
+                                                                                           isDarkMode,
+                                                                                           isLightMode,
+                                                                                           currentPaletteType,
+                                                                                           children
+                                                                                         }) => {
+  const theme = useTheme();
+  const paletteType: PaletteType = isDarkMode ? "dark" : isLightMode ? "light" : currentPaletteType
+  const configOverride: ThemeOptions = {
+    ...theme,
+    palette: {
+      type: paletteType
+    }
+  };
+  return <MuiThemeProvider theme={createTheme(configOverride)}>{children}</MuiThemeProvider>;
 }
+
+export default mapStateToProps(ThemeProvider) as FC<IThemeProviderProps>

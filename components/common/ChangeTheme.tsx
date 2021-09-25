@@ -1,10 +1,9 @@
-import React, {useContext} from "react";
+import React from "react";
 
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import {AnimatePresence, LazyMotion, m, Variants} from "framer-motion";
 import CircleMenuButton from "./elements/CircleMenuButton";
-import {ThemeTypeContext} from "./theming/ThemeContext";
 
 const isSSR = typeof window === "undefined";
 
@@ -53,15 +52,12 @@ const DarkMode = () => {
 
 
 function ChangeThemeButton() {
-  const themeContext = useContext(ThemeTypeContext);
 
-  const buttonContext = (themeContext.value === "light" ? "Enable" : "Disable") + " Dark Mode";
-
-
-  return <CircleMenuButton aria-label={buttonContext} onClick={themeContext.onToggle}>
+  return <CircleMenuButton>
     <LazyMotion features={() => import('../utils/lazyMotion').then(e => e.default)}>
       <AnimatePresence>
-        {themeContext.value === "light" ? <LightMode key={"light"}/> : <DarkMode key={"dark"}/>}
+        {<LightMode key={"light"}/>}
+        {<DarkMode key={"dark"}/>}
       </AnimatePresence>
     </LazyMotion>
   </CircleMenuButton>;

@@ -5,7 +5,7 @@ import React, {FunctionComponent, ReactNode} from "react";
 import {Grid, Theme} from "@material-ui/core";
 import {useTheme, createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
-import {ThemeProvider} from "./theming/ThemeProvider";
+import ThemeProvider from "./theming/ThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 
 const styles = (theme: Theme) => createStyles({

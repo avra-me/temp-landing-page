@@ -73,16 +73,18 @@ const IconCard: FunctionComponent<IconCardProps> = (props) => {
       md={6}
       className={classes.root}
     >
-      <Card {...waveCardProps} className={clsx(waveCardProps.className, classes.card)}>
-        <CardHeader title={headline} titleTypographyProps={{variant: "h6"}}
-                    avatar={<Avatar style={iconStyling}>{icon}</Avatar>}/>
-        <CardContent className={classes.content}>{children}</CardContent>
-        <CardActions>
-          <AppearOnScroll delay={animationDelay} animationDisabled={!animate} style={{height: "100%"}}>
+      <AppearOnScroll delay={animationDelay} animationDisabled={!animate} style={{height: "100%"}}>
+
+        <Card {...waveCardProps} className={clsx(waveCardProps.className, classes.card)}>
+          <CardHeader title={headline} titleTypographyProps={{variant: "h6"}}
+                      avatar={<Avatar style={iconStyling}>{icon}</Avatar>}/>
+          <CardContent className={classes.content}>{children}</CardContent>
+          <CardActions>
             {buttons}
-          </AppearOnScroll>
-        </CardActions>
-      </Card>
+          </CardActions>
+        </Card>
+      </AppearOnScroll>
+
     </Grid>
   );
 }

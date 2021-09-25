@@ -1,27 +1,27 @@
 import React, {FC, Fragment, useEffect, useRef, useState} from "react";
-import {LazyMotion, m, Variant, Variants} from "framer-motion";
+import {LazyMotion, m, TargetAndTransition} from "framer-motion";
 
 
 interface IAppearOnScrollProps {
-  offScreenProperties?: Variant,
-  onScreenProperties?: Variant,
+  offScreenProperties?: Partial<TargetAndTransition>,
+  onScreenProperties?: Partial<TargetAndTransition>,
   duration?: number,
   delay?: number,
   animationDisabled?: boolean,
-  animationDisabledState?: "popIn" | "hidden",
+  animationDisabledState?: "server" | "hidden" | "visible",
   repeat?: boolean,
 
   [additionalProps: string]: unknown
 }
 
-const defaultProps: IAppearOnScrollProps = {
+const defaultProps = {
   delay: 0,
   duration: .5,
   offScreenProperties: {opacity: 0, y: "30%", display: "none"},
   onScreenProperties: {opacity: 1, y: 0, display: "initial"}
-};
+} as const;
 
-const AppearOnScroll: FC<IAppearOnScrollProps> = (
+const AppearOnScroll: FC<IAppearOnScrollProps & typeof defaultProps> = (
   {
     children,
     offScreenProperties,
@@ -33,11 +33,13 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
     repeat,
     ...rest
   }) => {
+  const animations = {
+    server: onScreenProperties,
+    hidden: offScreenProperties,
+    visible: onScreenProperties
+  } as const
 
-
-  const [visible, setIsVisible] = useState(false);
-
-
+  const [variant, setVariant] = useState<'server' | 'hidden' | 'visible'>('server');
   const viewportRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -45,28 +47,26 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
       rootMargin: "-10px 0px",
       triggerOnce: repeat
     };
-    const observer = new IntersectionObserver((e) => setIsVisible(visible || (e[0].intersectionRatio > 0)), viewListenerOptions);
+    const observer = new IntersectionObserver((e) => setVariant(variant === "visible" ? variant : e[0].intersectionRatio > 0 ? "visible" : variant), viewListenerOptions);
     // @ts-ignore
     if (viewportRef.current) {
       observer.observe(viewportRef.current)
     }
     return () => observer.disconnect();
-  }, [visible, repeat]);
+  }, [variant, repeat]);
 
-  const animations = {
-    hidden: offScreenProperties,
-    popIn: onScreenProperties,
-  };
+  useEffect(() => {
+    setVariant(animationDisabled ? animationDisabledState || 'visible' : 'hidden')
+  }, [animationDisabled, animationDisabledState])
 
-  const animationState = (animationDisabled && animationDisabledState) || (visible ? "popIn" : "hidden");
 
   return <Fragment>
     <span ref={viewportRef}/>
     <LazyMotion features={() => import('../../utils/lazyMotion').then(e => e.default)}>
       <m.div
-        initial={false}
-        animate={animationState}
-        variants={animations as Variants}
+        initial={true}
+        animate={variant}
+        variants={animations}
         transition={{duration, delay}}
         {...rest}
       >
@@ -78,4 +78,4 @@ const AppearOnScroll: FC<IAppearOnScrollProps> = (
 
 AppearOnScroll.defaultProps = defaultProps
 
-export default AppearOnScroll;
+export default AppearOnScroll as FC<IAppearOnScrollProps>;

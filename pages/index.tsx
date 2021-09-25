@@ -1,6 +1,5 @@
 import type {NextPage} from 'next'
 import NavigationBar from "../components/sections/NavigationBar";
-import FooterMenu from "../components/sections/FooterMenu";
 import DynamicContent from "../components/sections/DynamicContent";
 
 const Home: NextPage = () => {
@@ -11,15 +10,14 @@ const Home: NextPage = () => {
       backgroundColor={"inherit"}
     />
     <DynamicContent source={"home"}/>
-    <FooterMenu/>
   </>
 }
 
 export async function getStaticProps() {
-  if (typeof window === 'undefined') {
-    return await import('../store/rehydrate').then(
-      ({populatePageState}) => populatePageState('themes', 'home', 'site', 'navigation', 'footer'))
-  }
+  const {getPageState, getAppState} = await import('../store/rehydrate');
+  const baseState = await getAppState();
+  const initialReduxState = await getPageState(baseState, 'home')
+  return {props: {initialReduxState}}
 }
 
 export default Home

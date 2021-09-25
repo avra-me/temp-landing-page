@@ -1,46 +1,42 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {ThemeProvider} from "@material-ui/core/styles";
 import useCookie from "react-use-cookie"
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {AppState} from "../../../store";
-import {ThemeTypeContext} from "./ThemeContext";
 import {generateTheme, ThemeGlobals} from "./theme";
-import {ThemeOptions, useMediaQuery} from "@material-ui/core";
+import {NoSsr, PaletteType, useMediaQuery} from "@material-ui/core";
 
 
-const mapStateToProps = (state: AppState) => {
-    return {themes: state.themes || {}}
+const mapStateToProps = connect((state: AppState) => {
+  return {themes: state.themes || {}}
+})
+
+
+interface IRootThemeProviderProps extends ConnectedProps<typeof mapStateToProps> {
 }
 
+const RootThemeProvider: React.FunctionComponent<IRootThemeProviderProps> = ({themes: config, children}) => {
+  // Cookie > System Theme > Site Theme
+  const palette = config?.palette || {};
 
-interface IRootThemeProviderProps {
-    themes: ThemeOptions
-}
+  const [userSavedMode, updateIsDarkMode] = useCookie("isDarkMode");
+  const browserPrefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-const RootThemeProvider: React.FunctionComponent<IRootThemeProviderProps> = ({themes: themeOverride, children}) => {
-    if (!themeOverride.palette) {
-        themeOverride.palette = {};
-    }
-    let initialDarkModeState = useMediaQuery("(prefers-color-scheme: dark)");
-    if (themeOverride.palette.type && !initialDarkModeState) {
-        initialDarkModeState = themeOverride.palette.type === "dark";
-    }
-    const [isDarkMode, updateIsDarkMode] = useCookie("isDarkMode", initialDarkModeState ? '1' : '');
-    themeOverride.palette.type = isDarkMode ? "light" : "light";
-    const theme = generateTheme(themeOverride);
-    return <ThemeTypeContext.Provider
-        value={{
-            value: isDarkMode ? "light" : "light",
-            onToggle: () => {
-                // @ts-ignore
-                updateIsDarkMode(!isDarkMode ? '1' : '', {SameSite: 'Secure'});
-            }
-        }}
-    >
-        <ThemeProvider theme={theme}>
-            <ThemeGlobals>{children}</ThemeGlobals>
-        </ThemeProvider>
-    </ThemeTypeContext.Provider>;
+  if (userSavedMode) {
+    palette.type = userSavedMode as PaletteType
+  } else if (browserPrefersDarkMode) {
+    palette.type = "dark"
+  }
+
+  config.palette = palette;
+  useEffect(() => config?.palette?.type && updateIsDarkMode(config.palette.type), [config?.palette?.type, updateIsDarkMode])
+  const theme = generateTheme(config);
+  return <ThemeProvider theme={theme}>
+    <NoSsr>
+      <ThemeGlobals/>
+    </NoSsr>
+    {children}
+  </ThemeProvider>
 };
 
-export default connect(mapStateToProps)(RootThemeProvider)
+export default mapStateToProps(RootThemeProvider)

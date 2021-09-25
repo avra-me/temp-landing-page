@@ -10,6 +10,7 @@ import NavigationDrawer from "./NavigationDrawer";
 import {MenuItem} from "../../store/types/navigation";
 import {LazyMotion, m} from "framer-motion";
 import {Theme} from "@material-ui/core";
+import {useRouter} from "next/router";
 
 const styles = (theme: Theme): StyleRules => ({
   appBar: {
@@ -53,6 +54,8 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
 
 
   const [selectedTab,] = useState(null);
+  const router = useRouter();
+
 
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
@@ -66,7 +69,7 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
       observer.observe(ele)
     }
     return () => observer.disconnect();
-  }, []);
+  }, [router.pathname]);
   const handleMobileDrawerOpen = useCallback(() => {
     setIsMobileDrawerOpen(true);
   }, [setIsMobileDrawerOpen]);

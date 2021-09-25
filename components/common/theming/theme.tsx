@@ -1,8 +1,8 @@
-import React, {FunctionComponent} from "react";
 import {createTheme, makeStyles, responsiveFontSizes, StyleRules, Theme, ThemeOptions} from "@material-ui/core/styles";
 import {cloneDeep, merge} from "lodash-es";
 import {grey} from "@material-ui/core/colors";
 import userTheme from '../../../content/theme/theme.json'
+import {FC} from "react";
 
 const fadeTime = "0.6s";
 const fadeTimingFunction = "ease";
@@ -48,25 +48,15 @@ export const generateTheme = (config: Partial<ThemeOptions>): Theme => {
         default: background,
       },
     },
-    overrides: {
-      MuiPaper: {
-        root: {
-          transition: `box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color ${fadeTime} ${fadeTimingFunction}, background ${fadeTime} ${fadeTimingFunction} !important`
-        }
-      },
-      MuiContainer: {
-        root: {}
-      }
-    }
   };
   const resultingTheme = merge(config, theme);
   return responsiveFontSizes(createTheme(resultingTheme));
 };
-export const ThemeGlobals: FunctionComponent = ({children}) => {
+export const ThemeGlobals: FC = () => {
   if (typeof window !== "undefined") {
     fadeThemeChange();
   }
-  return <>{children}</>
+  return null
 }
 
 // @ts-ignore

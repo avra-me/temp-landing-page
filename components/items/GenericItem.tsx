@@ -1,12 +1,10 @@
-import {Button, ButtonGroup, Chip, Theme, Tooltip} from "@material-ui/core";
+import {Button, ButtonGroup, Chip, Icon, Theme, Tooltip} from "@material-ui/core";
 import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
-import {CalendarToday} from "@material-ui/icons"
 import React, {FunctionComponent} from "react";
 import {GenericItem, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
 import HorizontalCard from "../common/HorizontalCard";
-import {parseISO, format} from 'date-fns'
 
 const styles = (theme: Theme) => createStyles({
   iconRoot: {
@@ -24,23 +22,7 @@ const GenericItemExperience: FunctionComponent<GenericItemExperienceProps> = ({c
   const makeButtons = (button: InteractionItem) => {
     return <Button key={button.link} href={button.link}>{button.title}</Button>
   }
-  let startDate = format(parseISO(item.startDate), 'MMMM yyyy');
-  let endDate;
-  try {
-    endDate = format(parseISO(item.endDate), 'MMMM yyyy');
-  } catch (e) {
-    endDate = "Current"
-  }
-  try {
-    const startYear = format(parseISO(item.startDate), 'yyyy');
-    const endYear = format(parseISO(item.endDate), 'yyyy');
-    if (startYear === endYear) {
-      startDate = startYear;
-      endDate = endYear;
-    }
-  } catch {
-    // Ignore
-  }
+  const {startDate, endDate} = item
 
   return <SectionContainer>
     <HorizontalCard
@@ -60,7 +42,7 @@ const GenericItemExperience: FunctionComponent<GenericItemExperienceProps> = ({c
         <Chip
           clickable
           color={"secondary"}
-          icon={<CalendarToday/>}
+          icon={<Icon>calendar_today</Icon>}
           label={startDate !== endDate ? `${startDate}-${endDate}` : endDate}
         />
       </Tooltip>

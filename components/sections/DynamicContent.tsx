@@ -1,4 +1,4 @@
-import React, {Fragment, FunctionComponent} from 'react';
+import React, {FunctionComponent} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {AppState} from "../../store";
 import {HomeItems} from "../../store/types/home";
@@ -10,7 +10,7 @@ import WaveCardSection from './WaveCardSection';
 
 type ValidSources = 'home' | 'experience' | 'education'
 
-const connector = connect((state: AppState, props: {source: ValidSources}) => {
+const connector = connect((state: AppState, props: { source: ValidSources }) => {
   if (props.source in state) {
     return {items: state[props.source].items}
   }
@@ -22,10 +22,13 @@ interface DynamicContentProps extends ConnectedProps<typeof connector> {
 }
 
 
-const dynamicComponent = (componentName: HomeItems["type"]) => dynamic(() => import(`./${componentName}`), {ssr: true})
-
-
 const DynamicContent: FunctionComponent<DynamicContentProps> = ({items}) => {
+  const loading = () => <div style={{height: "30em"}}/>
+  const dynamicComponent = (componentName: HomeItems["type"]) => dynamic(() => import(`./${componentName}`), {
+    ssr: true,
+    loading
+  })
+
   const children = items.map(item => {
     const key = `${item.order}_${item.type}`;
     const Component = dynamicComponent(item.type);
@@ -42,9 +45,10 @@ const DynamicContent: FunctionComponent<DynamicContentProps> = ({items}) => {
         return <Component key={key} {...item}/>
     }
   })
-  return <Fragment>
+  return <>
     {children}
-  </Fragment>
+  </>
 };
+
 
 export default connector(DynamicContent);

@@ -3,7 +3,7 @@ import {Theme, useTheme, createStyles, withStyles, WithStyles} from '@material-u
 import clsx from "clsx";
 import Container from "@material-ui/core/Container";
 // import {NavigationAppearContext} from "./elements/NavigationAppearContext";
-import {ThemeProvider} from "./theming/ThemeProvider";
+import ThemeProvider from "./theming/ThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 
 export const getWaveAreaClass = (theme: any) => {

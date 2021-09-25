@@ -21,50 +21,26 @@ colorWidget: &color
   pattern: ['#[0-9]{6}', 'Must be a Hex Colour Value']
 
 collections:
-  - name: config
-    label: "Global Configuration"
+  - name: "common"
+    label: "App Configuration"
     files:
-      - label: Search Engine Optimisation
-        name: metadata
-        file: 'content/header.md'
-        description: Configure your site
-        fields:
-          - {label: Site Logo, name: logo, widget: image, comment: This field should be a transparent image in monogram style, it is used to generate /avatar and in the navigation bar}
-          - {label: Site Preview Image, name: sitePreview, widget: image, default: "/assets/128x128-animated.gif", comment: This image will be auto-populated when `npm run generate-assets` is run}
-          - {label: Title, name: title, widget: string, comment: This field populates og:title}
-          - {label: Description, name: description, widget: string, comment: This field is used internally to describe the purpose of the site}
-          - {label: Site URL, name: siteUrl, widget: string, comment: This field is used to generate og:url}
-          - label: Available Icons
-            name: icons
-            widget: list
-            fields:
-              - {label: Size, widget: string, name: size, comment: Cannonical W3C size of this image}
-              - {label: Icon, widget: image, name: path, comment: The ico image asset}
-          - label: Author
-            name: author
-            widget: object
-            fields:
-              - {label: "First Name", name: first_name, widget: string, comment: "For SEO, becomes meta profile:first_name"}
-              - {label: "Last Name", name: last_name, widget: string, comment: "For SEO, becomes meta profile:last_name"}
-              - {label: "Gender", name: gender, default: 'n/a', widget: string, comment: "For SEO, becomes meta profile:gender (optional)"}
-              - {label: "Summary", name: summary, widget: string, comment: "For SEO, becomes meta og:description"}
       - label: Site Theme
         name: theme
         file: 'content/theme/theme.json'
         description: Configure your site
         fields:
-          - label: "Colour Palette"
+          - label: "Colours"
             name: palette
             widget: object
             fields:
               - label: Primary Color
                 name: primary
                 widget: object
-                fields: [{*color, name: light, required: false},{*color, name: main},{*color, name: dark, required: false}]
+                fields: [ { *color, name: light, required: false },{ *color, name: main },{ *color, name: dark, required: false } ]
               - label: Secondary Color
                 name: secondary
                 widget: object
-                fields: [{*color, name: light, required: false},{*color, name: main},{*color, name: dark, required: false}]
+                fields: [ { *color, name: light, required: false },{ *color, name: main },{ *color, name: dark, required: false } ]
               - label: Tonal Offset
                 name: tonalOffset
                 widget: number
@@ -78,98 +54,71 @@ collections:
               - label: "Default Mode"
                 name: "type"
                 widget: select
-                options: ["light", "dark"]
-      - label: "Navigation Options"
-        description: "Customize the navigation bar"
+                options: [ "light", "dark" ]
+      - label: Navigation
         name: navigation
-        file: 'content/common/navigation/header.md'
+        file: 'content/common/navigation/config.yaml'
+        description: Configure your site
         fields:
-          - {label: Disabled, default: false, name: disabled, widget: boolean, hint: This will enable/disable the header banner}
-          - {label: Show Icon for static menus, default: false, name: staticIconEnabled, widget: boolean, hint: This effect will not be seen in preview}
-      - label: "Banner Options"
-        name: about
-        file: 'content/home/header.md'
-        fields:
-          - {label: Disabled, default: false, name: disabled, widget: boolean, hint: This will enable/disable the header banner}
-          - {label: Prefix/Intro, name: prefix, widget: string, hint: "This will be placed before your name, make it welcoming"}
-          - {label: Name, name: name, widget: string, hint: "What people will call you"}
-          - {label: Caption, name: caption, widget: markdown, hint: "A short, snappy tag line"}
-          - {label: Monogram, name: monogram, widget: image, hint: "A short, snappy tag line"}
-      - label: "Footer Options"
+          - { label: Disabled, default: false, name: disabled, widget: boolean, hint: This will enable/disable the header banner }
+          - { label: Show Icon for static menus, default: false, name: staticIconEnabled, widget: boolean, hint: This effect will not be seen in preview }
+      - label: Footer
         description: "Customize the footer"
         name: footer
-        file: 'content/common/footer/header.md'
+        file: 'content/common/footer/config.yaml'
         fields:
-          - {label: Disabled, default: false, name: disabled, widget: boolean, hint: This will enable/disable the footer}
-          - {label: Site Description Header, name: header, widget: string, hint: "A short, snappy tag line"}
-          - {label: Site Description, name: caption, widget: text, hint: "A short, snappy tag line"}
-
-  - name: "experience"
-    label: "Experience"
-    folder: "src/pages/experience"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {name: "type", widget: hidden, default: "experience"}
-      - {label: "Start Date", name: "startDate", widget: "datetime"}
-      - {label: "End Date", name: "endDate", widget: "datetime", required: false}
-      - {label: "Display Start/End Year only", name: "showYearOnly", widget: "boolean", default: false}
-      - {label: "Where", name: "subTitle", widget: "string"}
-      - {label: "Link", name: "link", widget: "string", required: false}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Description", name: "short", widget: "text"}
-      - {label: "Featured", name: "featured", widget: "boolean", default: false}
-      - {label: "Featured Image", name: "image", widget: image}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Tags", name: "summaryCards", widget: "list"}
-  - name: "education"
-    label: "Education"
-    folder: "src/pages/education"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {name: "type", widget: hidden, default: "education"}
-      - {label: "Sub-Title", name: "subTitle", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Tags", name: "summaryCards", widget: "list"}
-      - {label: "Start Date", name: "startDate", widget: "datetime"}
-      - {label: "End Date", name: "endDate", widget: "datetime", required: false}
-      - {label: "Description", name: "short", widget: "text", required: false}
-
-  - name: "navigationButton"
-    label: "Navigation Buttons"
+          - { label: Disabled, default: false, name: disabled, widget: boolean, hint: This will enable/disable the footer }
+          - { label: Footer Header, name: header, widget: string, hint: "A short, snappy tag line" }
+          - { label: Footer SubText, name: caption, widget: text, hint: "A short, snappy tag line" }
+  - label: "Navigation Buttons"
+    name: navigation_buttons
     folder: content/common/navigation
-    create: true
-    slug: "{{title}}"
-    preview_path: ""
-    fields:
-      - {name: "title", label: Name, widget: string, hint: "This will be the button label"}
-      - {name: "icon", label: Icon, widget: string, hint: "This will be the icon displayed for mobile navigation"}
-      - {name: "type", widget: hidden, default: "navigation"}
-      - {name: "link", label: Link, widget: string, hint: "This will be where the button takes you"}
-      - {name: "order", label: order, widget: number, hint: "Lowest number is first"}
-
-  - name: "summaryCards"
-    label: "Complex Tags"
-    folder: content/summaryCards
-    create: true
     slug: "{{title}}"
     fields:
-      - {name: "title", label: Name, widget: string, hint: "This will be the primary name for the tag"}
-      - {name: "type", widget: hidden, default: "tag"}
-      - {name: "alias", widget: list, label: "Other Names", hint: "This will be used to match to other records"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: Icon, name: icon, widget: string}
-      - {*color, label: Colour, name: color}
-  - name: "footer"
+      - { name: "title", label: Name, widget: string, hint: "This will be the button label" }
+      - { name: "icon", label: Icon, widget: string, hint: "This will be the icon displayed for mobile navigation" }
+      - { name: "type", widget: hidden, default: "navigation" }
+      - { name: "link", label: Link, widget: string, hint: "This will be where the button takes you" }
+      - { name: "order", label: order, widget: number, hint: "Lowest number is first" }
+  - name: footer_buttons
     label: "Footer Buttons"
     folder: content/common/footer
     create: true
     slug: "{{label}}_{{type}}"
     fields:
-      - {name: "label", label: Label, widget: markdown, hint: "This will be the primary name for the tag"}
-      - {name: "type", label: Button Type, widget: select, options: [{label: "Attribution buttons", value: "attr"}, {label: "Social Media links", value: "social"}]}
-      - {name: "icon", label: Icon, widget: image}
-      - {name: "link", label: Link, widget: string, hint: "This will be where the button takes you"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - { name: "type", label: Button Type, widget: select, options: [ { label: "Attribution buttons", value: "attr" }, { label: "Social Media links", value: "social" } ] }
+      - { name: "icon", label: Icon, widget: image }
+      - { name: "link", lsabel: Link, widget: string, hint: "This will be where the button takes you" }
+  - name: education_cards
+    label: "Education (items)"
+    folder: content/education/cards
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "type", widget: hidden, default: "GenericItem" }
+      - { label: "Featured Image", name: "image", widget: image }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "SubTitle", name: "subTitle", widget: "string" }
+      - { label: "Start Date", name: "startDate", widget: "datetime" }
+      - { label: "End Date", name: "endDate", widget: "datetime", required: false }
+      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Short Description", name: "short", widget: "text", required: false}
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: experience_cards
+    label: "Experience (items)"
+    folder: content/experience/cards
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "type", widget: hidden, default: "GenericItem" }
+      - { label: "Featured Image", name: "image", widget: image }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "SubTitle", name: "subTitle", widget: "string" }
+      - { label: "Start Date", name: "startDate", widget: "datetime" }
+      - { label: "End Date", name: "endDate", widget: "datetime", required: false }
+      - { label: "Tags", name: "summaryCards", widget: "list" }
+      - { label: "Short Description", name: "short", widget: "text", required: false}
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Link", name: "link", widget: "string", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }

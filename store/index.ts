@@ -52,8 +52,6 @@ function initStore(preloadedState: Partial<AppState> = initialState) {
 export const initializeStore = (preloadedState: Partial<AppState>) => {
     let _store = store ?? initStore(preloadedState)
 
-    // After navigating to a page with an initial Redux state, merge that state
-    // with the current state in the store, and create a new store
     if (preloadedState && store) {
         _store = initStore({
             ...store.getState(),

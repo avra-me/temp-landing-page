@@ -1,5 +1,5 @@
-const NotFound =() => {
-    return null;
+const InternalServerError =() => {
+    return <div>How the fuck did you even get here</div>;
 };
 
 export async function getStaticProps() {
@@ -8,4 +8,4 @@ export async function getStaticProps() {
     return {props: {initialReduxState: baseState}}
 }
 
-export default NotFound
+export default InternalServerError
