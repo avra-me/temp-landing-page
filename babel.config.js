@@ -20,8 +20,7 @@ const plugins = [
             },
         },
         'lodash'
-    ],
-    "@babel/plugin-transform-react-jsx-source"
+    ]
 ];
 
 module.exports = {
