@@ -1,5 +1,16 @@
+import WaveJumbotron from "../components/common/WaveJumbotron";
+import {Typography} from "@material-ui/core";
+
 const NotFound =() => {
-    return null;
+    return <WaveJumbotron >
+        <Typography style={{marginTop: "100px"}} align={"center"} variant={"h1"}>
+            <b>404</b>
+        </Typography>
+        <Typography align={"center"} variant={"h2"}>
+            Page Not Found
+        </Typography>
+
+    </WaveJumbotron>;
 };
 
 export async function getStaticProps() {

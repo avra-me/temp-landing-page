@@ -33,6 +33,7 @@
     "redux": "^3.6.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx-source": "^7.14.5",
     "@types/js-yaml": "^4.0.2",
     "@types/lodash-es": "^4.17.4",
     "@types/react": "17.0.18",

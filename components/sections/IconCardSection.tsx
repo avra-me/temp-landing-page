@@ -4,10 +4,11 @@ import React, {FunctionComponent} from "react";
 import {IconCardSection as IconCardSectionType, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
 import IconCard from "../common/IconCard";
+import Link from "next/link";
 import {slice} from "lodash-es";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
-import SectionTitleMarkdown from "../common/elements/SectionTitleMarkdown";
 
+import SectionTitleMarkdown from "../common/elements/SectionTitleMarkdown";
 
 const styles = (theme: Theme) => createStyles({
   iconRoot: {
@@ -27,13 +28,13 @@ const IconCardSection: FunctionComponent<IconCardSectionProps> = ({classes, item
 
   const makeButtons = (chip: InteractionItem) => {
     const {link, title, tooltip, icon} = chip;
-    const button = <Button href={link} size={"small"} variant={"outlined"}>
+    let button = <Button size={"small"} variant={"outlined"}>
       {icon && <Icon color={"action"} className={classes.linkIcon}>{icon}</Icon>}{title}
     </Button>
     if (tooltip) {
-      return <Tooltip key={link} title={tooltip}>{button}</Tooltip>
+      button = <Tooltip key={link} title={tooltip}>{button}</Tooltip>
     }
-    return button
+    return <Link href={link} passHref={true}>{button}</Link>
   };
 
   return <SectionContainer>

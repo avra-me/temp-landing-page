@@ -7,6 +7,7 @@ import MenuButton from "./MenuButton";
 import {Theme} from "@material-ui/core";
 import {StyleRules} from "@material-ui/core/styles";
 import {MenuItem} from "../../store/types/navigation";
+import {trimEnd} from "lodash-es";
 
 const styles = (theme: Theme): StyleRules => ({
   menuButtonText: {
@@ -45,9 +46,25 @@ interface IRightHandNavigation {
   onDrawerOpen: () => void,
   onDrawerClose: () => void,
   menuItems: MenuItem[],
+  currentRoute: string,
 }
 
-const RightHandNavigation: FunctionComponent<IRightHandNavigation> = ({menuItems, onDrawerOpen, onDrawerClose}) => {
+const RightHandNavigation: FunctionComponent<IRightHandNavigation> = (
+  {
+    menuItems,
+    currentRoute,
+    onDrawerOpen,
+    onDrawerClose
+  }) => {
+  const isRouteActive = (link?: string): boolean => {
+    if(!link){
+      return false;
+    }
+    if(currentRoute === "/"){
+      return link === currentRoute;
+    }
+    return trimEnd(link, '/') === currentRoute;
+  }
   return <div>
     <Hidden mdUp implementation={"css"}>
       <IconButton
@@ -58,7 +75,14 @@ const RightHandNavigation: FunctionComponent<IRightHandNavigation> = ({menuItems
       </IconButton>
     </Hidden>
     <Hidden smDown implementation={"css"}>
-      {menuItems.map((element) => <MenuButton key={"order" in element ? element.order : 0} element={element} onDrawerClose={onDrawerClose}/>)}
+      {menuItems.map((element) =>
+        <MenuButton
+          key={"order" in element ? element.order : 0}
+          active={isRouteActive("link" in element ? element.link : undefined)}
+          element={element}
+          onDrawerClose={onDrawerClose}
+        />
+      )}
     </Hidden>
   </div>;
 };

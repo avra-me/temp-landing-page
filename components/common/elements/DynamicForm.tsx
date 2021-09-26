@@ -66,7 +66,7 @@ const DynamicForm: FC<Omit<ContactFormSection, 'content' | 'order' | 'type'>> = 
       <Button
         variant="outlined"
         type="submit"
-        color={"primary"}
+        color={"secondary"}
         endIcon={<Icon>send</Icon>}
       >
         {submitButtonText}

@@ -104,8 +104,12 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
           <Toolbar className={classes.toolbar}>
             <Monogram logo={logo}/>
 
-            <RightHandNavigation menuItems={menuItems} onDrawerOpen={handleMobileDrawerOpen}
-                                 onDrawerClose={handleMobileDrawerClose}/>
+            <RightHandNavigation
+              menuItems={menuItems}
+              onDrawerOpen={handleMobileDrawerOpen}
+              onDrawerClose={handleMobileDrawerClose}
+              currentRoute={router.pathname}
+            />
           </Toolbar>
 
         </AppBar>

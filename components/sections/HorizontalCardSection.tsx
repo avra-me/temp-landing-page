@@ -1,6 +1,6 @@
 import {Button, ButtonGroup, Grid, Theme} from "@material-ui/core";
 import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
-
+import Link from 'next/link'
 import React, {FunctionComponent} from "react";
 import {HorizontalCardSection as IHorizontalCardSection, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
@@ -24,7 +24,7 @@ const styles = (theme: Theme) => createStyles({
 type HorizontalCardSectionProps = WithStyles<typeof styles> & IHorizontalCardSection
 const HorizontalCardSection: FunctionComponent<HorizontalCardSectionProps> = ({classes, items, content}) => {
     const makeButtons = (button: InteractionItem) => {
-        return <Button key={button.link} href={button.link}>{button.title}</Button>
+        return <Link key={button.link} href={button.link} passHref={true}><Button>{button.title}</Button></Link>
     }
 
     return <SectionContainer>

@@ -6,13 +6,13 @@ import clsx from "clsx";
 import {Theme} from "@material-ui/core";
 import {StyleRules} from "@material-ui/core/styles";
 import smoothScrollTop from "../../utilities/smoothScrollTop";
-import {useRouter} from "next/router";
 import {MenuItem} from "../../store/types/navigation";
 
 const styles = (theme: Theme): StyleRules => ({
   menuButtonText: {
     fontSize: theme.typography.body1.fontSize,
     fontWeight: theme.typography.h6.fontWeight,
+    color: theme.palette.text.secondary,
   },
   link: {
     "&:after": {
@@ -35,7 +35,7 @@ const styles = (theme: Theme): StyleRules => ({
     }
   },
   disabledLink: {
-    fontWeight: "bold",
+    color: theme.palette.text.primary,
   },
   noDecoration: {
     textDecoration: "none !important",
@@ -44,22 +44,14 @@ const styles = (theme: Theme): StyleRules => ({
 
 interface IMenuButtonProps {
   onDrawerClose: () => void,
+  active?: boolean
   classes: Record<string, string>,
   element: MenuItem
 }
 
-const MenuButton: FunctionComponent<IMenuButtonProps> = ({element, classes, onDrawerClose}) => {
-  const router = useRouter();
-  let isCurrentLink = false;
-  if('link' in element){
-    let {link} = element;
-    if (link.endsWith('/')) {
-      link = link.substr(0, link.length - 1)
-    }
-    if (link && router.pathname === link) {
-      isCurrentLink = true
-    }
-  }
+const MenuButton: FunctionComponent<IMenuButtonProps> = ({element, active, classes, onDrawerClose}) => {
+  let isCurrentLink = !!active;
+
 
   if (React.isValidElement(element)) {
     return element;

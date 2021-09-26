@@ -8,8 +8,10 @@ import Header from "../components/sections/Header";
 import React from 'react';
 import GlobalStyles from '../components/common/theming/GlobalStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import NavigationBar from "../components/sections/NavigationBar";
-import FooterMenu from "../components/sections/FooterMenu";
+import dynamic from "next/dynamic";
+
+const NavigationBar = dynamic(() => import("../components/sections/NavigationBar"))
+const FooterMenu = dynamic(() => import("../components/sections/FooterMenu"))
 
 function MyApp({Component, pageProps}: AppProps) {
   const router = useRouter()
@@ -41,10 +43,5 @@ function MyApp({Component, pageProps}: AppProps) {
   </Provider>
 }
 
-export async function getStaticProps() {
-  const {getAppState} = await import('../store/rehydrate');
-  const baseState = await getAppState();
-  return {props: {initialReduxState: baseState}}
-}
 
 export default MyApp

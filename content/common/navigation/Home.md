@@ -2,6 +2,6 @@
 title: Home
 icon: home
 type: navigation
-link: /#
+link: /
 order: 1
 ---
