@@ -22,15 +22,14 @@
     "framer-motion": "^4.1.17",
     "lodash-es": "^4.17.21",
     "next": "^11.1.2",
-    "next-plugin-preact": "^3.0.6",
+    "react-redux": "^7.1.0",
+    "react-use-cookie": "^1.2.1",
+    "redux": "^3.6.0",
     "preact": "^10.5.14",
     "preact-render-to-string": "^5.1.19",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat",
-    "react-redux": "^7.1.0",
-    "react-ssr-prepass": "npm:preact-ssr-prepass",
-    "react-use-cookie": "^1.2.1",
-    "redux": "^3.6.0"
+    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.0.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx-source": "^7.14.5",

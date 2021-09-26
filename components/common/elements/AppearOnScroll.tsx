@@ -8,7 +8,7 @@ interface IAppearOnScrollProps {
   duration?: number,
   delay?: number,
   animationDisabled?: boolean,
-  animationDisabledState?: "server" | "hidden" | "visible",
+  animationDisabledState?: "hidden" | "visible",
   repeat?: boolean,
 
   [additionalProps: string]: unknown
@@ -17,7 +17,7 @@ interface IAppearOnScrollProps {
 const defaultProps = {
   delay: 0,
   duration: .5,
-  offScreenProperties: {opacity: 0, y: "30%", display: "none"},
+  offScreenProperties: {opacity: 0, y: "30%"},
   onScreenProperties: {opacity: 1, y: 0, display: "initial"}
 } as const;
 
@@ -34,12 +34,11 @@ const AppearOnScroll: FC<IAppearOnScrollProps & typeof defaultProps> = (
     ...rest
   }) => {
   const animations = {
-    server: onScreenProperties,
     hidden: offScreenProperties,
     visible: onScreenProperties
   } as const
 
-  const [variant, setVariant] = useState<'server' | 'hidden' | 'visible'>('server');
+  const [variant, setVariant] = useState<'hidden' | 'visible'>('visible');
   const viewportRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
