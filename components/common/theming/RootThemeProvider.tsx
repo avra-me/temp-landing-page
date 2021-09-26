@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {ThemeProvider} from "@material-ui/core/styles";
-import useCookie from "react-use-cookie"
 import {connect, ConnectedProps} from "react-redux";
 import {AppState} from "../../../store";
 import {generateTheme, ThemeGlobals} from "./theme";
@@ -15,11 +14,24 @@ const mapStateToProps = connect((state: AppState) => {
 interface IRootThemeProviderProps extends ConnectedProps<typeof mapStateToProps> {
 }
 
+const DARKMODE_COOKIE_KEY = 'app-user-dark-mode-pref'
+
 const RootThemeProvider: React.FunctionComponent<IRootThemeProviderProps> = ({themes: config, children}) => {
   // Cookie > System Theme > Site Theme
   const palette = config?.palette || {};
 
-  const [userSavedMode, updateIsDarkMode] = useCookie("isDarkMode");
+  // eslint-disable-next-line no-unused-vars
+  const updateIsDarkMode = useCallback((v: string) => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(DARKMODE_COOKIE_KEY, v);
+    }
+  }, [])
+
+  let userSavedMode = undefined;
+  if (typeof window !== "undefined") {
+    userSavedMode = window.localStorage.getItem(DARKMODE_COOKIE_KEY)
+  }
+
   const browserPrefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   if (userSavedMode) {
