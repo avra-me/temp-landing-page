@@ -103,7 +103,7 @@ collections:
       - { label: "Start Date", name: "startDate", widget: "datetime" }
       - { label: "End Date", name: "endDate", widget: "datetime", required: false }
       - { label: "Tags", name: "tags", widget: "list" }
-      - { label: "Short Description", name: "short", widget: "text", required: false}
+      - { label: "Short Description", name: "short", widget: "markdown", required: false}
       - { label: "Body", name: "body", widget: "markdown" }
   - name: experience_cards
     label: "Experience (items)"
@@ -118,7 +118,7 @@ collections:
       - { label: "Start Date", name: "startDate", widget: "datetime" }
       - { label: "End Date", name: "endDate", widget: "datetime", required: false }
       - { label: "Tags", name: "summaryCards", widget: "list" }
-      - { label: "Short Description", name: "short", widget: "text", required: false}
+      - { label: "Short Description", name: "short", widget: "markdown", required: false}
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Link", name: "link", widget: "string", required: false }
       - { label: "Featured", name: "featured", widget: "boolean", default: false }
