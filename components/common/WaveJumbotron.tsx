@@ -7,10 +7,6 @@ import ThemeProvider from "./theming/ThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 
 export const getWaveAreaClass = (theme: any) => {
-  const points = ["light", "main", "dark"].map(
-    (name, i) =>
-      `${theme.palette.secondary[name]} ${theme.palette.wavePoints[i]}%`
-  );
   return {
     "@keyframes animateGradient": {
       "0%": {
@@ -25,9 +21,7 @@ export const getWaveAreaClass = (theme: any) => {
     },
     waveArea: {
       backgroundSize: "400% 400%",
-      background: `linear-gradient(${theme.palette.waveAngle}deg, ${points.join(
-        ", "
-      )} )`,
+      background: `linear-gradient(${theme.palette.waveAngle}deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100% )`,
       animation: "$animateGradient 16s ease infinite"
     }
   }

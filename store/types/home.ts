@@ -30,8 +30,8 @@ export interface HorizontalCardSection extends BasicItem {
     subTitle: string,
     items: HorizontalCardItem[]
 }
-export interface ContactFormSection extends BasicItem {
-    type: 'ContactFormSection',
+export interface DynamicForm extends BasicItem {
+    type: 'DynamicForm',
     fields: (IFormField | ISubmitOverride)[]
 }
 
@@ -90,7 +90,7 @@ export interface GenericItem extends Omit<BasicItem, 'order'>{
 }
 
 
-export type HomeItems = JumboHeaderSection | IconCardSection | HorizontalCardSection | WaveCardSection | ContactFormSection
+export type HomeItems = JumboHeaderSection | IconCardSection | HorizontalCardSection | WaveCardSection | DynamicForm
 
 export interface HomeState {
     items: (HomeItems)[]

@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {applyMiddleware, createStore, Reducer, Store} from 'redux'
+import {AnyAction, applyMiddleware, createStore} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {ThemeOptions} from "@material-ui/core";
 import {initialSiteState, SiteState} from "./types/site";
@@ -19,7 +19,6 @@ export interface AppState {
     footer: FooterState
 }
 
-let store: Store<AppState> | undefined
 
 const initialState = {
     themes: initialThemeState,
@@ -31,7 +30,7 @@ const initialState = {
     footer: initialFooterState
 }
 
-const reducer: Reducer<AppState> = (state = initialState, action) => {
+const reducer = (state: AppState = initialState, action: AnyAction) => {
     switch (action.type) {
         case CHANGE_THEME_MODE:
             Object.assign(state, action.payload)
@@ -48,6 +47,9 @@ function initStore(preloadedState: Partial<AppState> = initialState) {
         composeWithDevTools(applyMiddleware())
     )
 }
+
+let store: ReturnType<typeof initStore> | undefined
+
 
 export const initializeStore = (preloadedState: Partial<AppState>) => {
     let _store = store ?? initStore(preloadedState)

@@ -1,22 +1,13 @@
+import type {JumboHeaderSection as JumboHeaderSectionType} from "../../store/types/home";
+
 import React, {Fragment, FunctionComponent} from "react";
-import WaveJumbotron from "../common/WaveJumbotronHeader";
-import {JumboHeaderSection as JumboHeaderSectionType} from "../../store/types/home";
-import {Theme} from "@material-ui/core";
-import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
-import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
+import dynamic from "next/dynamic";
 
-const styles = (theme: Theme) => createStyles({
-  brand: {
-    height: "auto",
-    width: "75px",
-    overflow: "inherit",
-  },
-  title: {
-    marginBottom: theme.spacing(4)
-  }
-});
+const WaveJumbotron = dynamic(() => import("../common/WaveJumbotronHeader"));
+const SectionContentMarkdown = dynamic(() => import("../common/elements/SectionContentMarkdown"));
 
-const JumboHeader: FunctionComponent<JumboHeaderSectionType & WithStyles<typeof styles>> = (props) => {
+
+const JumboHeader: FunctionComponent<JumboHeaderSectionType> = (props) => {
   const {disabled, content} = props;
 
   const jumboProps = {
@@ -33,4 +24,4 @@ const JumboHeader: FunctionComponent<JumboHeaderSectionType & WithStyles<typeof 
 };
 
 
-export default withStyles(styles)(JumboHeader);
+export default JumboHeader;

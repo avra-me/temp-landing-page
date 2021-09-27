@@ -1,31 +1,38 @@
-import Footer from "../footer/Footer";
+import type {AppState} from "../../store";
+import type {AttributionItem, FooterState, SocialButton} from "../../store/types/footer";
 import React, {FunctionComponent} from "react";
-import {AttributionItem, FooterState, SocialButton} from "../../store/types/footer";
-import {connect} from "react-redux";
-import {AppState} from "../../store";
+import {connect, ConnectedProps} from "react-redux";
+import dynamic from "next/dynamic";
 
-const mapStateToProps = (state: AppState, props: Partial<FooterState>) => ({
-    ...state.footer,
-    ...props
-})
+const Footer = dynamic(() => import("../footer/Footer"))
 
-const FooterMenu: FunctionComponent<FooterState> = (
-    {
-        buttons,
-        header,
-        caption,
-        disabled,
-        children
-    }) => {
-    const socialButtons = buttons.filter(({type}) => type === 'social') as SocialButton[];
-    const attributionButtons = buttons.filter(({type}) => type === 'attr') as AttributionItem[];
-    return <Footer
-        title={header}
-        subTitle={caption}
-        disabled={disabled}
-        socialIcons={socialButtons}
-        attributionIcons={attributionButtons}
-    >{children}</Footer>;
+const connector = connect((state: AppState, props: Partial<FooterState>) => ({
+  ...state.footer,
+  ...props,
+  isValid: !!state.footer
+}))
+
+const FooterMenu: FunctionComponent<FooterState & ConnectedProps<typeof connector>> = (
+  {
+    buttons,
+    header,
+    caption,
+    disabled,
+    children,
+    isValid
+  }) => {
+  if (!isValid || disabled) {
+    return null
+  }
+  const socialButtons = buttons.filter(({type}) => type === 'social') as SocialButton[];
+  const attributionButtons = buttons.filter(({type}) => type === 'attr') as AttributionItem[];
+  return <Footer
+    title={header}
+    subTitle={caption}
+    disabled={disabled}
+    socialIcons={socialButtons}
+    attributionIcons={attributionButtons}
+  >{children}</Footer>;
 };
 
-export default connect(mapStateToProps)(FooterMenu) as FunctionComponent<Partial<FooterState>>;
+export default connector(FooterMenu) as FunctionComponent<Partial<FooterState>>;

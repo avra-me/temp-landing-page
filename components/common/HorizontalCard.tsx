@@ -97,8 +97,9 @@ const HorizontalCard: FunctionComponent<HorizontalCardProps> = ({
 
                     <Grid item xs={12} md={4}>
                         <AppearOnScroll
-                          offScreenProperties={{opacity: 0, x: `${30 * (flip ? -1 : 1)}%`}}
-                          onScreenProperties={{opacity: 1, x: 0}}
+                          delay={100}
+                          offScreenProperties={{opacity: 0}}
+                          onScreenProperties={{opacity: [0, 1], translateX: [`${30 * (flip ? -1 : 1)}em`, "0em"]}}
                         >
                             <img src={image} alt={image} width={400} height={300} className={classes.media} loading="lazy"/>
                         </AppearOnScroll>

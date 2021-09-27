@@ -7,26 +7,11 @@ const styles = (theme: Theme) => createStyles({
         "body": {
             background: theme.palette.background.default,
         },
-        /**
-         * Disable the focus outline, which is default on some browsers like
-         * chrome when focusing elements
-         */
         "*:focus": {
             outline: 0,
         },
         ".text-white": {
             color: theme.palette.common.white,
-        },
-        ".listItemLeftPadding": {
-            paddingTop: `${theme.spacing(1.75)}px !important`,
-            paddingBottom: `${theme.spacing(1.75)}px !important`,
-            paddingLeft: `${theme.spacing(4)}px !important`,
-            [theme.breakpoints.down("sm")]: {
-                paddingLeft: `${theme.spacing(4)}px !important`,
-            },
-            "@media (max-width:  420px)": {
-                paddingLeft: `${theme.spacing(1)}px !important`,
-            },
         },
         ".row": {
             display: "flex",

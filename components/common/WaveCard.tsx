@@ -7,6 +7,7 @@ import {useTheme, createStyles, withStyles, WithStyles} from '@material-ui/core/
 import Paper from "@material-ui/core/Paper";
 import ThemeProvider from "./theming/ThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
+import AppearOnScroll from "./elements/AppearOnScroll";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -14,7 +15,7 @@ const styles = (theme: Theme) => createStyles({
     zIndex: -99
   },
   dark: {
-    background: theme.palette.secondary.dark
+    background: theme.palette.primary.main
   },
   fixScrollBug: {
     position: "absolute",
@@ -47,22 +48,24 @@ interface IWaveCardProps extends WithStyles<typeof styles> {
 const WaveCard: FunctionComponent<IWaveCardProps> = ({classes, inverse, className, children, before, ...props}) => {
   const theme = useTheme();
   return <Grid item xs={12} sm={6}>
-    <ThemeProvider isDarkMode={inverse}>
-      <Card {...props} className={clsx(className, "MuiPaper-root", inverse ? classes.dark : "")}>
-        {before && <ThemeProvider isDarkMode={!inverse}>
-            <Paper elevation={0} square className={clsx(className, classes.before, inverse ? "" : classes.dark)}>
-          <span className={classes.wrapBeforeContent}>
-            {before}
-          </span>
-                <span className={clsx(classes.fixScrollBug, inverse ? "" : classes.dark)}/>
-            </Paper>
-        </ThemeProvider>}
-        <CardMedia className={classes.waveSection}>
-          <WaveBorderCanvas flip={inverse} reverse background={theme.palette.secondary.dark}/>
-        </CardMedia>
-        {children}
-      </Card>
-    </ThemeProvider>
+    <AppearOnScroll style={{height: "100%"}}>
+      <ThemeProvider isDarkMode={inverse}>
+        <Card {...props} className={clsx(className, "MuiPaper-root", inverse ? classes.dark : "")}>
+          {before && <ThemeProvider isDarkMode={!inverse}>
+              <Paper elevation={0} square className={clsx(className, classes.before, inverse ? "" : classes.dark)}>
+                  <span className={classes.wrapBeforeContent}>
+                    {before}
+                  </span>
+                  <span className={clsx(classes.fixScrollBug, inverse ? "" : classes.dark)}/>
+              </Paper>
+          </ThemeProvider>}
+          <CardMedia className={classes.waveSection}>
+            <WaveBorderCanvas flip={inverse} reverse background={theme.palette.primary.main}/>
+          </CardMedia>
+          {children}
+        </Card>
+      </ThemeProvider>
+    </AppearOnScroll>
   </Grid>;
 };
 

@@ -1,14 +1,8 @@
 import type {NextPage} from 'next'
-import NavigationBar from "../components/sections/NavigationBar";
 import DynamicContent from "../components/sections/DynamicContent";
 
 const Home: NextPage = () => {
-
   return <>
-    <NavigationBar
-      useDarkPalette
-      backgroundColor={"inherit"}
-    />
     <DynamicContent source={"home"}/>
   </>
 }

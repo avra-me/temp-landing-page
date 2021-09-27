@@ -1,34 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Avra.Me Portfolio Showcase
+This is a custom resume using React, NextJS and Netlify CMS
 
-## Getting Started
+Goals:
 
-First, run the development server:
+- [x] I want to be able to customize my online portfolio without touching my code.
+- [x] I want my portfolio to look modern and be responsive.
+- [x] I want my portfolio to be customizable at a technical level should I feel like it.
+- [x] I want my portfolio to be snappy on modern devices.
+- [x] It should look kind of acceptable with js disabled.
+- [ ] As a stretch goal, I would like to be able to print out my portfolio as a resume
+- [ ] Todo: Create a 'Template' version of this code to allow others to implement it themselves.
 
-```bash
-npm run dev
-# or
-yarn dev
+#### Node.js 12+ (versions below could work, but are not tested)
+
+- Linux:
+
+  ```
+  sudo apt install nodejs npm
+  ```
+
+- Windows or macOS:
+
+  https://nodejs.org/en/
+
+### Installing
+
+1. Clone the repository
+
+   ```
+   git clone https://github.com/avra-me/avra-me.nextjs.github.io
+   ```
+
+2. Install dependencies, this can take a minute
+
+   ```
+   cd <name of dir>
+   yarn
+   ```
+
+3. Start the local server
+
+   ```
+   yarn start
+   ```
+
+Your browser should now open and show the app. Otherwise open http://localhost:3000/ in your browser. Editing files will automatically refresh the page.
+
+### What to do next?
+
+If you are new to React, you should watch a [basic React tutorial](https://www.youtube.com/results?search_query=react+tutorial) first.
+
+If you already know React, then most of the information you need is in the [Material-UI documentation](https://material-ui.com/getting-started/usage/).
+
+You can go into [src/theme.js](/src/theme.js) and change the primary and secondary color codes at the top of the script to the values you like and some magic will happen.
+
+## Deployment
+
+If you are happy with the state of your website you can run:
+
+```
+yarn build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+It will create a folder named `out` with your compiled project inside. After that copy its contents into your webroot and you are ready to go.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Built on top of
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [NextJs](https://nextjs.org/) - Generating a static site from dynamic content, nextjs supports server-side logic but we don't use it.
+- [Netlify CMS](https://netlifycms.org/) - A Version controlled content management system, enables content changes without touching the code
+- [Material-UI](https://github.com/mui-org/material-ui) - Material Design components
+- [Framer-Motion](https://www.framer.com/api/motion/) - Managed animation handling, could look for a lighter-weight library in future
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## License
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/avra-me/avra-me.github.io/blob/master/LICENSE) file for details.

@@ -1,7 +1,7 @@
+import type {AppState} from "../../../store";
 import React, {useCallback, useEffect} from "react";
 import {ThemeProvider} from "@material-ui/core/styles";
 import {connect, ConnectedProps} from "react-redux";
-import {AppState} from "../../../store";
 import {generateTheme, ThemeGlobals} from "./theme";
 import {NoSsr, PaletteType, useMediaQuery} from "@material-ui/core";
 
@@ -20,7 +20,6 @@ const RootThemeProvider: React.FunctionComponent<IRootThemeProviderProps> = ({th
   // Cookie > System Theme > Site Theme
   const palette = config?.palette || {};
 
-  // eslint-disable-next-line no-unused-vars
   const updateIsDarkMode = useCallback((v: string) => {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(DARKMODE_COOKIE_KEY, v);

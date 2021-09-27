@@ -1,7 +1,6 @@
 import {createTheme, makeStyles, responsiveFontSizes, StyleRules, Theme, ThemeOptions} from "@material-ui/core/styles";
 import {cloneDeep, merge} from "lodash-es";
 import {grey} from "@material-ui/core/colors";
-import userTheme from '../../../content/theme/theme.json'
 import {FC} from "react";
 
 const fadeTime = "0.6s";
@@ -58,7 +57,3 @@ export const ThemeGlobals: FC = () => {
   }
   return null
 }
-
-// @ts-ignore
-const theme = generateTheme(userTheme);
-export default theme

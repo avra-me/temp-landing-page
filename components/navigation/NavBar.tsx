@@ -1,4 +1,13 @@
-import React, {Fragment, FunctionComponent, useCallback, useEffect, useState} from "react";
+import React, {
+  forwardRef,
+  ForwardRefRenderFunction,
+  Fragment,
+  FunctionComponent,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState
+} from "react";
 import createMuiTheme from "@material-ui/core/styles/createTheme";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
@@ -8,14 +17,15 @@ import Monogram from "../common/elements/Monogram";
 import {StyleRules, ThemeProvider} from "@material-ui/core/styles";
 import NavigationDrawer from "./NavigationDrawer";
 import {MenuItem} from "../../store/types/navigation";
-import {LazyMotion, m} from "framer-motion";
 import {Theme} from "@material-ui/core";
 import {useRouter} from "next/router";
+import {sortBy} from "lodash-es";
+import Animate from "react-anime";
 
 const styles = (theme: Theme): StyleRules => ({
   appBar: {
     boxShadow: "none",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
     zIndex: 100
   },
   toolbar: {
@@ -34,7 +44,6 @@ const styles = (theme: Theme): StyleRules => ({
 interface INavBarPropsInternal {
   menuItems: MenuItem[],
   classes: Record<string, string>,
-  backgroundColor?: string
   disabled?: boolean,
   staticIconEnabled?: boolean,
   logo?: string,
@@ -43,29 +52,33 @@ interface INavBarPropsInternal {
 
 export type INavBarProps = Omit<INavBarPropsInternal, 'classes'>
 
-const NavBar: FunctionComponent<INavBarPropsInternal> = ({
-                                                           menuItems,
-                                                           disabled,
-                                                           logo,
-                                                           classes,
-                                                           useDarkPalette,
-                                                           backgroundColor
-                                                         }) => {
+const NavBar: FunctionComponent<INavBarPropsInternal> = (
+  {
+    menuItems,
+    disabled,
+    logo,
+    classes,
+    useDarkPalette,
+  }) => {
+  menuItems = sortBy(menuItems, 'order')
 
-
-  const [selectedTab,] = useState(null);
   const router = useRouter();
 
-
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
-
+  const [fixedNavVisible, setFixedNavVisible] = useState(false);
   const [popout, setIsPopout] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((e) => setIsPopout(e[0].intersectionRatio <= 0), {});
+    const observer = new IntersectionObserver((e) => {
+      const isFixedNavVisible = e[0].intersectionRatio <= 0
+      setIsPopout(isFixedNavVisible)
+      if (isFixedNavVisible) {
+        setFixedNavVisible(true)
+      }
+    }, {});
     // @ts-ignore
     const ele = document.getElementById('hide-navbar')
-    if(ele){
+    if (ele) {
       observer.observe(ele)
     }
     return () => observer.disconnect();
@@ -86,51 +99,59 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = ({
       type: useDarkPalette ? 'dark' : 'light'
     }
   })
+  const makeSurrogate = (props: PropsWithChildren<any>): ForwardRefRenderFunction<any> => {
+    const SurrogateAnimationComponent: ForwardRefRenderFunction<any> = (forwardedProps, ref) => <div
+      ref={ref} {...forwardedProps} {...props}
+    />
+    return SurrogateAnimationComponent
+  }
+  const navigation = (style: Record<string, unknown> = {}) =>
+    <AppBar position={"absolute"} className={classes.appBar}
+            style={style}
+    >
+      <Toolbar className={classes.toolbar}>
+        <Monogram logo={logo}/>
+
+        <RightHandNavigation
+          menuItems={menuItems}
+          onDrawerOpen={handleMobileDrawerOpen}
+          onDrawerClose={handleMobileDrawerClose}
+          currentRoute={router.pathname}
+        />
+      </Toolbar>
+
+    </AppBar>
+
+  const FixedAnimSur = forwardRef(makeSurrogate({
+    style: {width: "100%", zIndex: 99, position: "fixed", opacity: popout ? 0 : 1}
+  }))
+
+  const absoluteNavigation = navigation({backgroundColor: "inherit"});
+  const fixedNavigation = navigation();
 
   return <ThemeProvider theme={theme}>
-    <LazyMotion features={() => import('../utils/lazyMotion').then(e => e.default)}>
-      <m.div
-        style={{width: "100%", zIndex: 99}}
-        initial={false}
-        animate={popout ? "popout" : "top"}
-        variants={{
-          top: {position: "absolute", top: 0, transition: {duration: .3, delay: .3}},
-          popout: {position: "fixed", top: 0, transition: {duration: .1, delay: 0}}
-        }}
-      >
-        <AppBar position={"absolute"} className={classes.appBar}
-                style={popout ? undefined : {backgroundColor}}
-        >
-          <Toolbar className={classes.toolbar}>
-            <Monogram logo={logo}/>
-
-            <RightHandNavigation
-              menuItems={menuItems}
-              onDrawerOpen={handleMobileDrawerOpen}
-              onDrawerClose={handleMobileDrawerClose}
-              currentRoute={router.pathname}
-            />
-          </Toolbar>
-
-        </AppBar>
-
-        <NavigationDrawer
-          menuItems={menuItems}
-          anchor="right"
-          open={isMobileDrawerOpen}
-          selectedItem={selectedTab}
-          onClose={handleMobileDrawerClose}
-        />
-      </m.div>
-    </LazyMotion>
+    {absoluteNavigation}
+    {fixedNavVisible && <Animate
+        key={`Fixed-${popout}`}
+        easing={popout ? "easeInSine" : "easeOutSine"}
+        autoplay={true}
+        translateY={popout ? ["-5em", 0] : [0, "-5em"]}
+        opacity={popout ? [0, 1] : [1, 0]}
+        delay={0}
+        duration={300}
+        complete={() => setFixedNavVisible(popout)}
+        component={FixedAnimSur}>
+      {fixedNavigation}
+    </Animate>}
+    <NavigationDrawer
+      menuItems={menuItems}
+      anchor="right"
+      open={isMobileDrawerOpen}
+      selectedItem={""}
+      onClose={handleMobileDrawerClose}
+    />
   </ThemeProvider>
 
 }
-
-
-NavBar.defaultProps = {
-  useDarkPalette: true,
-  backgroundColor: undefined
-};
 
 export default withStyles(styles)(NavBar);

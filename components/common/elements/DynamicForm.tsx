@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import React, {FC, useState} from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import FilledInput from "@material-ui/core/FilledInput";
-import {ContactFormSection, IFormField} from "../../../store/types/home";
+import {DynamicForm as IDynamicForm, IFormField} from "../../../store/types/home";
 
 const TypeInnerFieldMapping: Record<IFormField["type"], FC<any>> = {
   email(props: any) {
@@ -47,7 +47,7 @@ const DynamicFormField: FC<IFormField> = ({type, title, name, placeholder, icon}
   </FormControl>
 }
 
-const DynamicForm: FC<Omit<ContactFormSection, 'content' | 'order' | 'type'>> = ({fields}) => {
+const DynamicForm: FC<Omit<IDynamicForm, 'content' | 'order' | 'type'>> = ({fields}) => {
   // hack to get around broke placeholder layout
   let submitButtonText = "Send Message"
 
@@ -66,7 +66,7 @@ const DynamicForm: FC<Omit<ContactFormSection, 'content' | 'order' | 'type'>> = 
       <Button
         variant="outlined"
         type="submit"
-        color={"secondary"}
+        color={"primary"}
         endIcon={<Icon>send</Icon>}
       >
         {submitButtonText}

@@ -1,5 +1,5 @@
 ---
-type: ContactFormSection
+type: DynamicForm
 order: 6
 children:
     source: home/formFields

@@ -1,7 +1,6 @@
 import React from 'react';
 import Document, {Head, Html, Main, NextScript} from 'next/document';
 import {ServerStyleSheets} from '@material-ui/core/styles'; // works with @material-ui/core/styles, if you prefer to use it.
-import theme from '../components/common/theming/theme';
 
 let prefixer: any;
 let cleanCSS: any;
@@ -23,14 +22,22 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <meta name="theme-color" content={theme.palette.primary.main}/>
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={"true"}/>
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=optional"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap&subset=latin"
+            rel="preload" as={"style"}/>
+          <link
+            rel="preload" as={"style"}
+            href="https://fonts.googleapis.com/css?family=Material Icons&display=swap"
           />
           <link
-            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap&subset=latin"
+            rel={"stylesheet"}
+          />
+          <link
             href="https://fonts.googleapis.com/css?family=Material Icons&display=swap"
+            rel={"stylesheet"}
           />
         </Head>
         <body>

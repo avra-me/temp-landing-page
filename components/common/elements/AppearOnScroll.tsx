@@ -1,24 +1,24 @@
-import React, {FC, Fragment, useEffect, useRef, useState} from "react";
-import {LazyMotion, m, TargetAndTransition} from "framer-motion";
-
+import React, {FC, forwardRef, ForwardRefRenderFunction, Fragment, useEffect, useRef, useState} from "react";
+import Animate, {AnimeProps} from "react-anime";
 
 interface IAppearOnScrollProps {
-  offScreenProperties?: Partial<TargetAndTransition>,
-  onScreenProperties?: Partial<TargetAndTransition>,
+  offScreenProperties?: Partial<AnimeProps>,
+  onScreenProperties?: Partial<AnimeProps>,
   duration?: number,
   delay?: number,
   animationDisabled?: boolean,
   animationDisabledState?: "hidden" | "visible",
   repeat?: boolean,
+  component?: unknown
 
   [additionalProps: string]: unknown
 }
 
 const defaultProps = {
   delay: 0,
-  duration: .5,
-  offScreenProperties: {opacity: 0, y: "30%"},
-  onScreenProperties: {opacity: 1, y: 0, display: "initial"}
+  duration: 1,
+  offScreenProperties: {opacity: 0},
+  onScreenProperties: {translateY: ["15em", "0em"], opacity: [0, 1]}
 } as const;
 
 const AppearOnScroll: FC<IAppearOnScrollProps & typeof defaultProps> = (
@@ -31,6 +31,7 @@ const AppearOnScroll: FC<IAppearOnScrollProps & typeof defaultProps> = (
     delay,
     duration,
     repeat,
+    component,
     ...rest
   }) => {
   const animations = {
@@ -58,20 +59,26 @@ const AppearOnScroll: FC<IAppearOnScrollProps & typeof defaultProps> = (
     setVariant(animationDisabled ? animationDisabledState || 'visible' : 'hidden')
   }, [animationDisabled, animationDisabledState])
 
+  if (!component) {
+    const SurrogateComponent: ForwardRefRenderFunction<any> = (props, ref) => <div
+      ref={ref} {...props} {...rest}/>
+    component = forwardRef(SurrogateComponent);
+  }
+
 
   return <Fragment>
-    <span ref={viewportRef}/>
-    <LazyMotion features={() => import('../../utils/lazyMotion').then(e => e.default)}>
-      <m.div
-        initial={true}
-        animate={variant}
-        variants={animations}
-        transition={{duration, delay}}
-        {...rest}
-      >
-        {children}
-      </m.div>
-    </LazyMotion>
+    <span ref={viewportRef} style={{minWidth: "100%"}}/>
+    <Animate
+      key={variant}
+      delay={delay}
+      easing="easeOutElastic"
+      duration={duration * 1000}
+      autoplay={true}
+      component={component}
+      {...animations[variant]}
+    >
+      {children}
+    </Animate>
   </Fragment>;
 };
 

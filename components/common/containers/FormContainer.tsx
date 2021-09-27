@@ -1,12 +1,12 @@
 import {Grid} from "@material-ui/core";
 import React, {FunctionComponent} from "react";
-import DynamicForm from "../common/elements/DynamicForm";
-import AppearOnScroll from "../common/elements/AppearOnScroll";
-import {ContactFormSection as IContactFormSection} from "../../store/types/home";
-import SectionTitleMarkdown from "../common/elements/SectionTitleMarkdown";
-import SectionContainer from "../common/SectionContainer";
+import DynamicForm from "../elements/DynamicForm";
+import AppearOnScroll from "../elements/AppearOnScroll";
+import {DynamicForm as IContactFormSection} from "../../../store/types/home";
+import SectionTitleMarkdown from "../elements/SectionTitleMarkdown";
+import SectionContainer from "../SectionContainer";
 
-const ContactFormSection: FunctionComponent<IContactFormSection> = (
+const FormContainer: FunctionComponent<IContactFormSection> = (
   {
     content,
     fields
@@ -36,4 +36,4 @@ const ContactFormSection: FunctionComponent<IContactFormSection> = (
   );
 };
 
-export default ContactFormSection;
+export default FormContainer;
