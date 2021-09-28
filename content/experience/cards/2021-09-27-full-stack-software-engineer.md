@@ -29,3 +29,5 @@ My role involved researching and developing customer-centric solutions for emerg
 * Digital Shelf Strips
 * Electronic Shelf Labeling
 * Canva-Like App for Retailers
+
+**More content coming soon**
