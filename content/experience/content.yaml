@@ -4,10 +4,10 @@ title: "Experience"
 children:
   source: experience/cards
   key: items
-  orderBy: [ -endDate ]
+  orderBy: [ -endDate, -startDate ]
   fields:
     type: experience
-    order: '{{endDate}}'
+    order: '{{endDate}}{{startDate}}'
     image: '{{ image }}'
     content: '{{ short }}'
     buttons:

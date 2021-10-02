@@ -5,11 +5,11 @@ content: |
 children:
     source: experience/cards
     key: items
-    orderBy: [ -endDate ]
+    orderBy: [ -endDate, -startDate ]
     filter: featured
     fields:
         type: experience
-        order: '{{endDate}}'
+        order: '{{endDate}}{{startDate}}'
         image: '{{ image }}'
         content: '{{ short }}'
         buttons:

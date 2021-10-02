@@ -1,7 +1,7 @@
 ---
 title: Software Developer
 startDate: 2019-01-01T00:00:01.000Z
-endDate: 2020-14-03T00:00:01.000Z
+endDate: 2021-03-14T00:00:01.000Z
 subTitle: Deloitte
 date: 2020-06-22T05:04:32.814Z
 featured: true

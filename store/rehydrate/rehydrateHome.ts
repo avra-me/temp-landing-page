@@ -1,6 +1,17 @@
 import fs from "fs";
 import matter from "gray-matter";
-import {cloneDeep, filter, includes, isArray, isDate, isObject, overEvery, overSome, sortBy, template} from "lodash-es";
+import {
+  cloneDeep,
+  filter,
+  includes,
+  isArray,
+  isDate,
+  isObject,
+  orderBy as sortBy,
+  overEvery,
+  overSome,
+  template
+} from "lodash-es";
 import showdown from "showdown";
 import yaml from 'js-yaml'
 import {JsonObject, JsonValue} from "type-fest";
@@ -74,6 +85,8 @@ const hydrateItem = async <T extends Loadable>(thisItem: T): Promise<T> => {
   return thisItem
 }
 
+const loadYamlFromString = (s: string): object => yaml.load(s) as object
+
 export const gatherItem = async (sourceDir: string, sourceFile: string, common?: Partial<Loadable>): Promise<Loadable | void> => {
   if (!common) {
     common = loadCommon(sourceDir)
@@ -86,11 +99,15 @@ export const gatherItem = async (sourceDir: string, sourceFile: string, common?:
   }
   const file = fs.readFileSync(path);
   if (sourceFile.endsWith('.md')) {
-    const md = matter(file.toString())
+    const md = matter(file.toString(), {
+      engines: {
+        yaml: loadYamlFromString
+      }
+    })
     Object.assign(thisItem, {...md.data, content: md.content});
   }
   if (sourceFile.endsWith('.yaml')) {
-    const data = yaml.load(file.toString())
+    const data = loadYamlFromString(file.toString())
     Object.assign(thisItem, data)
   }
   return hydrateItem({...common, ...thisItem});
@@ -154,9 +171,7 @@ const hydrateTemplate = (value: string, state: Record<string, unknown>): string 
 const handleChild = async (child: ChildImport): Promise<Loadable[]> => {
   const {source, filter: filterBy, match, fields, orderBy} = child;
   let allItems = await gatherItems(`${process.cwd()}/content/${source}`,)
-  if (orderBy) {
-    allItems = sortBy(allItems, orderBy)
-  }
+
   if (filterBy) {
     allItems = filter(allItems, filterBy) as Loadable[]
   }
@@ -165,6 +180,9 @@ const handleChild = async (child: ChildImport): Promise<Loadable[]> => {
     const matchPredicate = Object.keys(match).map(checkValue)
     // @ts-ignore
     allItems = filter(allItems, overEvery(matchPredicate));
+  }
+  if (orderBy) {
+    allItems = sortBy(allItems, orderBy.map(v => v.startsWith('-') ? v.substr(1) : v), orderBy.map(v => v.startsWith('-') ? 'desc' : 'asc'))
   }
   if (fields) {
     return Promise.all(allItems.map(async item => {
