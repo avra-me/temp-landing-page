@@ -81,7 +81,10 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // eslint-disable-next-line
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+      enhanceApp: (App) => (props) => {
+        const app = <App {...props} />
+        return sheets.collect(app)
+      },
     });
 
   const initialProps = await Document.getInitialProps(ctx);
