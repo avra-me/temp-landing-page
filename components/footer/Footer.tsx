@@ -43,6 +43,7 @@ const styles = (theme: Theme): StyleRules => ({
     },
   },
   infoAvatar: {
+    backgroundColor: "transparent",
     width: theme.spacing(3),
     height: theme.spacing(3),
   },
