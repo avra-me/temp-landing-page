@@ -1,7 +1,7 @@
 import {Button, ButtonGroup, Chip, Icon, Theme, Tooltip} from "@material-ui/core";
 import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import React, {FunctionComponent} from "react";
-import {GenericItem, InteractionItem} from "../../store/types/home";
+import type {GenericItem, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
 import HorizontalCard from "../common/HorizontalCard";

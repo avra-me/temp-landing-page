@@ -6,7 +6,7 @@ subTitle: Deloitte
 date: 2020-06-22T05:04:32.814Z
 featured: true
 showYearOnly: false
-image: "/assets/frontpage/consulting_deloitte.svg"
+image: "/assets/consulting_deloitte.svg"
 tags:
   - Deloitte
   - Natural Language

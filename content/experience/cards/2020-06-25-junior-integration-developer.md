@@ -11,7 +11,7 @@ short: |
   university-wide software system upgrades to over 80,000 students and 10,000
   staff.
 featured: true
-image: /assets/frontpage/junior-dev_rmit.svg
+image: /assets/junior-dev_rmit.svg
 tags:
   - development
 ---

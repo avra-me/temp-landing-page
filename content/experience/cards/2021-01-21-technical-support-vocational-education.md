@@ -9,7 +9,7 @@ short: |
   ## *RMIT Vocational Education* Technical Support
   Providing support for course designers around creating innovative and
   interactive new courses in the new university learning management system.
-image: /assets/frontpage/lms_rmit.svg
+image: /assets/lms_rmit.svg
 tags:
   - Data Entry
   - Independent

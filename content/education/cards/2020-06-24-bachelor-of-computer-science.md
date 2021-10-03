@@ -1,7 +1,7 @@
 ---
 title: Bachelor of Computer Science
 subTitle: RMIT University
-image: /assets/frontpage/bachelors_rmit.svg
+image: /assets/bachelors_rmit.svg
 tags:
   - RMIT
   - Computer Science

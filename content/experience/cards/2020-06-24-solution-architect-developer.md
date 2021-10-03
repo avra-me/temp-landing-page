@@ -10,7 +10,7 @@ short: |
   Designing and developing a resilient, performant solution for visualizing
   thousands of record access per day from the RMIT library.
 featured: true
-image: "/assets/frontpage/integration_rmit.svg"
+image: "/assets/integration_rmit.svg"
 showYearOnly: false
 tags:
   - Data Visualization

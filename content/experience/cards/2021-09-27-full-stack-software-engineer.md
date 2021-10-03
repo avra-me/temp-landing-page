@@ -1,6 +1,6 @@
 ---
 type: GenericItem
-image: /assets/frontpage/interface_lastyard.svg
+image: /assets/interface_lastyard.svg
 title: Full Stack Software Engineer
 subTitle: Last Yard
 startDate: 2021-03-15T13:00:31.367Z

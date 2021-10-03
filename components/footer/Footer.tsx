@@ -8,6 +8,7 @@ import useTheme from "@material-ui/core/styles/useTheme";
 import {AttributionItem, SocialButton} from "../../store/types/footer";
 import WaveBorderCanvas from "../common/elements/WaveBorderCanvas";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
+import AssetSVG from "../common/elements/AssetSVG";
 
 const styles = (theme: Theme): StyleRules => ({
   footerInner: {
@@ -118,8 +119,10 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
                             disabled={info.link === undefined}
                             href={info.link}
                           >
-                            <Avatar className={classes.infoAvatar} src={info.icon} alt={"i"}
-                                    aria-label={"icon"}/>
+                            <Avatar className={classes.infoAvatar} alt={"i"}
+                                    aria-label={"icon"}>
+                              <AssetSVG path={info.icon}/>
+                            </Avatar>
                           </IconButton>
                         </Box>
                         <Box
@@ -150,8 +153,9 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
                       className={classes.socialIcon}
                       href={button.link}
                     >
-                      <Avatar className={classes.infoAvatar} src={button.icon} alt={"i"}
-                              aria-label={"icon"}/>
+                      <Avatar className={classes.infoAvatar} alt={"i"} aria-label={"icon"}>
+                        <AssetSVG path={button.icon}/>
+                      </Avatar>
                     </IconButton>
                   </Box>
                 ))}

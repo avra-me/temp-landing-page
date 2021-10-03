@@ -8,7 +8,7 @@ tags:
   - Cloud
 startDate: 2016-02-01T00:00:01.000Z
 endDate: 2016-10-01T00:00:01.000Z
-image: /assets/frontpage/assocdegree_rmit.svg
+image: /assets/assocdegree_rmit.svg
 ---
 **Key Knowledge:** Networking protocols and Cloud Fundamentals
 
