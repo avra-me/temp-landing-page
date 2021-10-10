@@ -2,8 +2,7 @@ import React, {FunctionComponent} from "react";
 import {Theme, useTheme, createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import clsx from "clsx";
 import Container from "@material-ui/core/Container";
-// import {NavigationAppearContext} from "./elements/NavigationAppearContext";
-import ThemeProvider from "./theming/ThemeProvider";
+import CustomThemeProvider from "./theming/CustomThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 
 export const getWaveAreaClass = (theme: any) => {
@@ -72,7 +71,7 @@ const WaveJumbotron: FunctionComponent<IWaveJumbotronProps> = (props) => {
   const theme = useTheme();
   return (
     <span className={clsx(classes.waveArea, "section")} id={"wave-box"}>
-      <ThemeProvider isDarkMode>
+      <CustomThemeProvider isDarkMode>
           <div className={clsx(classes.wrapper)}>
           <Container className={classes.container}>
               <div className={clsx(classes.containerFix)}>
@@ -84,7 +83,7 @@ const WaveJumbotron: FunctionComponent<IWaveJumbotronProps> = (props) => {
                 <WaveBorderCanvas background={theme.palette.background.default} flip/>
               </div>
         </div>
-      </ThemeProvider>
+      </CustomThemeProvider>
       <div className={"lg-p-top"}/>
     </span>
   );

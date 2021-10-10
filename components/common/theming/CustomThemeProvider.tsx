@@ -14,7 +14,7 @@ interface IThemeProviderProps {
   theme?: Partial<Theme>
 }
 
-const ThemeProvider: FC<IThemeProviderProps & ConnectedProps<typeof mapStateToProps>> = ({
+const CustomThemeProvider: FC<IThemeProviderProps & ConnectedProps<typeof mapStateToProps>> = ({
                                                                                            isDarkMode,
                                                                                            isLightMode,
                                                                                            currentPaletteType,
@@ -31,4 +31,4 @@ const ThemeProvider: FC<IThemeProviderProps & ConnectedProps<typeof mapStateToPr
   return <MuiThemeProvider theme={createTheme(configOverride)}>{children}</MuiThemeProvider>;
 }
 
-export default mapStateToProps(ThemeProvider) as FC<IThemeProviderProps>
+export default mapStateToProps(CustomThemeProvider) as FC<IThemeProviderProps>

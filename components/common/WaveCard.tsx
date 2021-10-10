@@ -5,7 +5,7 @@ import React, {FunctionComponent, ReactNode} from "react";
 import {Grid, Theme} from "@material-ui/core";
 import {useTheme, createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
-import ThemeProvider from "./theming/ThemeProvider";
+import CustomThemeProvider from "./theming/CustomThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 import AppearOnScroll from "./elements/AppearOnScroll";
 
@@ -49,22 +49,22 @@ const WaveCard: FunctionComponent<IWaveCardProps> = ({classes, inverse, classNam
   const theme = useTheme();
   return <Grid item xs={12} sm={6}>
     <AppearOnScroll style={{height: "100%"}}>
-      <ThemeProvider isDarkMode={inverse}>
+      <CustomThemeProvider isDarkMode={inverse}>
         <Card {...props} className={clsx(className, "MuiPaper-root", inverse ? classes.dark : "")}>
-          {before && <ThemeProvider isDarkMode={!inverse}>
+          {before && <CustomThemeProvider isDarkMode={!inverse}>
               <Paper elevation={0} square className={clsx(className, classes.before, inverse ? "" : classes.dark)}>
                   <span className={classes.wrapBeforeContent}>
                     {before}
                   </span>
                   <span className={clsx(classes.fixScrollBug, inverse ? "" : classes.dark)}/>
               </Paper>
-          </ThemeProvider>}
+          </CustomThemeProvider>}
           <CardMedia className={classes.waveSection}>
             <WaveBorderCanvas flip={inverse} reverse background={theme.palette.primary.main}/>
           </CardMedia>
           {children}
         </Card>
-      </ThemeProvider>
+      </CustomThemeProvider>
     </AppearOnScroll>
   </Grid>;
 };
