@@ -1,7 +1,10 @@
 import React, {FunctionComponent} from "react";
-import {Theme, useTheme, createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
+import { Theme, useTheme } from '@mui/material/styles';
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import clsx from "clsx";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import CustomThemeProvider from "./theming/CustomThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 
@@ -38,13 +41,13 @@ const styles = (theme: Theme) => createStyles({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: theme.spacing(12),
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down('lg')]: {
       marginBottom: theme.spacing(9),
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('md')]: {
       marginBottom: theme.spacing(6),
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('md')]: {
       marginBottom: theme.spacing(3),
     },
   },

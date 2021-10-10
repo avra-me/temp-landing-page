@@ -1,10 +1,10 @@
-import {Icon, TextField} from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Button from "@material-ui/core/Button";
+import {Icon, TextField} from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import InputAdornment from "@mui/material/InputAdornment";
+import Button from "@mui/material/Button";
 import React, {FC, useState} from "react";
-import InputLabel from "@material-ui/core/InputLabel";
-import FilledInput from "@material-ui/core/FilledInput";
+import InputLabel from "@mui/material/InputLabel";
+import FilledInput from "@mui/material/FilledInput";
 import {DynamicForm as IDynamicForm, IFormField} from "../../../store/types/home";
 
 const TypeInnerFieldMapping: Record<IFormField["type"], FC<any>> = {

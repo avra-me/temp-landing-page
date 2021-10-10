@@ -1,5 +1,5 @@
 import WaveJumbotron from "../components/common/WaveJumbotron";
-import {Typography} from "@material-ui/core";
+import {Typography} from "@mui/material";
 
 const NotFound =() => {
     return <WaveJumbotron >

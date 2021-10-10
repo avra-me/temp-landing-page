@@ -1,6 +1,6 @@
 import type {FC} from "react";
 import dynamic from "next/dynamic";
-import {PropsFor} from "@material-ui/system";
+import {PropsFor} from "@mui/system";
 
 const IconCardList = dynamic(() => import("../common/containers/IconCardList"))
 

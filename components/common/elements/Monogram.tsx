@@ -1,7 +1,9 @@
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import React, {FunctionComponent} from "react";
-import {createStyles, StyleRules, WithStyles, withStyles} from '@material-ui/core/styles';
+import { StyleRules, WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import smoothScrollTop from "../../../utilities/smoothScrollTop";
 import AssetSVG from "./AssetSVG";
 
@@ -16,12 +18,14 @@ interface IMonogramProps extends WithStyles<typeof styles> {
 }
 
 const Monogram: FunctionComponent<IMonogramProps> = ({logo}) => {
-  return <Box height={1}>
-    {logo &&
-    <Button color="default" onClick={smoothScrollTop}>
-        <AssetSVG path={logo} width={48} height={25}/>
-    </Button>}
-  </Box>;
+  return (
+    <Box height={1}>
+      {logo &&
+      <Button onClick={smoothScrollTop}>
+          <AssetSVG path={logo} width={48} height={25}/>
+      </Button>}
+    </Box>
+  );
 };
 
 export default withStyles(styles)(Monogram);

@@ -5,7 +5,7 @@ import {useStore} from "../store";
 import {Provider} from "react-redux";
 import RootThemeProvider from "../components/common/theming/RootThemeProvider";
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import GlobalStyles from '../components/common/theming/GlobalStyles';
 import FooterMenu from '../components/sections/FooterMenu';
 import Header from '../components/sections/Header';

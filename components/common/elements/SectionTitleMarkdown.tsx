@@ -1,8 +1,10 @@
 import React from 'react';
 import clsx from "clsx";
-import {createStyles, withStyles, WithStyles} from "@material-ui/core/styles";
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import SectionContentMarkdown from "./SectionContentMarkdown";
-import {Theme} from "@material-ui/core";
+import {Theme} from "@mui/material";
 
 const titleStyle = (theme: Theme) => ({
   color: theme.palette.text.primary,

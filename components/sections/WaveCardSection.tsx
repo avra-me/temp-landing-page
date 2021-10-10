@@ -1,6 +1,6 @@
 import type {FC} from "react";
 import dynamic from "next/dynamic";
-import {PropsFor} from "@material-ui/system";
+import {PropsFor} from "@mui/system";
 
 const WaveCardList = dynamic(() => import("../common/containers/WaveCardList"))
 

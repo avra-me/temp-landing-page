@@ -1,11 +1,18 @@
 import React, {FC} from "react";
-import {createTheme, MuiThemeProvider, Theme, ThemeOptions, useTheme} from "@material-ui/core/styles";
-import {PaletteType} from "@material-ui/core";
+import {
+  createTheme,
+  ThemeProvider,
+  StyledEngineProvider,
+  Theme,
+  DeprecatedThemeOptions,
+  useTheme,
+  adaptV4Theme,
+} from "@mui/material/styles";
 import {connect, ConnectedProps} from "react-redux";
 import {AppState} from "../../../store";
 
 const mapStateToProps = connect((state: AppState) => {
-  return {currentPaletteType: state.themes?.palette?.type || "light"}
+  return {currentPaletteType: state.themes?.palette?.mode || "light"}
 })
 
 interface IThemeProviderProps {
@@ -21,14 +28,18 @@ const CustomThemeProvider: FC<IThemeProviderProps & ConnectedProps<typeof mapSta
                                                                                            children
                                                                                          }) => {
   const theme = useTheme();
-  const paletteType: PaletteType = isDarkMode ? "dark" : isLightMode ? "light" : currentPaletteType
-  const configOverride: ThemeOptions = {
+  const paletteType: 'dark' | 'light' = isDarkMode ? "dark" : isLightMode ? "light" : currentPaletteType
+  const configOverride: DeprecatedThemeOptions = {
     ...theme,
     palette: {
-      type: paletteType
+      mode: paletteType
     }
   };
-  return <MuiThemeProvider theme={createTheme(configOverride)}>{children}</MuiThemeProvider>;
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={createTheme(adaptV4Theme(configOverride))}>{children}</ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
 
 export default mapStateToProps(CustomThemeProvider) as FC<IThemeProviderProps>

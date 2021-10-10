@@ -1,13 +1,23 @@
 import React, {FunctionComponent} from "react";
-import {Box, Grid, Hidden, IconButton, Typography} from "@material-ui/core";
-import {createTheme, StyleRules, Theme, ThemeProvider, withStyles} from '@material-ui/core/styles';
-import transitions from "@material-ui/core/styles/transitions";
-import Avatar from "@material-ui/core/Avatar";
-import Paper from "@material-ui/core/Paper";
-import useTheme from "@material-ui/core/styles/useTheme";
+import { Box, Grid, Hidden, IconButton, Typography, adaptV4Theme } from "@mui/material";
+import {
+  createTheme,
+  Theme,
+  ThemeProvider,
+  StyledEngineProvider,
+  useTheme,
+} from '@mui/material/styles';
+
+
+
+import { StyleRules } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
+import Avatar from "@mui/material/Avatar";
+import Paper from "@mui/material/Paper";
 import {AttributionItem, SocialButton} from "../../store/types/footer";
 import WaveBorderCanvas from "../common/elements/WaveBorderCanvas";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
+
 
 const styles = (theme: Theme): StyleRules => ({
   footerInner: {
@@ -56,10 +66,10 @@ const styles = (theme: Theme): StyleRules => ({
   link: {
     cursor: "Pointer",
     color: theme.palette.common.white,
-    transition: transitions.create(["color"], {
-      duration: theme.transitions.duration.shortest,
-      easing: theme.transitions.easing.easeIn,
-    }),
+    // transition: transitions.create(["color"], {
+    //   duration: theme.transitions.duration.shortest,
+    //   easing: theme.transitions.easing.easeIn,
+    // }),
     "&:hover": {
       color: theme.palette.primary.light,
     },
@@ -94,73 +104,75 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
     gridSizing.lg = 4;
   }
   return (
-    <ThemeProvider theme={createTheme({palette: {type: "dark"}})}>
-      <footer className="lg-p-top">
-        <div className={classes.border}>
-          <WaveBorderCanvas
-            background={theme.palette.grey["900"]}
-            flip
-          />
-        </div>
-        <Paper square className={classes.footerInner}>
-          <Grid container spacing={5}>
-            {children}
-            <Hidden smDown={!children} mdDown={!!children}>
-              <Grid item {...gridSizing}>
-                <Box display="flex" justifyContent="center">
-                  <div>
-                    {attributionIcons.map((info, index) => (
-                      <Box display="flex" mb={1} key={index}>
-                        <Box mr={2}>
-                          <IconButton
-                            className={classes.infoIcon}
-                            tabIndex={-1}
-                            disabled={info.link === undefined}
-                            href={info.link}
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={createTheme(adaptV4Theme({palette: {mode: "dark"}}))}>
+        <footer className="lg-p-top">
+          <div className={classes.border}>
+            <WaveBorderCanvas
+              background={theme.palette.grey["900"]}
+              flip
+            />
+          </div>
+          <Paper square className={classes.footerInner}>
+            <Grid container spacing={5}>
+              {children}
+              <Hidden mdDown={!children} lgDown={!!children}>
+                <Grid item {...gridSizing}>
+                  <Box display="flex" justifyContent="center">
+                    <div>
+                      {attributionIcons.map((info, index) => (
+                        <Box display="flex" mb={1} key={index}>
+                          <Box mr={2}>
+                            <IconButton
+                              className={classes.infoIcon}
+                              tabIndex={-1}
+                              disabled={info.link === undefined}
+                              href={info.link}
+                              size="large">
+                              <Avatar className={classes.infoAvatar} src={info.icon} alt={"i"}
+                                      aria-label={"icon"}/>
+                            </IconButton>
+                          </Box>
+                          <Box
+                            display="flex"
+                            flexDirection="column"
+                            justifyContent="center"
                           >
-                            <Avatar className={classes.infoAvatar} src={info.icon} alt={"i"}
-                                    aria-label={"icon"}/>
-                          </IconButton>
+                            <SectionContentMarkdown content={info.content}/>
+                          </Box>
                         </Box>
-                        <Box
-                          display="flex"
-                          flexDirection="column"
-                          justifyContent="center"
-                        >
-                          <SectionContentMarkdown content={info.content}/>
-                        </Box>
-                      </Box>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  </Box>
+                </Grid>
+              </Hidden>
+              <Grid item {...gridSizing}>
+                <Typography variant="h6" paragraph color={"textPrimary"}>
+                  {title}
+                </Typography>
+                <Typography color={"textSecondary"} paragraph>
+                  {subTitle}
+                </Typography>
+                <Box display="flex">
+                  {socialIcons.map((button, index) => (
+                    <Box key={index} mr={index !== attributionIcons.length - 1 ? 1 : 0}>
+                      <IconButton
+                        aria-label={button.content}
+                        className={classes.socialIcon}
+                        href={button.link}
+                        size="large">
+                        <Avatar className={classes.infoAvatar} src={button.icon} alt={"i"}
+                                aria-label={"icon"}/>
+                      </IconButton>
+                    </Box>
+                  ))}
                 </Box>
               </Grid>
-            </Hidden>
-            <Grid item {...gridSizing}>
-              <Typography variant="h6" paragraph color={"textPrimary"}>
-                {title}
-              </Typography>
-              <Typography color={"textSecondary"} paragraph>
-                {subTitle}
-              </Typography>
-              <Box display="flex">
-                {socialIcons.map((button, index) => (
-                  <Box key={index} mr={index !== attributionIcons.length - 1 ? 1 : 0}>
-                    <IconButton
-                      aria-label={button.content}
-                      className={classes.socialIcon}
-                      href={button.link}
-                    >
-                      <Avatar className={classes.infoAvatar} src={button.icon} alt={"i"}
-                              aria-label={"icon"}/>
-                    </IconButton>
-                  </Box>
-                ))}
-              </Box>
             </Grid>
-          </Grid>
-        </Paper>
-      </footer>
-    </ThemeProvider>
+          </Paper>
+        </footer>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }
 

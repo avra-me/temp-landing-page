@@ -1,10 +1,10 @@
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import Link from "next/link";
 import React, {FunctionComponent} from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import clsx from "clsx";
-import {Theme} from "@material-ui/core";
-import {StyleRules} from "@material-ui/core/styles";
+import {Theme} from "@mui/material";
+import { StyleRules } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
 import smoothScrollTop from "../../utilities/smoothScrollTop";
 import {MenuItem} from "../../store/types/navigation";
 
@@ -67,15 +67,13 @@ const MenuButton: FunctionComponent<IMenuButtonProps> = ({element, active, class
 
   const result = <Button
     key={element.title}
-    color="default"
     size="large"
     classes={{
       text: classes.menuButtonText,
       root: clsx(classes.link, (isCurrentLink ? classes.disabledLink : ""))
     }}
     onClick={onClick}
-    disableRipple
-  >
+    disableRipple>
     {element.title}
   </Button>;
 

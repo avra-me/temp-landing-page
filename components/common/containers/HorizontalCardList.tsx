@@ -1,5 +1,7 @@
-import {Button, ButtonGroup, Grid, Theme} from "@material-ui/core";
-import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
+import {Button, ButtonGroup, Grid, Theme} from "@mui/material";
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import Link from 'next/link'
 import React, {FunctionComponent} from "react";
 import {HorizontalCardSection as IHorizontalCardSection, InteractionItem} from "../../../store/types/home";

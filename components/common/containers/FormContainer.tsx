@@ -1,4 +1,4 @@
-import {Grid} from "@material-ui/core";
+import {Grid} from "@mui/material";
 import React, {FunctionComponent} from "react";
 import DynamicForm from "../elements/DynamicForm";
 import AppearOnScroll from "../elements/AppearOnScroll";

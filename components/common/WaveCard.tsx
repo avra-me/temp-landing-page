@@ -1,10 +1,13 @@
-import Card from "@material-ui/core/Card";
+import Card from "@mui/material/Card";
 import clsx from "clsx";
-import CardMedia from "@material-ui/core/CardMedia";
+import CardMedia from "@mui/material/CardMedia";
 import React, {FunctionComponent, ReactNode} from "react";
-import {Grid, Theme} from "@material-ui/core";
-import {useTheme, createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
-import Paper from "@material-ui/core/Paper";
+import {Grid, Theme} from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import Paper from "@mui/material/Paper";
 import CustomThemeProvider from "./theming/CustomThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 import AppearOnScroll from "./elements/AppearOnScroll";

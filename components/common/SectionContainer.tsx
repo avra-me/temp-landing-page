@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
-import {Grid} from "@material-ui/core";
-import Container from "@material-ui/core/Container";
+import {Grid} from "@mui/material";
+import Container from "@mui/material/Container";
 
 
 const SectionContainer: FunctionComponent = ({children}) => {

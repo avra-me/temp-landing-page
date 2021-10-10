@@ -1,5 +1,7 @@
-import {Button, Grid, Icon, Theme, Tooltip, useMediaQuery,} from "@material-ui/core";
-import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
+import {Button, Grid, Icon, Theme, Tooltip, useMediaQuery,} from "@mui/material";
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import React, {FunctionComponent} from "react";
 import {IconCardSection as IconCardSectionType, InteractionItem} from "../../../store/types/home";
 import SectionContainer from "../SectionContainer";

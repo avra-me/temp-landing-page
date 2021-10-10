@@ -1,10 +1,11 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import React, {FunctionComponent} from "react";
-import {Card, CardActionArea, CardProps, StyleRules, Theme, Typography} from "@material-ui/core";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
+import { Card, CardActionArea, CardProps, Theme, Typography } from "@mui/material";
+import { StyleRules } from '@mui/styles';
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
 import AppearOnScroll from "./elements/AppearOnScroll";
-import {withStyles} from "@material-ui/core/styles";
+import withStyles from '@mui/styles/withStyles';
 
 const styles = (theme: Theme): StyleRules => ({
     root: {

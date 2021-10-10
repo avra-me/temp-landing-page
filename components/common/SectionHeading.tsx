@@ -1,10 +1,10 @@
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import React, {FunctionComponent} from "react";
-import {PropTypes, StyleRules, Theme} from "@material-ui/core";
-import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
-
-type Alignment = PropTypes.Alignment;
+import {Theme} from "@mui/material";
+import {StyleRules, WithStyles} from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = (theme: Theme): StyleRules => createStyles({
     heading: {
@@ -19,7 +19,7 @@ interface ISectionHeading extends WithStyles<typeof styles> {
     id?: string
     title: React.ReactElement | string,
     subTitle?: React.ReactElement | string,
-    align?: Alignment,
+    align?: 'inherit' | 'left' | 'center' | 'right' | 'justify',
 }
 
 const SectionHeading: FunctionComponent<ISectionHeading> = ({title, subTitle, align, classes, ...props}) => {

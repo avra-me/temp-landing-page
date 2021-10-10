@@ -1,9 +1,10 @@
 import React, {FunctionComponent, useState} from "react";
 import PropTypes from "prop-types";
-import {Snackbar, StyleRules, Theme} from "@material-ui/core";
+import { Snackbar, Theme } from "@mui/material";
+import { StyleRules } from '@mui/styles';
 import {useRouter} from "next/router";
-import {Alert} from "@material-ui/lab";
-import {withStyles} from "@material-ui/core/styles";
+import { Alert } from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = (theme: Theme): StyleRules => ({
     root: {

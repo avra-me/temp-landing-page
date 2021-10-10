@@ -1,6 +1,8 @@
-import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import {FunctionComponent} from "react";
-import {Theme} from "@material-ui/core";
+import {Theme} from "@mui/material";
 
 const styles = (theme: Theme) => createStyles({
     "@global": {
@@ -23,14 +25,14 @@ const styles = (theme: Theme) => createStyles({
             marginBottom: theme.spacing(12),
             paddingRight: theme.spacing(8),
             paddingLeft: theme.spacing(8),
-            [theme.breakpoints.down("md")]: {
+            [theme.breakpoints.down('lg')]: {
                 marginBottom: theme.spacing(10),
             },
-            [theme.breakpoints.down("sm")]: {
+            [theme.breakpoints.down('md')]: {
                 marginBottom: theme.spacing(8),
 
             },
-            [theme.breakpoints.down("xs")]: {
+            [theme.breakpoints.down('sm')]: {
                 marginBottom: theme.spacing(6),
                 paddingRight: theme.spacing(4),
                 paddingLeft: theme.spacing(4),
@@ -38,39 +40,39 @@ const styles = (theme: Theme) => createStyles({
         },
 
         ".lg-mg-top": {
-            marginTop: `${theme.spacing(10)}px !important`,
-            [theme.breakpoints.down("md")]: {
-                marginTop: `${theme.spacing(9)}px !important`,
+            marginTop: `${theme.spacing(10)} !important`,
+            [theme.breakpoints.down('lg')]: {
+                marginTop: `${theme.spacing(9)} !important`,
             },
-            [theme.breakpoints.down("sm")]: {
-                marginTop: `${theme.spacing(8)}px !important`,
+            [theme.breakpoints.down('md')]: {
+                marginTop: `${theme.spacing(8)} !important`,
             },
-            [theme.breakpoints.down("xs")]: {
-                marginTop: `${theme.spacing(7)}px !important`,
+            [theme.breakpoints.down('sm')]: {
+                marginTop: `${theme.spacing(7)} !important`,
             },
         },
         ".lg-mg-bottom": {
-            marginBottom: `${theme.spacing(10)}px !important`,
-            [theme.breakpoints.down("md")]: {
-                marginBottom: `${theme.spacing(9)}px !important`,
+            marginBottom: `${theme.spacing(10)} !important`,
+            [theme.breakpoints.down('lg')]: {
+                marginBottom: `${theme.spacing(9)} !important`,
             },
-            [theme.breakpoints.down("sm")]: {
-                marginBottom: `${theme.spacing(8)}px !important`,
+            [theme.breakpoints.down('md')]: {
+                marginBottom: `${theme.spacing(8)} !important`,
             },
-            [theme.breakpoints.down("xs")]: {
-                marginBottom: `${theme.spacing(7)}px !important`,
+            [theme.breakpoints.down('sm')]: {
+                marginBottom: `${theme.spacing(7)} !important`,
             },
         },
         ".lg-p-top": {
-            paddingTop: `${theme.spacing(10)}px !important`,
-            [theme.breakpoints.down("md")]: {
-                paddingTop: `${theme.spacing(9)}px !important`,
+            paddingTop: `${theme.spacing(10)} !important`,
+            [theme.breakpoints.down('lg')]: {
+                paddingTop: `${theme.spacing(9)} !important`,
             },
-            [theme.breakpoints.down("sm")]: {
-                paddingTop: `${theme.spacing(8)}px !important`,
+            [theme.breakpoints.down('md')]: {
+                paddingTop: `${theme.spacing(8)} !important`,
             },
-            [theme.breakpoints.down("xs")]: {
-                paddingTop: `${theme.spacing(7)}px !important`,
+            [theme.breakpoints.down('sm')]: {
+                paddingTop: `${theme.spacing(7)} !important`,
             },
         },
     },

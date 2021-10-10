@@ -9,16 +9,19 @@ import {
   Toolbar,
   Typography,
   useMediaQuery,
-} from "@material-ui/core";
-import {StyleRules, Theme, withStyles} from '@material-ui/core/styles';
-
-import CloseIcon from "@material-ui/icons/Close";
-import Icon from "@material-ui/core/Icon";
+} from "@mui/material";
+import {Theme} from '@mui/material/styles';
+import createStyles from "@mui/styles/createStyles";
+import withStyles from '@mui/styles/withStyles';
+import CloseIcon from "@mui/icons-material/Close";
+import Icon from "@mui/material/Icon";
 import CircleMenuButton from "../common/elements/CircleMenuButton";
 import Link from 'next/link'
-import {MenuItem} from "../../store/types/navigation";
+import type {MenuItem} from "../../store/types/navigation";
 
-const styles = (theme: Theme): StyleRules => ({
+import type {WithStyles} from "@mui/styles";
+
+const styles = (theme: Theme) => createStyles({
   closeIcon: {
     marginRight: theme.spacing(0.5),
   },
@@ -34,14 +37,12 @@ const styles = (theme: Theme): StyleRules => ({
   },
 });
 
-export interface INavigationDrawerProps {
+export interface INavigationDrawerProps extends WithStyles<typeof styles, true> {
   open: boolean,
   onClose: () => void,
   anchor: DrawerProps['anchor'],
   menuItems: MenuItem[],
-  classes: Record<string, string>,
   selectedItem: string | null,
-  theme: Theme
 }
 
 const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = (props) => {
@@ -66,7 +67,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = (props) => {
   }, [isLargerThanSm, open, onClose]);
 
   return (
-    <Drawer variant="temporary" open={open} onClose={onClose} anchor={anchor} classes={{paper: classes.drawer}}
+    <Drawer variant="temporary" open={open} onClose={onClose} anchor={anchor}
             transitionDuration={500}>
       <Toolbar className={classes.headSection}>
         <ListItem

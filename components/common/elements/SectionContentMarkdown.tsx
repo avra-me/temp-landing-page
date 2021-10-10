@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useRef} from 'react';
 import clsx from "clsx";
-import {useTheme} from "@material-ui/core/styles";
+import {useTheme} from "@mui/material/styles";
 
 interface SectionContentMarkdownProps {
   content: string,

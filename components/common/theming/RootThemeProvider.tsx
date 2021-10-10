@@ -1,9 +1,9 @@
 import type {AppState} from "../../../store";
 import React, {useCallback, useEffect} from "react";
-import {ThemeProvider} from "@material-ui/core/styles";
+import {StyledEngineProvider, ThemeProvider} from "@mui/material/styles";
 import {connect, ConnectedProps} from "react-redux";
 import {generateTheme, ThemeGlobals} from "./theme";
-import {NoSsr, PaletteType, useMediaQuery} from "@material-ui/core";
+import {NoSsr, useMediaQuery} from "@mui/material";
 
 
 const mapStateToProps = connect((state: AppState) => {
@@ -34,20 +34,24 @@ const RootThemeProvider: React.FunctionComponent<IRootThemeProviderProps> = ({th
   const browserPrefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   if (userSavedMode) {
-    palette.type = userSavedMode as PaletteType
+    palette.mode = userSavedMode as 'dark' | 'light'
   } else if (browserPrefersDarkMode) {
-    palette.type = "dark"
+    palette.mode = "dark"
   }
 
   config.palette = palette;
-  useEffect(() => config?.palette?.type && updateIsDarkMode(config.palette.type), [config?.palette?.type, updateIsDarkMode])
+  useEffect(() => config?.palette?.mode && updateIsDarkMode(config.palette.mode), [config?.palette?.mode, updateIsDarkMode])
   const theme = generateTheme(config);
-  return <ThemeProvider theme={theme}>
-    <NoSsr>
-      <ThemeGlobals/>
-    </NoSsr>
-    {children}
-  </ThemeProvider>
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <NoSsr>
+          <ThemeGlobals/>
+        </NoSsr>
+        {children}
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 };
 
 export default mapStateToProps(RootThemeProvider)

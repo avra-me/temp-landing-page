@@ -1,13 +1,14 @@
 import React, {FunctionComponent, memo} from "react";
-import {CardProps} from "@material-ui/core";
-import {lighten, StyleRules, Theme} from "@material-ui/core/styles";
-import {withStyles} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
+import {CardProps} from "@mui/material";
+import { lighten, Theme } from "@mui/material/styles";
+import { StyleRules } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
+import Grid from "@mui/material/Grid";
+import Avatar from "@mui/material/Avatar";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
 import clsx from "clsx";
 import AppearOnScroll from "./elements/AppearOnScroll";
 
@@ -24,7 +25,7 @@ const styles = (theme: Theme): StyleRules => ({
     [theme.breakpoints.up("md")]: {
       marginBottom: theme.spacing(1)
     },
-    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px !important`
+    padding: `${theme.spacing(1)} ${theme.spacing(2)} !important`
   },
   content: {
     flexGrow: 1,

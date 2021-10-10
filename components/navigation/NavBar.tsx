@@ -8,16 +8,16 @@ import React, {
   useEffect,
   useState
 } from "react";
-import createMuiTheme from "@material-ui/core/styles/createTheme";
-import Toolbar from "@material-ui/core/Toolbar";
-import AppBar from "@material-ui/core/AppBar";
-import withStyles from "@material-ui/core/styles/withStyles";
+import Toolbar from "@mui/material/Toolbar";
+import AppBar from "@mui/material/AppBar";
 import RightHandNavigation from "./RightHandNavigation";
 import Monogram from "../common/elements/Monogram";
-import {StyleRules, ThemeProvider} from "@material-ui/core/styles";
+import { ThemeProvider, StyledEngineProvider, adaptV4Theme, createTheme } from "@mui/material/styles";
+import { StyleRules } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
 import NavigationDrawer from "./NavigationDrawer";
 import {MenuItem} from "../../store/types/navigation";
-import {Theme} from "@material-ui/core";
+import {Theme} from "@mui/material";
 import {useRouter} from "next/router";
 import {sortBy} from "lodash-es";
 import Animate from "react-anime";
@@ -94,11 +94,11 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = (
     return <Fragment/>;
   }
 
-  const theme = createMuiTheme({
+  const theme = createTheme(adaptV4Theme({
     palette: {
-      type: useDarkPalette ? 'dark' : 'light'
+      mode: useDarkPalette ? 'dark' : 'light'
     }
-  })
+  }))
   const makeSurrogate = (props: PropsWithChildren<any>): ForwardRefRenderFunction<any> => {
     const SurrogateAnimationComponent: ForwardRefRenderFunction<any> = (forwardedProps, ref) => <div
       ref={ref} {...forwardedProps} {...props}
@@ -129,28 +129,32 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = (
   const absoluteNavigation = navigation({backgroundColor: "inherit"});
   const fixedNavigation = navigation();
 
-  return <ThemeProvider theme={theme}>
-    {absoluteNavigation}
-    {fixedNavVisible && <Animate
-        key={`Fixed-${popout}`}
-        easing={popout ? "easeInSine" : "easeOutSine"}
-        autoplay={true}
-        translateY={popout ? ["-5em", 0] : [0, "-5em"]}
-        opacity={popout ? [0, 1] : [1, 0]}
-        delay={0}
-        duration={300}
-        complete={() => setFixedNavVisible(popout)}
-        component={FixedAnimSur}>
-      {fixedNavigation}
-    </Animate>}
-    <NavigationDrawer
-      menuItems={menuItems}
-      anchor="right"
-      open={isMobileDrawerOpen}
-      selectedItem={""}
-      onClose={handleMobileDrawerClose}
-    />
-  </ThemeProvider>
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        {absoluteNavigation}
+        {fixedNavVisible && <Animate
+            key={`Fixed-${popout}`}
+            easing={popout ? "easeInSine" : "easeOutSine"}
+            autoplay={true}
+            translateY={popout ? ["-5em", 0] : [0, "-5em"]}
+            opacity={popout ? [0, 1] : [1, 0]}
+            delay={0}
+            duration={300}
+            complete={() => setFixedNavVisible(popout)}
+            component={FixedAnimSur}>
+          {fixedNavigation}
+        </Animate>}
+        <NavigationDrawer
+          menuItems={menuItems}
+          anchor="right"
+          open={isMobileDrawerOpen}
+          selectedItem={""}
+          onClose={handleMobileDrawerClose}
+        />
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 
 }
 

@@ -1,12 +1,12 @@
 import {useMemo} from 'react'
 import {AnyAction, applyMiddleware, createStore} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import {ThemeOptions} from "@material-ui/core";
 import {initialSiteState, SiteState} from "./types/site";
 import {initialNavigationState, NavigationState} from "./types/navigation";
 import {CHANGE_THEME_MODE, initialThemeState} from "./types/themes";
 import {FooterState, initialFooterState} from "./types/footer";
 import {HomeState, initialHomeState} from "./types/home";
+import {ThemeOptions} from "@mui/material/styles";
 
 
 export interface AppState {

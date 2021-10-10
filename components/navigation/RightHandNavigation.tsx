@@ -1,11 +1,11 @@
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import Hidden from "@mui/material/Hidden";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 import React, {FunctionComponent} from "react";
-import {withStyles} from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import MenuButton from "./MenuButton";
-import {Theme} from "@material-ui/core";
-import {StyleRules} from "@material-ui/core/styles";
+import {Theme} from "@mui/material";
+import { StyleRules } from '@mui/styles';
 import {MenuItem} from "../../store/types/navigation";
 import {trimEnd} from "lodash-es";
 
@@ -65,26 +65,25 @@ const RightHandNavigation: FunctionComponent<IRightHandNavigation> = (
     }
     return trimEnd(link, '/') === currentRoute;
   }
-  return <div>
-    <Hidden mdUp implementation={"css"}>
-      <IconButton
-        onClick={onDrawerOpen}
-        aria-label="Open Navigation"
-      >
-        <MenuIcon color="action"/>
-      </IconButton>
-    </Hidden>
-    <Hidden smDown implementation={"css"}>
-      {menuItems.map((element) =>
-        <MenuButton
-          key={"order" in element ? element.order : 0}
-          active={isRouteActive("link" in element ? element.link : undefined)}
-          element={element}
-          onDrawerClose={onDrawerClose}
-        />
-      )}
-    </Hidden>
-  </div>;
+  return (
+    <div>
+      <Hidden mdUp implementation={"css"}>
+        <IconButton onClick={onDrawerOpen} aria-label="Open Navigation" size="large">
+          <MenuIcon color="action"/>
+        </IconButton>
+      </Hidden>
+      <Hidden mdDown implementation={"css"}>
+        {menuItems.map((element) =>
+          <MenuButton
+            key={"order" in element ? element.order : 0}
+            active={isRouteActive("link" in element ? element.link : undefined)}
+            element={element}
+            onDrawerClose={onDrawerClose}
+          />
+        )}
+      </Hidden>
+    </div>
+  );
 };
 
 export default withStyles(styles)(RightHandNavigation);

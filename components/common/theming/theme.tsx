@@ -1,6 +1,8 @@
-import {createTheme, makeStyles, responsiveFontSizes, StyleRules, Theme, ThemeOptions} from "@material-ui/core/styles";
+import {adaptV4Theme, createTheme, responsiveFontSizes, Theme, ThemeOptions} from "@mui/material/styles";
+import {StyleRules} from '@mui/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {cloneDeep, merge} from "lodash-es";
-import {grey} from "@material-ui/core/colors";
+import {grey} from "@mui/material/colors";
 import {FC} from "react";
 
 const fadeTime = "0.6s";
@@ -26,17 +28,17 @@ const fadeThemeChange = makeStyles((): StyleRules => ({
 }));
 export const generateTheme = (config: Partial<ThemeOptions>): Theme => {
   config = cloneDeep(config);
-  const type = config?.palette?.type || 'light';
+  const mode = config?.palette?.mode || 'light';
   const primary = config?.palette?.primary || undefined;
   const secondary = config?.palette?.secondary || undefined;
-  const background = type === "dark" ? grey["A400"] : grey["100"];
+  const background = mode === "dark" ? grey["A400"] : grey["100"];
 
   const theme = {
     palette: {
       ...config.palette,
       wavePoints: [0, 47, 93],
       waveAngle: "45",
-      type,
+      mode,
       primary,
       secondary,
       // Used to shift a color's luminance by approximately
@@ -49,7 +51,7 @@ export const generateTheme = (config: Partial<ThemeOptions>): Theme => {
     },
   };
   const resultingTheme = merge(config, theme);
-  return responsiveFontSizes(createTheme(resultingTheme));
+  return responsiveFontSizes(createTheme(adaptV4Theme(resultingTheme)));
 };
 export const ThemeGlobals: FC = () => {
   if (typeof window !== "undefined") {

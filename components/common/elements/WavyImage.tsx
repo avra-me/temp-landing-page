@@ -1,8 +1,10 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import React, {FunctionComponent} from "react";
-import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import WaveBorder from "./WaveBorder";
-import {Theme} from "@material-ui/core";
+import {Theme} from "@mui/material";
 
 
 const styles = (theme: Theme) => createStyles({

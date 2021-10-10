@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from "react";
-import {Grid, StyleRules, Theme} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
+import { Grid, Theme } from "@mui/material";
+import { StyleRules } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
 import clsx from "clsx";
 import WaveJumbotron, {getWaveAreaClass} from "./WaveJumbotron";
 
