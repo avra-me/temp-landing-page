@@ -1,46 +1,15 @@
 import React, {FunctionComponent, memo} from "react";
 import {CardProps} from "@mui/material";
-import { lighten, Theme } from "@mui/material/styles";
-import { StyleRules } from '@mui/styles';
-import withStyles from '@mui/styles/withStyles';
+import {lighten} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import clsx from "clsx";
 import AppearOnScroll from "./elements/AppearOnScroll";
 
-const styles = (theme: Theme): StyleRules => ({
-  iconWrapper: {
-    display: "inline-flex",
-    borderRadius: theme.shape.borderRadius,
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(1.5),
-    marginRight: theme.spacing(3)
-  },
-  root: {
-    marginBottom: theme.spacing(2),
-    [theme.breakpoints.up("md")]: {
-      marginBottom: theme.spacing(1)
-    },
-    padding: `${theme.spacing(1)} ${theme.spacing(2)} !important`
-  },
-  content: {
-    flexGrow: 1,
-  },
-  card: {
-    padding: theme.spacing(2, 4)
-  },
-  avatar: {
-    flex: "0 0 auto",
-    marginRight: 16,
-  }
-});
-
 interface IconCardProps extends CardProps {
-  classes: Record<string, string>
   icon: string | React.ReactElement;
   color: string;
   headline: string;
@@ -51,7 +20,6 @@ interface IconCardProps extends CardProps {
 
 const IconCard: FunctionComponent<IconCardProps> = (props) => {
   const {
-    classes,
     icon,
     color = "#fff",
     headline,
@@ -72,14 +40,21 @@ const IconCard: FunctionComponent<IconCardProps> = (props) => {
       item
       xs={12}
       md={6}
-      className={classes.root}
+      sx={{
+        mb: [2, 1],
+        py: 1,
+        px: 2
+      }}
     >
       <AppearOnScroll delay={animationDelay} animationDisabled={!animate} style={{height: "100%"}}>
 
-        <Card {...waveCardProps} className={clsx(waveCardProps.className, classes.card)}>
+        <Card {...waveCardProps} className={waveCardProps.className} sx={{
+          py: 2,
+          px: 4
+        }}>
           <CardHeader title={headline} titleTypographyProps={{variant: "h6"}}
                       avatar={<Avatar style={iconStyling}>{icon}</Avatar>}/>
-          <CardContent className={classes.content}>{children}</CardContent>
+          <CardContent sx={{flexGrow: 1}}>{children}</CardContent>
           <CardActions>
             {buttons}
           </CardActions>
@@ -94,4 +69,4 @@ IconCard.defaultProps = {
   animationDelay: 100,
 };
 
-export default withStyles(styles)(memo(IconCard));
+export default memo(IconCard);

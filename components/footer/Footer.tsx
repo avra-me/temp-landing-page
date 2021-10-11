@@ -1,100 +1,41 @@
 import React, {FunctionComponent} from "react";
-import { Box, Grid, Hidden, IconButton, Typography, adaptV4Theme } from "@mui/material";
-import {
-  createTheme,
-  Theme,
-  ThemeProvider,
-  StyledEngineProvider,
-  useTheme,
-} from '@mui/material/styles';
+import {Box, darken, Grid, Hidden, IconButton, Typography} from "@mui/material";
+import {StyledEngineProvider, useTheme,} from '@mui/material/styles';
 
 
-
-import { StyleRules } from '@mui/styles';
-import withStyles from '@mui/styles/withStyles';
 import Avatar from "@mui/material/Avatar";
-import Paper from "@mui/material/Paper";
 import {AttributionItem, SocialButton} from "../../store/types/footer";
 import WaveBorderCanvas from "../common/elements/WaveBorderCanvas";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
-
-
-const styles = (theme: Theme): StyleRules => ({
-  footerInner: {
-    backgroundColor: theme.palette.grey["900"],
-    paddingTop: theme.spacing(8),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingBottom: theme.spacing(6),
-    [theme.breakpoints.up("sm")]: {
-      paddingTop: theme.spacing(10),
-      paddingLeft: theme.spacing(16),
-      paddingRight: theme.spacing(16),
-      paddingBottom: theme.spacing(10),
-    },
-    [theme.breakpoints.up("md")]: {
-      paddingTop: theme.spacing(10),
-      paddingLeft: theme.spacing(10),
-      paddingRight: theme.spacing(10),
-      paddingBottom: theme.spacing(10),
-    },
-  },
-  footerLinks: {
-    marginTop: theme.spacing(2.5),
-    marginBot: theme.spacing(1.5),
-    color: theme.palette.common.white,
-  },
-  infoIcon: {
-    color: `${theme.palette.common.white} !important`,
-    backgroundColor: "#33383b",
-    "&:hover": {
-      backgroundColor: theme.palette.primary.light,
-    },
-  },
-  infoAvatar: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  socialIcon: {
-    fill: theme.palette.common.white,
-    backgroundColor: "#33383b",
-    borderRadius: theme.shape.borderRadius,
-    "&:hover": {
-      backgroundColor: theme.palette.primary.light,
-    },
-  },
-  link: {
-    cursor: "Pointer",
-    color: theme.palette.common.white,
-    // transition: transitions.create(["color"], {
-    //   duration: theme.transitions.duration.shortest,
-    //   easing: theme.transitions.easing.easeIn,
-    // }),
-    "&:hover": {
-      color: theme.palette.primary.light,
-    },
-  },
-  whiteBg: {
-    color: theme.palette.common.black,
-    backgroundColor: theme.palette.common.white,
-  },
-  border: {
-    height: "7vw",
-    minHeight: "7vw",
-  }
-});
+import RootThemeProvider from "../common/theming/RootThemeProvider";
+import {styled} from "@mui/system";
 
 interface IFooterProps {
   title: string,
   subTitle?: string,
   attributionIcons: AttributionItem[],
   socialIcons: SocialButton[],
-  classes: Record<string, string>
   disabled?: boolean,
 }
 
+
+const DarkIconButton = styled(IconButton)(({theme}) => ({
+  fill: theme.palette.common.white,
+  backgroundColor: darken(theme.palette.primary.light, .75),
+  '&:hover': {
+    backgroundColor: theme.palette.primary.light
+  }
+  // Seems emotion doesn't type 100% correctly yet
+})) as typeof IconButton;
+
+const DarkAvatar = styled(Avatar)(({theme}) => ({
+  width: theme.spacing(3),
+  height: theme.spacing(3),
+  // Seems emotion doesn't type 100% correctly yet
+})) as typeof Avatar;
+
 const Footer: FunctionComponent<IFooterProps> = (props) => {
-  const {classes, disabled, title, subTitle, attributionIcons, socialIcons, children} = props;
+  const {disabled, title, subTitle, attributionIcons, socialIcons, children} = props;
   const theme = useTheme();
   if (disabled) {
     return null;
@@ -105,15 +46,24 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
   }
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={createTheme(adaptV4Theme({palette: {mode: "dark"}}))}>
-        <footer className="lg-p-top">
-          <div className={classes.border}>
+      <RootThemeProvider forceDarkMode>
+        <Box component={"footer"} className="lg-p-top">
+          <Box sx={{
+            height: '7vw',
+            maxHeight: '7vw'
+          }}>
             <WaveBorderCanvas
               background={theme.palette.grey["900"]}
               flip
             />
-          </div>
-          <Paper square className={classes.footerInner}>
+          </Box>
+          <Box sx={{
+            bgcolor: theme.palette.grey["900"],
+            pt: [8, 10],
+            pb: [8, 10],
+            pl: [2, 10],
+            pr: [2, 10]
+          }}>
             <Grid container spacing={5}>
               {children}
               <Hidden mdDown={!children} lgDown={!!children}>
@@ -123,15 +73,17 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
                       {attributionIcons.map((info, index) => (
                         <Box display="flex" mb={1} key={index}>
                           <Box mr={2}>
-                            <IconButton
-                              className={classes.infoIcon}
+                            <DarkIconButton
                               tabIndex={-1}
                               disabled={info.link === undefined}
                               href={info.link}
                               size="large">
-                              <Avatar className={classes.infoAvatar} src={info.icon} alt={"i"}
-                                      aria-label={"icon"}/>
-                            </IconButton>
+                              <DarkAvatar
+                                src={info.icon}
+                                alt={"i"}
+                                aria-label={"icon"}
+                              />
+                            </DarkIconButton>
                           </Box>
                           <Box
                             display="flex"
@@ -156,24 +108,29 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
                 <Box display="flex">
                   {socialIcons.map((button, index) => (
                     <Box key={index} mr={index !== attributionIcons.length - 1 ? 1 : 0}>
-                      <IconButton
+                      <DarkIconButton
+                        sx={{
+                          borderRadius: theme.shape.borderRadius
+                        }}
                         aria-label={button.content}
-                        className={classes.socialIcon}
                         href={button.link}
                         size="large">
-                        <Avatar className={classes.infoAvatar} src={button.icon} alt={"i"}
-                                aria-label={"icon"}/>
-                      </IconButton>
+                        <DarkAvatar
+                          src={button.icon}
+                          alt={"i"}
+                          aria-label={"icon"}
+                        />
+                      </DarkIconButton>
                     </Box>
                   ))}
                 </Box>
               </Grid>
             </Grid>
-          </Paper>
-        </footer>
-      </ThemeProvider>
+          </Box>
+        </Box>
+      </RootThemeProvider>
     </StyledEngineProvider>
   );
 }
 
-export default withStyles(styles)(Footer);
+export default Footer;

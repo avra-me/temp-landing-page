@@ -1,12 +1,9 @@
 import React, {FunctionComponent} from "react";
-import { Theme, useTheme } from '@mui/material/styles';
-import { WithStyles } from '@mui/styles';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
-import clsx from "clsx";
+import {useTheme} from '@mui/material/styles';
 import Container from "@mui/material/Container";
-import CustomThemeProvider from "./theming/CustomThemeProvider";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
+import RootThemeProvider from "./theming/RootThemeProvider";
+import {Box, styled} from "@mui/system";
 
 export const getWaveAreaClass = (theme: any) => {
   return {
@@ -29,67 +26,45 @@ export const getWaveAreaClass = (theme: any) => {
   }
 };
 
-const styles = (theme: Theme) => createStyles({
-  wrapper: {
-    color: theme.palette.common.white,
-    position: "relative",
-    background: "inherit",
-    zIndex: 20,
-  },
-  container: {
-    paddingTop: theme.spacing(6),
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: theme.spacing(12),
-    [theme.breakpoints.down('lg')]: {
-      marginBottom: theme.spacing(9),
-    },
-    [theme.breakpoints.down('md')]: {
-      marginBottom: theme.spacing(6),
-    },
-    [theme.breakpoints.down('md')]: {
-      marginBottom: theme.spacing(3),
-    },
-  },
-  containerFix: {
-    [theme.breakpoints.up("md")]: {
-      maxWidth: "none !important",
-    },
-  },
-  waveBorder: {
-    paddingTop: theme.spacing(4),
-    zIndex: 20,
-    height: theme.spacing(20),
-    minHeight: theme.spacing(20),
-  },
-  ...getWaveAreaClass(theme)
-});
-
-interface IWaveJumbotronProps extends WithStyles<typeof styles> {
-  theme: Theme,
-}
-
-const WaveJumbotron: FunctionComponent<IWaveJumbotronProps> = (props) => {
-  const {classes, children} = props;
+export const WaveRoot = styled('span')(({theme}) => getWaveAreaClass(theme))
+const WaveJumbotron: FunctionComponent = (props) => {
+  const {children} = props;
   const theme = useTheme();
   return (
-    <span className={clsx(classes.waveArea, "section")} id={"wave-box"}>
-      <CustomThemeProvider isDarkMode>
-          <div className={clsx(classes.wrapper)}>
-          <Container className={classes.container}>
-              <div className={clsx(classes.containerFix)}>
-                {children}
-              </div>
+    <WaveRoot className={"section"} id={"wave-box"}>
+      <RootThemeProvider forceDarkMode>
+        <Box sx={{
+          color: 'common.white',
+          position: "relative",
+          background: "inherit",
+          zIndex: 20
+        }}>
+          <Container sx={{
+            paddingTop: theme.spacing(6),
+            alignItems: "center",
+            justifyContent: "center",
+            mb: [3, 6, 9, 12]
+          }}>
+            <Box sx={{
+              maxWidth: {md: 'none !important'}
+            }}>
+              {children}
+            </Box>
           </Container>
-            <div id={"hide-navbar"}/>
-              <div className={classes.waveBorder}>
-                <WaveBorderCanvas background={theme.palette.background.default} flip/>
-              </div>
-        </div>
-      </CustomThemeProvider>
+          <div id={"hide-navbar"}/>
+          <Box sx={{
+            paddingTop: 4,
+            zIndex: 20,
+            height: 20,
+            minHeight: 20,
+          }}>
+            <WaveBorderCanvas background={theme.palette.background.default} flip/>
+          </Box>
+        </Box>
+      </RootThemeProvider>
       <div className={"lg-p-top"}/>
-    </span>
+    </WaveRoot>
   );
 }
 
-export default withStyles(styles, {withTheme: true})(WaveJumbotron);
+export default WaveJumbotron;

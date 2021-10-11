@@ -6,10 +6,11 @@ import {Provider} from "react-redux";
 import RootThemeProvider from "../components/common/theming/RootThemeProvider";
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import GlobalStyles from '../components/common/theming/GlobalStyles';
+import CustomStyles from '../components/common/theming/CustomStyles';
 import FooterMenu from '../components/sections/FooterMenu';
 import Header from '../components/sections/Header';
 import NavigationBar from '../components/sections/NavigationBar';
+import {StyledEngineProvider} from "@mui/material/styles";
 
 
 function MyApp({Component, pageProps}: AppProps) {
@@ -27,15 +28,17 @@ function MyApp({Component, pageProps}: AppProps) {
   // @ts-ignore
   return <Provider store={store}>
     <Header/>
-    <RootThemeProvider>
-      <CssBaseline/>
-      <GlobalStyles/>
-      <NavigationBar
+    <StyledEngineProvider injectFirst>
+      <RootThemeProvider>
+        <CssBaseline/>
+        <CustomStyles/>
+        <NavigationBar
           useDarkPalette
-      />
-      <Component {...pageProps} key={router.route}/>
-      <FooterMenu/>
-    </RootThemeProvider>
+        />
+        <Component {...pageProps} key={router.route}/>
+        <FooterMenu/>
+      </RootThemeProvider>
+    </StyledEngineProvider>
   </Provider>
 }
 

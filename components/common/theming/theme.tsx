@@ -1,40 +1,23 @@
-import {adaptV4Theme, createTheme, responsiveFontSizes, Theme, ThemeOptions} from "@mui/material/styles";
-import {StyleRules} from '@mui/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import {createTheme, responsiveFontSizes, Theme, ThemeOptions} from "@mui/material/styles";
 import {cloneDeep, merge} from "lodash-es";
 import {grey} from "@mui/material/colors";
-import {FC} from "react";
 
-const fadeTime = "0.6s";
-const fadeTimingFunction = "ease";
-const fadeThemeChange = makeStyles((): StyleRules => ({
-  "@global": {
-    "body": {
-      transitionProperty: "background",
-      transitionDuration: fadeTime,
-      transitionTimingFunction: fadeTimingFunction
-    },
-    "*": {
-      transitionProperty: "color, background",
-      transitionDuration: fadeTime,
-      transitionTimingFunction: fadeTimingFunction
-    },
-    "svg *": {
-      transitionProperty: "fill",
-      transitionDuration: fadeTime,
-      transitionTimingFunction: fadeTimingFunction
-    },
-  }
-}));
+
 export const generateTheme = (config: Partial<ThemeOptions>): Theme => {
   config = cloneDeep(config);
   const mode = config?.palette?.mode || 'light';
+  const baseTheme = createTheme({
+    palette: {
+      mode
+    }
+  })
   const primary = config?.palette?.primary || undefined;
   const secondary = config?.palette?.secondary || undefined;
   const background = mode === "dark" ? grey["A400"] : grey["100"];
 
   const theme = {
     palette: {
+      ...baseTheme.palette,
       ...config.palette,
       wavePoints: [0, 47, 93],
       waveAngle: "45",
@@ -50,12 +33,6 @@ export const generateTheme = (config: Partial<ThemeOptions>): Theme => {
       },
     },
   };
-  const resultingTheme = merge(config, theme);
-  return responsiveFontSizes(createTheme(adaptV4Theme(resultingTheme)));
+  const resultingTheme = merge(baseTheme, config, theme);
+  return responsiveFontSizes(createTheme(baseTheme, resultingTheme));
 };
-export const ThemeGlobals: FC = () => {
-  if (typeof window !== "undefined") {
-    fadeThemeChange();
-  }
-  return null
-}

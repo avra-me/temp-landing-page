@@ -10,34 +10,19 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import {Theme} from '@mui/material/styles';
-import createStyles from "@mui/styles/createStyles";
-import withStyles from '@mui/styles/withStyles';
 import CloseIcon from "@mui/icons-material/Close";
 import Icon from "@mui/material/Icon";
 import CircleMenuButton from "../common/elements/CircleMenuButton";
 import Link from 'next/link'
 import type {MenuItem} from "../../store/types/navigation";
+import {styled, useTheme} from "@mui/system";
 
-import type {WithStyles} from "@mui/styles";
 
-const styles = (theme: Theme) => createStyles({
-  closeIcon: {
-    marginRight: theme.spacing(0.5),
-  },
-  headSection: {
-    width: 200,
-  },
-  blackList: {
-    backgroundColor: theme.palette.background.paper,
-    height: "100%",
-  },
-  noDecoration: {
-    textDecoration: "none !important",
-  },
-});
+const NoDecorationAnchor = styled("a")({
+  textDecoration: "none !important",
+})
 
-export interface INavigationDrawerProps extends WithStyles<typeof styles, true> {
+export interface INavigationDrawerProps {
   open: boolean,
   onClose: () => void,
   anchor: DrawerProps['anchor'],
@@ -50,11 +35,11 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = (props) => {
     open,
     onClose,
     anchor,
-    classes,
     menuItems,
     selectedItem,
-    theme,
   } = props;
+
+  const theme = useTheme();
 
   const isLargerThanSm = useMediaQuery(theme.breakpoints.up('sm'))
   useEffect(() => {
@@ -69,11 +54,13 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = (props) => {
   return (
     <Drawer variant="temporary" open={open} onClose={onClose} anchor={anchor}
             transitionDuration={500}>
-      <Toolbar className={classes.headSection}>
+      <Toolbar sx={{
+        width: "200px",
+      }}>
         <ListItem
-          style={{
-            paddingTop: theme.spacing(0),
-            paddingBottom: theme.spacing(0),
+          sx={{
+            paddingTop: 0,
+            paddingBottom: 0,
             height: "100%",
             justifyContent: anchor === "left" ? "flex-start" : "flex-end",
           }}
@@ -90,22 +77,28 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = (props) => {
           >
             <ListItemText>Navigation</ListItemText>
           </ListItem>
-          <ListItemIcon className={classes.closeIcon}>
+          <ListItemIcon sx={{
+            mr: 0.5,
+          }}>
             <CircleMenuButton onClick={onClose} aria-label="Close Navigation">
               <CloseIcon color="primary"/>
             </CircleMenuButton>
           </ListItemIcon>
         </ListItem>
       </Toolbar>
-      <List className={classes.blackList}>
+      <List sx={{
+        backgroundColor: "background.paper",
+        height: "100%",
+      }}>
         {menuItems.map((element) => {
           if ("link" in element) {
             return (
               <Link
                 key={element.title}
                 href={element.link}
+                passHref
               >
-                <a className={classes.noDecoration}>
+                <NoDecorationAnchor>
                   <ListItem
                     button
                     selected={selectedItem === element.title}
@@ -129,7 +122,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = (props) => {
                       }
                     />
                   </ListItem>
-                </a>
+                </NoDecorationAnchor>
               </Link>
             );
           }
@@ -142,4 +135,4 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = (props) => {
   );
 }
 
-export default withStyles(styles, {withTheme: true})(NavigationDrawer);
+export default NavigationDrawer;

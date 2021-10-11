@@ -1,33 +1,25 @@
-import {Button, ButtonGroup, Chip, Icon, Theme, Tooltip} from "@mui/material";
-import { WithStyles } from '@mui/styles';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import {Button, ButtonGroup, Chip, Icon, Tooltip} from "@mui/material";
 import React, {FunctionComponent} from "react";
 import type {GenericItem, InteractionItem} from "../../store/types/home";
 import SectionContainer from "../common/SectionContainer";
 import SectionContentMarkdown from "../common/elements/SectionContentMarkdown";
 import HorizontalCard from "../common/HorizontalCard";
+import {styled} from "@mui/system";
 
-const styles = (theme: Theme) => createStyles({
-  iconRoot: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column"
-  },
-  linkIcon: {
-    marginRight: theme.spacing(1)
-  }
-});
+const StyledHorizontalCard = styled(HorizontalCard)({
+  height: "100%",
+  display: "flex",
+  flexDirection: "column"
+})
 
-type GenericItemExperienceProps = WithStyles<typeof styles> & GenericItem
-const GenericItemExperience: FunctionComponent<GenericItemExperienceProps> = ({classes, ...item}) => {
+const GenericItemExperience: FunctionComponent<GenericItem> = ({...item}) => {
   const makeButtons = (button: InteractionItem) => {
     return <Button key={button.link} href={button.link}>{button.title}</Button>
   }
   const {startDate, endDate} = item
 
   return <SectionContainer>
-    <HorizontalCard
+    <StyledHorizontalCard
       flip={false}
       image={item.image}
       buttons={
@@ -35,7 +27,6 @@ const GenericItemExperience: FunctionComponent<GenericItemExperienceProps> = ({c
           {item?.link && makeButtons({link: item.link, title: 'View Item'})}
         </ButtonGroup>
       }
-      className={classes.iconRoot}
       title={item.title}
     >
       <Tooltip
@@ -49,8 +40,8 @@ const GenericItemExperience: FunctionComponent<GenericItemExperienceProps> = ({c
         />
       </Tooltip>
       <SectionContentMarkdown content={item.content}/>
-    </HorizontalCard>
+    </StyledHorizontalCard>
   </SectionContainer>;
 };
 
-export default withStyles(styles)(GenericItemExperience)
+export default GenericItemExperience;

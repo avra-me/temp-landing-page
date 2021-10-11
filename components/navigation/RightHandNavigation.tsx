@@ -1,20 +1,32 @@
 import Hidden from "@mui/material/Hidden";
+import {styled} from '@mui/material/styles';
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, {FunctionComponent} from "react";
-import withStyles from '@mui/styles/withStyles';
 import MenuButton from "./MenuButton";
-import {Theme} from "@mui/material";
-import { StyleRules } from '@mui/styles';
 import {MenuItem} from "../../store/types/navigation";
 import {trimEnd} from "lodash-es";
 
-const styles = (theme: Theme): StyleRules => ({
-  menuButtonText: {
+const PREFIX = 'RightHandNavigation';
+
+const classes = {
+  menuButtonText: `${PREFIX}-menuButtonText`,
+  link: `${PREFIX}-link`,
+  disabledLink: `${PREFIX}-disabledLink`,
+  noDecoration: `${PREFIX}-noDecoration`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.menuButtonText}`]: {
     fontSize: theme.typography.body1.fontSize,
     fontWeight: theme.typography.h6.fontWeight,
   },
-  link: {
+
+  [`& .${classes.link}`]: {
     "&:after": {
       content: "\"\"",
       display: "block",
@@ -34,13 +46,15 @@ const styles = (theme: Theme): StyleRules => ({
       }
     }
   },
-  disabledLink: {
+
+  [`& .${classes.disabledLink}`]: {
     fontWeight: "bold",
   },
-  noDecoration: {
+
+  [`& .${classes.noDecoration}`]: {
     textDecoration: "none !important",
   }
-});
+}));
 
 interface IRightHandNavigation {
   onDrawerOpen: () => void,
@@ -66,7 +80,7 @@ const RightHandNavigation: FunctionComponent<IRightHandNavigation> = (
     return trimEnd(link, '/') === currentRoute;
   }
   return (
-    <div>
+    <Root>
       <Hidden mdUp implementation={"css"}>
         <IconButton onClick={onDrawerOpen} aria-label="Open Navigation" size="large">
           <MenuIcon color="action"/>
@@ -82,8 +96,8 @@ const RightHandNavigation: FunctionComponent<IRightHandNavigation> = (
           />
         )}
       </Hidden>
-    </div>
+    </Root>
   );
 };
 
-export default withStyles(styles)(RightHandNavigation);
+export default (RightHandNavigation);

@@ -1,43 +1,6 @@
 import React, {FunctionComponent, useState} from "react";
-import PropTypes from "prop-types";
-import { Snackbar, Theme } from "@mui/material";
-import { StyleRules } from '@mui/styles';
+import {Alert, Snackbar} from "@mui/material";
 import {useRouter} from "next/router";
-import { Alert } from '@mui/material';
-import withStyles from '@mui/styles/withStyles';
-
-const styles = (theme: Theme): StyleRules => ({
-    root: {
-        height: "100%",
-        zIndex: -99
-    },
-    dark: {
-        background: theme.palette.secondary.dark
-    },
-    fixScrollBug: {
-        position: "absolute",
-        bottom: -theme.spacing(1),
-        height: theme.spacing(2),
-        left: 0,
-        width: "100%",
-        zIndex: 10
-    },
-    before: {
-        position: "relative"
-    },
-    wrapBeforeContent: {
-        zIndex: 20,
-        position: "inherit"
-    },
-    waveSection: {
-        background: theme.palette.background.paper,
-    },
-    waveSvg: {
-        "& *": {
-            fill: theme.palette.secondary.dark
-        }
-    }
-});
 
 const MESSAGE_KEY = "sent_message"
 
@@ -73,9 +36,4 @@ const AlertManager: FunctionComponent<IAlertManager> = ({underConstruction}) => 
     </>;
 };
 
-AlertManager.propTypes = {
-    underConstruction: PropTypes.bool,
-};
-
-
-export default withStyles(styles)(AlertManager);
+export default AlertManager;

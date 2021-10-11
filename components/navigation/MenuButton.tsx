@@ -1,57 +1,43 @@
 import Button from "@mui/material/Button";
+import {styled} from '@mui/material/styles';
 import Link from "next/link";
 import React, {FunctionComponent} from "react";
-import clsx from "clsx";
-import {Theme} from "@mui/material";
-import { StyleRules } from '@mui/styles';
-import withStyles from '@mui/styles/withStyles';
 import smoothScrollTop from "../../utilities/smoothScrollTop";
 import {MenuItem} from "../../store/types/navigation";
 
-const styles = (theme: Theme): StyleRules => ({
-  menuButtonText: {
-    fontSize: theme.typography.body1.fontSize,
-    fontWeight: theme.typography.h6.fontWeight,
-    color: theme.palette.text.secondary,
+const StyledButton = styled(Button)(({theme}) => ({
+  textDecoration: "none !important",
+  "&:after": {
+    content: "\"\"",
+    display: "block",
+    height: ".2em",
+    background: `linear-gradient(270deg, ${theme.palette.secondary.dark} 0, ${theme.palette.secondary.main} 86%, ${theme.palette.secondary.light} 100%)`,
+    borderRadius: "1px",
+    transition: "width .2s ease-in-out",
+    left: 0,
+    bottom: 0,
+    width: 0,
+    position: "absolute"
   },
-  link: {
-    "&:after": {
-      content: "\"\"",
-      display: "block",
-      height: "2px",
-      background: `linear-gradient(270deg, ${theme.palette.secondary.dark} 0, ${theme.palette.secondary.main} 86%, ${theme.palette.secondary.light} 100%)`,
-      borderRadius: "1px",
-      transition: "width .2s ease-in-out",
-      left: 0,
-      bottom: 0,
-      width: 0,
-      position: "absolute"
-    },
-    "&:hover": {
-      backgroundColor: "transparent",
-      "&::after": {
-        width: "100%"
-      }
+  "&:hover": {
+    backgroundColor: "transparent",
+    "&::after": {
+      width: "100%"
     }
   },
-  disabledLink: {
-    color: theme.palette.text.primary,
-  },
-  noDecoration: {
-    textDecoration: "none !important",
-  }
-});
+  fontSize: theme.typography.body1.fontSize,
+  fontWeight: theme.typography.h6.fontWeight,
+  color: theme.palette.text.primary,
+}))
 
 interface IMenuButtonProps {
   onDrawerClose: () => void,
   active?: boolean
-  classes: Record<string, string>,
   element: MenuItem
 }
 
-const MenuButton: FunctionComponent<IMenuButtonProps> = ({element, active, classes, onDrawerClose}) => {
+const MenuButton: FunctionComponent<IMenuButtonProps> = ({element, active, onDrawerClose}) => {
   let isCurrentLink = !!active;
-
 
   if (React.isValidElement(element)) {
     return element;
@@ -65,27 +51,28 @@ const MenuButton: FunctionComponent<IMenuButtonProps> = ({element, active, class
   };
 
 
-  const result = <Button
+  const result = <StyledButton
     key={element.title}
-    size="large"
-    classes={{
-      text: classes.menuButtonText,
-      root: clsx(classes.link, (isCurrentLink ? classes.disabledLink : ""))
+    sx={{
+      color: isCurrentLink ? 'text.primary' : 'text.secondary'
     }}
+    size="large"
     onClick={onClick}
     disableRipple>
     {element.title}
-  </Button>;
+  </StyledButton>;
 
   if ("link" in element) {
-    return <Link
-      key={element.title}
-      href={element.link}
-    >
-      {result}
-    </Link>;
+    return (
+      <Link
+        key={element.title}
+        href={element.link}
+      >
+        {result}
+      </Link>
+    );
   }
   return result;
 };
 
-export default withStyles(styles)(MenuButton);
+export default (MenuButton);

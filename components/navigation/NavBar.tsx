@@ -8,57 +8,59 @@ import React, {
   useEffect,
   useState
 } from "react";
+import {styled} from '@mui/material/styles';
 import Toolbar from "@mui/material/Toolbar";
 import AppBar from "@mui/material/AppBar";
 import RightHandNavigation from "./RightHandNavigation";
 import Monogram from "../common/elements/Monogram";
-import { ThemeProvider, StyledEngineProvider, adaptV4Theme, createTheme } from "@mui/material/styles";
-import { StyleRules } from '@mui/styles';
-import withStyles from '@mui/styles/withStyles';
 import NavigationDrawer from "./NavigationDrawer";
 import {MenuItem} from "../../store/types/navigation";
-import {Theme} from "@mui/material";
 import {useRouter} from "next/router";
 import {sortBy} from "lodash-es";
 import Animate from "react-anime";
+import RootThemeProvider from "../common/theming/RootThemeProvider";
 
-const styles = (theme: Theme): StyleRules => ({
-  appBar: {
-    boxShadow: "none",
-    backgroundColor: theme.palette.primary.main,
-    zIndex: 100
-  },
-  toolbar: {
+const PREFIX = 'NavBar';
+
+const classes = {
+  appBar: `${PREFIX}-appBar`,
+  toolbar: `${PREFIX}-toolbar`,
+  brandIcon: `${PREFIX}-brandIcon`,
+  noDecoration: `${PREFIX}-noDecoration`
+};
+
+const StyledAppBar = styled(AppBar)((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.toolbar}`]: {
     display: "flex",
     justifyContent: "space-between",
   },
-  brandIcon: {
+
+  [`& .${classes.brandIcon}`]: {
     height: theme.typography.h4.fontSize,
   },
-  noDecoration: {
+
+  [`& .${classes.noDecoration}`]: {
     textDecoration: "none !important",
   }
-});
+}));
 
 
 interface INavBarPropsInternal {
   menuItems: MenuItem[],
-  classes: Record<string, string>,
   disabled?: boolean,
   staticIconEnabled?: boolean,
   logo?: string,
-  useDarkPalette?: boolean
 }
-
-export type INavBarProps = Omit<INavBarPropsInternal, 'classes'>
 
 const NavBar: FunctionComponent<INavBarPropsInternal> = (
   {
     menuItems,
     disabled,
     logo,
-    classes,
-    useDarkPalette,
   }) => {
   menuItems = sortBy(menuItems, 'order')
 
@@ -94,11 +96,6 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = (
     return <Fragment/>;
   }
 
-  const theme = createTheme(adaptV4Theme({
-    palette: {
-      mode: useDarkPalette ? 'dark' : 'light'
-    }
-  }))
   const makeSurrogate = (props: PropsWithChildren<any>): ForwardRefRenderFunction<any> => {
     const SurrogateAnimationComponent: ForwardRefRenderFunction<any> = (forwardedProps, ref) => <div
       ref={ref} {...forwardedProps} {...props}
@@ -106,8 +103,16 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = (
     return SurrogateAnimationComponent
   }
   const navigation = (style: Record<string, unknown> = {}) =>
-    <AppBar position={"absolute"} className={classes.appBar}
-            style={style}
+    <StyledAppBar
+      sx={{
+        boxShadow: "none",
+        backgroundColor: 'primary.main',
+        zIndex: 100,
+        ...style
+      }}
+      elevation={0}
+      position={"absolute"}
+      className={classes.appBar}
     >
       <Toolbar className={classes.toolbar}>
         <Monogram logo={logo}/>
@@ -120,7 +125,7 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = (
         />
       </Toolbar>
 
-    </AppBar>
+    </StyledAppBar>
 
   const FixedAnimSur = forwardRef(makeSurrogate({
     style: {width: "100%", zIndex: 99, position: "fixed", opacity: popout ? 0 : 1}
@@ -130,32 +135,29 @@ const NavBar: FunctionComponent<INavBarPropsInternal> = (
   const fixedNavigation = navigation();
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        {absoluteNavigation}
-        {fixedNavVisible && <Animate
-            key={`Fixed-${popout}`}
-            easing={popout ? "easeInSine" : "easeOutSine"}
-            autoplay={true}
-            translateY={popout ? ["-5em", 0] : [0, "-5em"]}
-            opacity={popout ? [0, 1] : [1, 0]}
-            delay={0}
-            duration={300}
-            complete={() => setFixedNavVisible(popout)}
-            component={FixedAnimSur}>
-          {fixedNavigation}
-        </Animate>}
-        <NavigationDrawer
-          menuItems={menuItems}
-          anchor="right"
-          open={isMobileDrawerOpen}
-          selectedItem={""}
-          onClose={handleMobileDrawerClose}
-        />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <RootThemeProvider forceDarkMode>
+      {absoluteNavigation}
+      {fixedNavVisible && <Animate
+          key={`Fixed-${popout}`}
+          easing={popout ? "easeInSine" : "easeOutSine"}
+          autoplay={true}
+          translateY={popout ? ["-5em", 0] : [0, "-5em"]}
+          opacity={popout ? [0, 1] : [1, 0]}
+          delay={0}
+          duration={300}
+          complete={() => setFixedNavVisible(popout)}
+          component={FixedAnimSur}>
+        {fixedNavigation}
+      </Animate>}
+      <NavigationDrawer
+        menuItems={menuItems}
+        anchor="right"
+        open={isMobileDrawerOpen}
+        selectedItem={""}
+        onClose={handleMobileDrawerClose}
+      />
+    </RootThemeProvider>
   );
-
 }
 
-export default withStyles(styles)(NavBar);
+export default NavBar;
