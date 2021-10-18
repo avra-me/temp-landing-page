@@ -1,6 +1,5 @@
 import React, {FunctionComponent, memo} from "react";
 import {CardProps} from "@mui/material";
-import {lighten} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
@@ -30,9 +29,9 @@ const IconCard: FunctionComponent<IconCardProps> = (props) => {
     ...waveCardProps
   } = props;
   const iconStyling = {
-    color: color,
-    backgroundColor: lighten(color, 0.5),
-    fill: color,
+    color: 'background.default',
+    backgroundColor: color,
+    fill: 'background.default',
   };
 
   return (
@@ -53,7 +52,7 @@ const IconCard: FunctionComponent<IconCardProps> = (props) => {
           px: 4
         }}>
           <CardHeader title={headline} titleTypographyProps={{variant: "h6"}}
-                      avatar={<Avatar style={iconStyling}>{icon}</Avatar>}/>
+                      avatar={<Avatar sx={iconStyling}>{icon}</Avatar>}/>
           <CardContent sx={{flexGrow: 1}}>{children}</CardContent>
           <CardActions>
             {buttons}

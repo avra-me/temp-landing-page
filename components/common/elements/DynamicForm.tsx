@@ -2,7 +2,7 @@ import {Icon, TextField} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import InputLabel from "@mui/material/InputLabel";
 import FilledInput from "@mui/material/FilledInput";
 import {DynamicForm as IDynamicForm, IFormField} from "../../../store/types/home";
@@ -26,15 +26,12 @@ const TypeInnerFieldMapping: Record<IFormField["type"], FC<any>> = {
 const DynamicFormField: FC<IFormField> = ({type, title, name, placeholder, icon}) => {
   const InnerFormField = TypeInnerFieldMapping[type]
   const id = `${name}-contact-form-field`
-  const [showPlaceholder, setShowPlaceholder] = useState(false);
   return <FormControl fullWidth variant={"filled"} color={"secondary"}>
     <InputLabel htmlFor={id}>{title}</InputLabel>
     <InnerFormField
       id={id}
       name={name}
-      onFocus={() => setShowPlaceholder(true)}
-      onBlur={() => setShowPlaceholder(false)}
-      placeholder={showPlaceholder ? placeholder : ""}
+      placeholder={placeholder}
       aria-placeholder={placeholder}
       aria-label={title}
       required
@@ -53,7 +50,9 @@ const DynamicForm: FC<Omit<IDynamicForm, 'content' | 'order' | 'type'>> = ({fiel
 
   return <form data-netlify="true" name={"contact-form"} method="post"
                netlify-honeypot="totally-a-field" action={"/?sent_message"}>
-    <TextField type="hidden" name="totally-a-field"/>
+    <TextField aria-hidden={true} name="totally-a-field" sx={{
+      display: "none"
+    }}/>
     {fields.map(field => {
       if (field.type === "submit") {
         submitButtonText = field.title;

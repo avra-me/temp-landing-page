@@ -1,12 +1,12 @@
 {
   "palette": {
     "waveAngle": "45",
-    "type": "light",
+    "mode": "light",
     "primary": {
-      "main": "#5B215F"
+      "main": "#A51D27"
     },
     "secondary": {
-      "main": "#A51D27"
+      "main": "#5B215F"
     },
     "tonalOffset": 0.2,
     "spacing": 16

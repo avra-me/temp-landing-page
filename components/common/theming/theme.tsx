@@ -1,6 +1,7 @@
-import {createTheme, responsiveFontSizes, Theme, ThemeOptions} from "@mui/material/styles";
+import {createTheme, responsiveFontSizes, SimplePaletteColorOptions, Theme, ThemeOptions} from "@mui/material/styles";
 import {cloneDeep, merge} from "lodash-es";
 import {grey} from "@mui/material/colors";
+import {darken} from "@mui/system";
 
 
 export const generateTheme = (config: Partial<ThemeOptions>): Theme => {
@@ -11,9 +12,11 @@ export const generateTheme = (config: Partial<ThemeOptions>): Theme => {
       mode
     }
   })
-  const primary = config?.palette?.primary || undefined;
-  const secondary = config?.palette?.secondary || undefined;
-  const background = mode === "dark" ? grey["A400"] : grey["100"];
+  const primary = config?.palette?.primary as SimplePaletteColorOptions || undefined;
+  const secondary = config?.palette?.secondary as SimplePaletteColorOptions || undefined;
+
+  const bgSourceColour = primary?.main ? primary?.main : grey["100"]
+  const background = mode === "dark" ? darken(bgSourceColour, .85) : grey["100"];
 
   const theme = {
     palette: {

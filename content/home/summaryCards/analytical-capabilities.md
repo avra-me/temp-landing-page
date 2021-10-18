@@ -26,6 +26,6 @@ children:
 icon: people
 color: "#6200EA"
 ---
-<input type="checkbox" checked disabled></input> Distil complex ideas into simple, clear, and user-friendly visualizations, ability to explain sophisticated concepts in an understandable manner.
+<span class="material-icons">task_alt</span> Distil complex ideas into simple, clear, and user-friendly visualizations, ability to explain sophisticated concepts in an understandable manner.
 
-<input type="checkbox" checked disabled></input> Experience working and leading across small- and large-scale teams/projects in a variety of settings. 
+<span class="material-icons">task_alt</span> Experience working and leading across small- and large-scale teams/projects in a variety of settings. 

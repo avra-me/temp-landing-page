@@ -1,26 +1,22 @@
 const plugins = [
     [
-        'babel-plugin-transform-imports',
+        'babel-plugin-import',
         {
-            '@mui/material': {
-                'transform': '@mui/material/${member}',
-                'preventFullImport': true
-            },
-            '@mui/styles': {
-                'transform': '@mui/material/styles/${member}',
-                'preventFullImport': true
-            },
-            '@mui/icons-material': {
-                'transform': '@mui/icons-material/${member}',
-                'preventFullImport': true
-            },
-            '@mui/lab': {
-                'transform': '@mui/lab/${member}',
-                'preventFullImport': true
-            },
+            libraryName: '@mui/material',
+            libraryDirectory: '',
+            camel2DashComponentName: false,
         },
-        'lodash'
-    ]
+        'core',
+    ],
+    [
+        'babel-plugin-import',
+        {
+            libraryName: '@mui/icons-material',
+            libraryDirectory: '',
+            camel2DashComponentName: false,
+        },
+        'icons',
+    ],
 ];
 
 module.exports = {

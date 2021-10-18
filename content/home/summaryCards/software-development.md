@@ -25,6 +25,6 @@ children:
 icon: code
 color: "#00C853"
 ---
-<input type="checkbox" checked disabled></input> Skilled at producing high quality, well thought out software and architecture to meet project requirements in a wide range of industries and sectors.
+<span class="material-icons">task_alt</span> Skilled at producing high quality, well thought out software and architecture to meet project requirements in a wide range of industries and sectors.
 
-<input type="checkbox" checked disabled></input> Extremely technical and able to quickly pick up and understand new technologies with ease.
+<span class="material-icons">task_alt</span> Extremely technical and able to quickly pick up and understand new technologies with ease.

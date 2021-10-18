@@ -49,14 +49,14 @@ const StyledAppBar = styled(AppBar)((
 }));
 
 
-interface INavBarPropsInternal {
+export interface INavBarProps {
   menuItems: MenuItem[],
   disabled?: boolean,
   staticIconEnabled?: boolean,
   logo?: string,
 }
 
-const NavBar: FunctionComponent<INavBarPropsInternal> = (
+const NavBar: FunctionComponent<INavBarProps> = (
   {
     menuItems,
     disabled,

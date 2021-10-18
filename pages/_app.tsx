@@ -1,4 +1,3 @@
-import '../styles/globals.scss'
 import type {AppProps} from 'next/app'
 import {useRouter} from "next/router";
 import {useStore} from "../store";
@@ -10,35 +9,31 @@ import CustomStyles from '../components/common/theming/CustomStyles';
 import FooterMenu from '../components/sections/FooterMenu';
 import Header from '../components/sections/Header';
 import NavigationBar from '../components/sections/NavigationBar';
-import {StyledEngineProvider} from "@mui/material/styles";
+import createEmotionCache from "../utilities/createEmotionCache";
+import {CacheProvider, EmotionCache} from '@emotion/react';
 
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
 
-function MyApp({Component, pageProps}: AppProps) {
+const clientSideEmotionCache = createEmotionCache();
+
+function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}: MyAppProps) {
   const router = useRouter()
   const store = useStore(pageProps.initialReduxState)
-
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles && jssStyles.parentElement) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
 
   // @ts-ignore
   return <Provider store={store}>
     <Header/>
-    <StyledEngineProvider injectFirst>
+    <CacheProvider value={emotionCache}>
       <RootThemeProvider>
         <CssBaseline/>
         <CustomStyles/>
-        <NavigationBar
-          useDarkPalette
-        />
+        <NavigationBar/>
         <Component {...pageProps} key={router.route}/>
         <FooterMenu/>
       </RootThemeProvider>
-    </StyledEngineProvider>
+    </CacheProvider>
   </Provider>
 }
 

@@ -4,27 +4,24 @@ import Container from "@mui/material/Container";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 import RootThemeProvider from "./theming/RootThemeProvider";
 import {Box, styled} from "@mui/system";
+import {css} from "@emotion/react";
 
-export const getWaveAreaClass = (theme: any) => {
-  return {
-    "@keyframes animateGradient": {
-      "0%": {
-        backgroundPosition: "0% 50%",
-      },
-      "50%": {
-        backgroundPosition: "100% 50%",
-      },
-      "100%": {
-        backgroundPosition: "0% 50%",
-      }
-    },
-    waveArea: {
-      backgroundSize: "400% 400%",
-      background: `linear-gradient(${theme.palette.waveAngle}deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100% )`,
-      animation: "$animateGradient 16s ease infinite"
+export const getWaveAreaClass = (theme: any) => css`
+  @keyframes animateGradient {
+    0% {
+      background-position: 0 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
     }
   }
-};
+  background: linear-gradient(${theme.palette.waveAngle}deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100% );
+  background-size: 400% 400%;
+  animation: animateGradient 16s ease infinite;
+`
 
 export const WaveRoot = styled('span')(({theme}) => getWaveAreaClass(theme))
 const WaveJumbotron: FunctionComponent = (props) => {
@@ -55,14 +52,14 @@ const WaveJumbotron: FunctionComponent = (props) => {
           <Box sx={{
             paddingTop: 4,
             zIndex: 20,
-            height: 20,
-            minHeight: 20,
+            height: "7vw",
+            minHeight: "20px",
           }}>
             <WaveBorderCanvas background={theme.palette.background.default} flip/>
           </Box>
         </Box>
       </RootThemeProvider>
-      <div className={"lg-p-top"}/>
+      <Box sx={{pt: [7, 8, 9, 10]}}/>
     </WaveRoot>
   );
 }

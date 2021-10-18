@@ -6,6 +6,7 @@ import React, {FunctionComponent} from "react";
 import MenuButton from "./MenuButton";
 import {MenuItem} from "../../store/types/navigation";
 import {trimEnd} from "lodash-es";
+import {Settings} from "@mui/icons-material";
 
 const PREFIX = 'RightHandNavigation';
 
@@ -95,6 +96,9 @@ const RightHandNavigation: FunctionComponent<IRightHandNavigation> = (
             onDrawerClose={onDrawerClose}
           />
         )}
+        <IconButton onClick={onDrawerOpen} aria-label="Open Navigation" size="large">
+          <Settings color="action"/>
+        </IconButton>
       </Hidden>
     </Root>
   );

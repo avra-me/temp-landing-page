@@ -6,7 +6,7 @@ showYearOnly: true
 subTitle: RMIT University
 date: 2021-01-21T03:30:06.722Z
 short: | 
-  ## *RMIT Vocational Education* Technical Support
+  ##### *RMIT Vocational Education* Technical Support
   Providing support for course designers around creating innovative and
   interactive new courses in the new university learning management system.
 image: /assets/lms_rmit.svg

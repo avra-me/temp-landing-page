@@ -6,7 +6,7 @@ subTitle: RMIT Library (Capstone)
 link: https://nebula.avrami.me
 date: 2020-06-21T05:32:55.575Z
 short: |
-  ## *RMIT Library (Capstone)* Solution Architect and Engineer
+  ##### *RMIT Library (Capstone)* Solution Architect and Engineer
   Designing and developing a resilient, performant solution for visualizing
   thousands of record access per day from the RMIT library.
 featured: true

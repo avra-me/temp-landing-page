@@ -9,7 +9,7 @@ children:
         type: education
         order: '{{endDate}}'
         content: |
-            ## *{{title}}* {{subTitle}}
+            ##### *{{title}}* {{subTitle}}
             {{ content }}
         buttons: []
 content: |

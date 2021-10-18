@@ -10,6 +10,6 @@ children:
     order: '{{endDate}}'
     image: '{{image}}'
     content: |
-      ## *{{title}}* {{subTitle}}
+      ##### *{{title}}* {{subTitle}}
       {{ content }}
     buttons: []

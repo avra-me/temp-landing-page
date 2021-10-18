@@ -25,6 +25,6 @@ children:
 icon: architecture
 color: "#C51162"
 ---
-<input type="checkbox" checked disabled></input> Skilled at producing high quality, well thought out software and architecture to meet project requirements in a wide range of industries and sectors.
+<span class="material-icons">task_alt</span> Skilled at producing high quality, well thought out software and architecture to meet project requirements in a wide range of industries and sectors.
 
-<input type="checkbox" checked disabled></input> Expert at collaborating with stakeholders and subject matter experts to ensure solutions align with stakeholder expectations and overarching strategy.
+<span class="material-icons">task_alt</span> Expert at collaborating with stakeholders and subject matter experts to ensure solutions align with stakeholder expectations and overarching strategy.

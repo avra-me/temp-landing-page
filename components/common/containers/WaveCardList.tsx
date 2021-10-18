@@ -1,7 +1,4 @@
-import {Button, CardActions, CardContent, Grid, Icon, Theme, Tooltip} from "@mui/material";
-import { WithStyles } from '@mui/styles';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import {Button, CardActions, CardContent, Grid, Icon, Tooltip} from "@mui/material";
 import React, {FunctionComponent} from "react";
 import {InteractionItem, WaveCardSection as WaveCardSectionType} from "../../../store/types/home";
 import SectionContainer from "../SectionContainer";
@@ -9,25 +6,21 @@ import WaveCard from "../WaveCard";
 import {slice} from "lodash-es";
 import SectionContentMarkdown from "../elements/SectionContentMarkdown";
 import SectionTitleMarkdown from "../elements/SectionTitleMarkdown";
+import {styled} from "@mui/material/styles";
 
 
-const styles = (theme: Theme) => createStyles({
-  iconRoot: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column"
-  },
-  linkIcon: {
-    marginRight: theme.spacing(1)
-  }
-});
+const StyledWaveCard = styled(WaveCard)({
+  height: "100%",
+  display: "flex",
+  flexDirection: "column"
+})
 
-type WaveCardSectionProps = WithStyles<typeof styles> & WaveCardSectionType
-const WaveCardList: FunctionComponent<WaveCardSectionProps> = ({classes, items, content}) => {
+
+const WaveCardList: FunctionComponent<WaveCardSectionType> = ({items, content}) => {
   const makeButtons = (chip: InteractionItem) => {
     const {link, title, tooltip, icon} = chip;
     const button = <Button key={link} href={link} size={"small"} variant={"outlined"}>
-      {icon && <Icon color={"action"} className={classes.linkIcon}>{icon}</Icon>}{title}
+      {icon && <Icon color={"action"} sx={{mr: 1}}>{icon}</Icon>}{title}
     </Button>
     if (tooltip) {
       return <Tooltip key={link} title={tooltip}>{button}</Tooltip>
@@ -40,20 +33,19 @@ const WaveCardList: FunctionComponent<WaveCardSectionProps> = ({classes, items, 
       <SectionTitleMarkdown content={content}/>
     </Grid>
     {items && items.map((card, i) => {
-      return <WaveCard
+      return <StyledWaveCard
         key={`${card.order}_${card.content}`}
-        className={classes.iconRoot}
         inverse={i % 2 === 0}
       >
         <CardContent style={{flexGrow: 1}}>
-          <SectionContentMarkdown className={"MuiTypography-colorTextPrimary"} content={card.content}/>
+          <SectionContentMarkdown content={card.content}/>
         </CardContent>
         <CardActions>
           {card?.buttons?.map && slice(card.buttons.map(makeButtons), 0, 3)}
         </CardActions>
-      </WaveCard>;
+      </StyledWaveCard>;
     })}
   </SectionContainer>;
 };
 
-export default withStyles(styles)(WaveCardList)
+export default WaveCardList

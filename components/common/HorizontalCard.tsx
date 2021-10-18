@@ -47,52 +47,55 @@ const HorizontalCard: FunctionComponent<HorizontalCardProps> = (
     flip
   }) => {
   return (
-    <CardRoot>
-      <CardActionArea
-        focusRipple
-        href={link || ''}
-        sx={{
-          textAlign: "left",
-          width: "100%",
-          height: "100%",
-          padding: 1,
-          transition: "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-        }}
-      >
-        <Grid
-          container
-          spacing={4}
-          direction={flip ? "row" : "row-reverse"}
-          justifyContent={"center"}
-        >
 
-          <Grid item xs={12} md={4}>
-            <AppearOnScroll
-              delay={300}
-              offScreenProperties={{opacity: 0}}
-              onScreenProperties={{opacity: [0, 1], translateX: [`${30 * (flip ? -1 : 1)}em`, "0em"]}}
-            >
-              <FillImage src={image} alt={image} width={400} height={300} loading="lazy"/>
-            </AppearOnScroll>
-          </Grid>
-          <Grid item xs>
-            <CardContent>
-              <Typography
-                gutterBottom={false}
-                variant={"h4"}
-                color={"secondary"}
+    <Grid item xs={12}>
+      <CardRoot>
+        <CardActionArea
+          focusRipple
+          href={link || ''}
+          sx={{
+            textAlign: "left",
+            width: "100%",
+            height: "100%",
+            padding: 1,
+            transition: "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+          }}
+        >
+          <Grid
+            container
+            spacing={4}
+            direction={flip ? "row" : "row-reverse"}
+            justifyContent={"center"}
+          >
+
+            <Grid item xs={12} md={4}>
+              <AppearOnScroll
+                delay={300}
+                offScreenProperties={{opacity: 0}}
+                onScreenProperties={{opacity: [0, 1], translateX: [`${30 * (flip ? -1 : 1)}em`, "0em"]}}
               >
-                {title}
-              </Typography>
-              {children}
-            </CardContent>
-            <CardActions>
-              {buttons}
-            </CardActions>
+                <FillImage src={image} alt={image} width={400} height={300} loading="lazy"/>
+              </AppearOnScroll>
+            </Grid>
+            <Grid item xs>
+              <CardContent>
+                <Typography
+                  gutterBottom={false}
+                  variant={"h4"}
+                  color={"secondary"}
+                >
+                  {title}
+                </Typography>
+                {children}
+              </CardContent>
+              <CardActions>
+                {buttons}
+              </CardActions>
+            </Grid>
           </Grid>
-        </Grid>
-      </CardActionArea>
-    </CardRoot>
+        </CardActionArea>
+      </CardRoot>
+    </Grid>
   );
 };
 

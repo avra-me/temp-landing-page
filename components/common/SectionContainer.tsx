@@ -1,15 +1,17 @@
 import React, {FunctionComponent} from "react";
 import {Grid} from "@mui/material";
 import Container from "@mui/material/Container";
+import {Box} from "@mui/system";
 
 
 const SectionContainer: FunctionComponent = ({children}) => {
   return (
     <Container>
-      <Grid container spacing={3} direction={"row"} justifyContent={"center"}
-            alignItems={"stretch"}>
-        {children}
-      </Grid>
+      <Box>
+        <Grid container spacing={3} justifyContent={"space-evenly"} alignItems={"stretch"}>
+          {children}
+        </Grid>
+      </Box>
     </Container>
   );
 }

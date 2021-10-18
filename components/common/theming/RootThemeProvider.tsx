@@ -3,49 +3,47 @@ import React, {FC, PropsWithChildren, useMemo} from "react";
 import {ThemeProvider} from "@mui/material/styles";
 import {connect, ConnectedProps} from "react-redux";
 import {generateTheme} from "./theme";
-import {useMediaQuery} from "@mui/material";
+import {cloneDeep} from "lodash-es";
 
 
 const mapStateToProps = connect((state: AppState) => {
-  return {themes: state.themes || {}}
+  return {
+    themes: state.themes || {},
+    currentMode: state.themes.palette?.mode,
+  }
 })
 
 
 interface IRootThemeProviderProps extends PropsWithChildren<{}>, ConnectedProps<typeof mapStateToProps> {
   forceDarkMode?: boolean
+  forceLightMode?: boolean
 }
 
-const DARKMODE_COOKIE_KEY = 'app-user-dark-mode-pref'
 
-const RootThemeProvider: FC<IRootThemeProviderProps> = ({
-                                                          forceDarkMode,
-                                                          themes: config,
-                                                          children
-                                                        }) => {
-  const browserPrefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+const RootThemeProvider: FC<IRootThemeProviderProps> = (
+  {
+    forceDarkMode,
+    forceLightMode,
+    themes: config,
+    currentMode,
+    children
+  }) => {
+
 
   const theme = useMemo(() => {
-    const palette = config?.palette || {};
+    const configCopy = cloneDeep(config)
+    const palette = configCopy?.palette || {mode: currentMode};
 
-    let userSavedMode: string | null | undefined = undefined;
-    if (typeof window !== "undefined") {
-      userSavedMode = window.localStorage.getItem(DARKMODE_COOKIE_KEY)
+    if (forceDarkMode) {
+      palette.mode = "dark"
+    } else if (forceLightMode) {
+      palette.mode = "light"
     }
 
+    configCopy.palette = palette;
+    return generateTheme(configCopy)
+  }, [config, currentMode, forceDarkMode, forceLightMode])
 
-    if (forceDarkMode === true) {
-      palette.mode = "dark"
-    } else if (userSavedMode) {
-      palette.mode = userSavedMode as 'dark' | 'light'
-    } else if (browserPrefersDarkMode) {
-      palette.mode = "dark"
-    }
-
-    config.palette = palette;
-    return generateTheme(config)
-  }, [browserPrefersDarkMode, config, forceDarkMode]);
-
-  
   return (
     <ThemeProvider theme={theme}>
       {children}

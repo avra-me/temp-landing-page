@@ -11,7 +11,7 @@ const StyledButton = styled(Button)(({theme}) => ({
     content: "\"\"",
     display: "block",
     height: ".2em",
-    background: `linear-gradient(270deg, ${theme.palette.secondary.dark} 0, ${theme.palette.secondary.main} 86%, ${theme.palette.secondary.light} 100%)`,
+    background: `linear-gradient(270deg, ${theme.palette.secondary.main} 0, ${theme.palette.secondary.main} 86%, ${theme.palette.secondary.light} 100%)`,
     borderRadius: "1px",
     transition: "width .2s ease-in-out",
     left: 0,

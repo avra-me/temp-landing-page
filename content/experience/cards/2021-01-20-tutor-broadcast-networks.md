@@ -5,7 +5,7 @@ endDate: 2018-01-11T13:00:00.000Z
 subTitle: RMIT University
 date: 2021-01-20T22:53:14.902Z
 short: |
-  ## *RMIT School of Science* Tutor (Broadcast Networks)
+  ##### *RMIT School of Science* Tutor (Broadcast Networks)
   Independently tutored a class of 20 students including providing
   assignment support, weekly knowledge tests, and  going through weekly content.
 showYearOnly: true

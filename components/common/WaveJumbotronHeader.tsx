@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {Grid, Theme} from "@mui/material";
-import WaveJumbotron, {WaveRoot} from "./WaveJumbotron";
+import WaveJumbotron from "./WaveJumbotron";
 
 
 interface IWaveJumbotronHeaderProps {
@@ -11,7 +11,7 @@ interface IWaveJumbotronHeaderProps {
 const WaveJumbotronHeader: FunctionComponent<IWaveJumbotronHeaderProps> = (props) => {
   const {children} = props;
 
-  return <WaveRoot className={"section"} id={"wave-box"}>
+  return <span className={"section"}>
     <WaveJumbotron>
       <Grid
         item
@@ -19,12 +19,12 @@ const WaveJumbotronHeader: FunctionComponent<IWaveJumbotronHeaderProps> = (props
         container
         alignItems={"center"}
         justifyContent={"center"}
-        classes={{root: "lg-p-top"}}
+        sx={{pt: [7, 8, 9, 10]}}
       >
         {children}
       </Grid>
     </WaveJumbotron>
-  </WaveRoot>;
+  </span>;
 }
 
 export default WaveJumbotronHeader;

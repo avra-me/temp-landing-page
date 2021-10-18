@@ -1,7 +1,4 @@
-import {Button, Grid, Icon, Theme, Tooltip, useMediaQuery,} from "@mui/material";
-import { WithStyles } from '@mui/styles';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import {Chip, Grid, Icon, Theme, Tooltip, useMediaQuery,} from "@mui/material";
 import React, {FunctionComponent} from "react";
 import {IconCardSection as IconCardSectionType, InteractionItem} from "../../../store/types/home";
 import SectionContainer from "../SectionContainer";
@@ -11,32 +8,43 @@ import {slice} from "lodash-es";
 import SectionContentMarkdown from "../elements/SectionContentMarkdown";
 
 import SectionTitleMarkdown from "../elements/SectionTitleMarkdown";
+import {styled} from "@mui/material/styles";
+import {css} from "@emotion/react";
 
-const styles = (theme: Theme) => createStyles({
-  iconRoot: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column"
-  },
-  linkIcon: {
-    marginRight: theme.spacing(1)
+const StyledIconCard = styled(IconCard)({
+  height: "100%",
+  display: "flex",
+  flexDirection: "column"
+})
+
+const StyledChip: typeof Chip = styled(Chip)(css`
+  &:first-of-type {
+    margin-left: 0;
   }
-});
 
-export type IconCardSectionProps = WithStyles<typeof styles> & IconCardSectionType
-const IconCardList: FunctionComponent<IconCardSectionProps> = ({classes, items, content}) => {
+  margin: 0 2px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+`) as typeof Chip;
+
+const IconCardList: FunctionComponent<IconCardSectionType> = ({items, content}) => {
   const isMdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
 
-  const makeButtons = (chip: InteractionItem) => {
-    const {link, title, tooltip, icon} = chip;
-    let button = <Button size={"small"} variant={"outlined"}>
-      {icon && <Icon color={"action"} className={classes.linkIcon}>{icon}</Icon>}{title}
-    </Button>
+  const makeButtons = (item: InteractionItem) => {
+    const {link, title, tooltip, icon} = item;
+    let chip = <StyledChip
+      component={"a"}
+      icon={icon && <Icon color={"action"} sx={{mr: 1}}>{icon}</Icon> || undefined}
+      label={title}
+      variant="outlined"
+    />
     if (tooltip) {
-      button = <Tooltip key={link} title={tooltip}>{button}</Tooltip>
+      chip = <Tooltip key={link} title={tooltip}>{chip}</Tooltip>
     }
-    return <Link key={link} href={link} passHref={true}>{button}</Link>
+    return <Link key={link} href={link} passHref={true}>{chip}</Link>
   };
 
   return <SectionContainer>
@@ -45,7 +53,7 @@ const IconCardList: FunctionComponent<IconCardSectionProps> = ({classes, items, 
     </Grid>
     {items && items.map((card, i) => {
       const delay = isMdUp ? Math.min(Math.floor(i) * 100, 300) : Math.min(Math.floor(i) * 100, 600);
-      return <IconCard
+      return <StyledIconCard
         key={`${card.order}_${card.icon}`}
         headline={card.title}
         icon={<Icon style={{fontSize: 30}}>{card.icon}</Icon>}
@@ -56,13 +64,12 @@ const IconCardList: FunctionComponent<IconCardSectionProps> = ({classes, items, 
           <Grid container
                 alignItems={"flex-start"}>{card?.buttons?.map && slice(card.buttons.map(makeButtons), 0, 3)}</Grid>
         }
-        className={classes.iconRoot}
       >
         <SectionContentMarkdown content={card.content}/>
-      </IconCard>;
+      </StyledIconCard>;
     })}
 
   </SectionContainer>;
 };
 
-export default withStyles(styles)(IconCardList)
+export default IconCardList

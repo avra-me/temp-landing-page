@@ -18,7 +18,7 @@ tags:
   - leadership
   - solution design 
 short: |
-    ## *Deloitte* Software Developer
+    ##### *Deloitte* Software Developer
     Consulting and developing software solutions for a wide range of
     industries and wide variety of roles.
     

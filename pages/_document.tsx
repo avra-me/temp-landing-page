@@ -1,21 +1,7 @@
 import React from 'react';
 import Document, {Head, Html, Main, NextScript} from 'next/document';
-import ServerStyleSheets from '@mui/styles/ServerStyleSheets';
-
-let prefixer: any;
-let cleanCSS: any;
-if (process?.env?.NODE_ENV === 'production' && typeof window === 'undefined') {
-  const jss = require("jss"); // Adjust here as well
-  /* eslint-disable global-require */
-  const postcss = require('postcss');
-  const autoprefixer = require('autoprefixer');
-  const CleanCSS = require('clean-css');
-  /* eslint-enable global-require */
-
-  prefixer = postcss([autoprefixer]);
-  cleanCSS = new CleanCSS();
-  jss.default.setup({id: {minify: true}})
-}
+import createEmotionServer from '@emotion/server/create-instance';
+import createEmotionCache from "../utilities/createEmotionCache";
 
 export default class MyDocument extends Document {
   render() {
@@ -75,39 +61,35 @@ MyDocument.getInitialProps = async (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
+
+  // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
+  // However, be aware that it can have global side effects.
+  const cache = createEmotionCache();
+  const { extractCriticalToChunks } = createEmotionServer(cache);
 
   ctx.renderPage = () =>
     originalRenderPage({
-      // eslint-disable-next-line
-      enhanceApp: (App) => (props) => {
-        const app = <App {...props} />
-        return sheets.collect(app)
-      },
+      // eslint-disable-next-line react/display-name
+      enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
-
-  let css = sheets.toString();
-  // It might be undefined, e.g. after an error.
-  if (css && process.env.NODE_ENV === 'production') {
-    const result1 = await prefixer.process(css, {from: undefined});
-    css = result1.css;
-    css = cleanCSS.minify(css).styles;
-  }
+  // This is important. It prevents emotion to render invalid HTML.
+  // See https://github.com/mui-org/material-ui/issues/26561#issuecomment-855286153
+  const emotionStyles = extractCriticalToChunks(initialProps.html);
+  const emotionStyleTags = emotionStyles.styles.map((style) => (
+    <style
+      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      key={style.key}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: style.css }}
+    />
+  ));
 
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [
-      ...React.Children.toArray(initialProps.styles),
-      <style
-        id="jss-server-side"
-        key="jss-server-side"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{__html: css}}
-      />,
-    ],
+    styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
   };
 };

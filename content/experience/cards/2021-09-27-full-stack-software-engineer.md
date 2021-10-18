@@ -11,7 +11,7 @@ summaryCards:
   - software
   - developer
 short: >-
-  ## *Last Yard* Full-Stack Software Engineer
+  ##### *Last Yard* Full-Stack Software Engineer
   
   Last Yard builds software solutions for the largest retailers in Australia and
   around the world. 

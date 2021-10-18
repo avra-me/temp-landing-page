@@ -1,18 +1,14 @@
 import React, {FunctionComponent, useCallback, useEffect, useRef} from "react";
-import { alpha } from '@mui/material/styles';
+import {alpha} from '@mui/material/styles';
+import {styled} from "@mui/system";
+import {css} from "@emotion/react";
 
-import { WithStyles } from '@mui/styles';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+const FillCanvas = styled('canvas')(css`
+  width: 100%;
+  height: 100%;
+`)
 
-const styles = () => createStyles({
-  canvas: {
-    width: '100%',
-    height: '100%'
-  }
-});
-
-interface IWaveBorder extends WithStyles<typeof styles> {
+interface IWaveBorder {
   background: string;
   flip?: boolean;
   pause?: boolean;
@@ -51,7 +47,7 @@ const drawWave = (ctx: CanvasRenderingContext2D, step: number, width: number, he
 /**
  *  https://codepen.io/csspoints/pen/WNeOEqd
  */
-const WaveBorder: FunctionComponent<IWaveBorder> = ({classes, background, flip, reverse, pause}) => {
+const WaveBorder: FunctionComponent<IWaveBorder> = ({background, flip, reverse, pause}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrame = useRef<number>(NaN)
   const isMouseOver = useRef(false)
@@ -94,8 +90,8 @@ const WaveBorder: FunctionComponent<IWaveBorder> = ({classes, background, flip, 
     return () => window.cancelAnimationFrame(animationFrame.current);
   }, [drawFrame, pause])
 
-  return <canvas onMouseEnter={() => isMouseOver.current = true} onMouseLeave={() => isMouseOver.current = false}
-                 className={classes.canvas} ref={canvasRef}/>;
+  return <FillCanvas onMouseEnter={() => isMouseOver.current = true} onMouseLeave={() => isMouseOver.current = false}
+                     ref={canvasRef}/>;
 }
 
-export default withStyles(styles)(WaveBorder);
+export default WaveBorder;
