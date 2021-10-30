@@ -1,6 +1,7 @@
 ---
 type: DynamicForm
 order: 6
+name: contact-form
 children:
     source: home/formFields
     key: fields

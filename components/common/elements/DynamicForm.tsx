@@ -44,15 +44,16 @@ const DynamicFormField: FC<IFormField> = ({type, title, name, placeholder, icon}
   </FormControl>
 }
 
-const DynamicForm: FC<Omit<IDynamicForm, 'content' | 'order' | 'type'>> = ({fields}) => {
+const DynamicForm: FC<Omit<IDynamicForm, 'content' | 'order' | 'type'>> = ({fields, name}) => {
   // hack to get around broke placeholder layout
   let submitButtonText = "Send Message"
 
-  return <form data-netlify="true" name={"contact-form"} method="post"
-               netlify-honeypot="totally-a-field" action={"/?sent_message"}>
+  return <form data-netlify="true" name={name} method="post"
+               netlify-honeypot="totally-a-field" action={"/?alert=sent"}>
     <TextField aria-hidden={true} name="totally-a-field" sx={{
       display: "none"
     }}/>
+    <input type="hidden" name="form-name" value={name} />
     {fields.map(field => {
       if (field.type === "submit") {
         submitButtonText = field.title;

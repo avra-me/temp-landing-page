@@ -50,7 +50,7 @@ const WaveJumbotron: FunctionComponent = (props) => {
           </Container>
           <div id={"hide-navbar"}/>
           <Box sx={{
-            paddingTop: 4,
+            paddingTop: 0,
             zIndex: 20,
             height: "7vw",
             minHeight: "20px",

@@ -1,39 +1,53 @@
 import React, {FunctionComponent, useState} from "react";
-import {Alert, Snackbar} from "@mui/material";
+import {Alert, AlertProps, Snackbar} from "@mui/material";
 import {useRouter} from "next/router";
 
-const MESSAGE_KEY = "sent_message"
 
 interface IAlertManager {
-    underConstruction?: boolean
+  underConstruction?: boolean
+}
+
+const ALERTS: Record<string, AlertProps> = {
+  sent: {
+    severity: "success",
+    children: <>Your message has been sent!</>
+  }
 }
 
 const AlertManager: FunctionComponent<IAlertManager> = ({underConstruction}) => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const [showSuccess, setShowSuccess] = useState(MESSAGE_KEY in router.query);
+  let [alertKey, setAlertKey] = useState(router.query["alert"]);
 
-    const onHideSentNotification = () => {
-        const query = router.query
-        delete query[MESSAGE_KEY]
-        router.replace({pathname: router.pathname, query})
-        setShowSuccess(false);
-    };
+  const onHideSentNotification = () => {
+    const query = router.query
+    delete query["alert"]
+    router.replace({pathname: router.pathname, query})
+    setAlertKey(undefined);
+  };
 
-    return <>
-        <Snackbar open={underConstruction} anchorOrigin={{vertical: "bottom", horizontal: "left"}}>
-            <Alert severity="warning">
-                The content for this page is still being built out, feel free to provide feedback using the contact
-                form!
-            </Alert>
-        </Snackbar>
-        <Snackbar open={showSuccess} onClose={onHideSentNotification} autoHideDuration={5000}
-                  anchorOrigin={{vertical: "bottom", horizontal: "left"}}>
-            <Alert severity="success" onClose={onHideSentNotification}>
-                Your message has been sent!
-            </Alert>
-        </Snackbar>
-    </>;
+  if (typeof alertKey === "string") {
+    alertKey = [alertKey]
+  }
+
+  const alerts = alertKey?.map(alert => {
+    const alertMessage = ALERTS[alert];
+    return <Snackbar key={alert} open={!!alertMessage} onClose={onHideSentNotification}
+                     anchorOrigin={{vertical: "bottom", horizontal: "left"}}>
+      <Alert {...alertMessage} onClose={onHideSentNotification}/>
+    </Snackbar>
+  })
+
+
+  return <>
+    <Snackbar open={underConstruction} anchorOrigin={{vertical: "bottom", horizontal: "left"}}>
+      <Alert severity="warning">
+        The content for this page is still being built out, feel free to provide feedback using the contact
+        form!
+      </Alert>
+    </Snackbar>
+    {alerts}
+  </>;
 };
 
 export default AlertManager;

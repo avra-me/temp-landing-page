@@ -3,7 +3,7 @@ import {applyMiddleware, createStore, Reducer} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {initialSiteState, SiteState} from "./types/site";
 import {initialNavigationState, NavigationState} from "./types/navigation";
-import {CHANGE_THEME_MODE, initialThemeState, TOGGLE_THEME_MODE} from "./types/themes";
+import {CHANGE_THEME_MODE, DARKMODE_COOKIE_KEY, initialThemeState} from "./types/themes";
 import {FooterState, initialFooterState} from "./types/footer";
 import {HomeState, initialHomeState} from "./types/home";
 import {ThemeOptions} from "@mui/material/styles";
@@ -19,8 +19,6 @@ export interface AppState {
   footer: FooterState
 }
 
-const PAGE_STATE_UPDATE = 'pageStateUpdate'
-
 const initialState = {
   themes: initialThemeState,
   site: initialSiteState,
@@ -34,18 +32,11 @@ const initialState = {
 const reducer: Reducer<AppState> = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_THEME_MODE:
-      if(action.payload){
+      if (action.payload) {
         Object.assign(state.themes.palette, {mode: action.payload})
       }
+      localStorage.setItem(DARKMODE_COOKIE_KEY, action.payload)
       return {...state}
-    case TOGGLE_THEME_MODE:
-      Object.assign(state.themes.palette, {mode: state.themes.palette?.mode === "light" ? "dark" : "light"})
-      return {...state}
-    case PAGE_STATE_UPDATE:
-      return {
-        ...state,
-        ...action.payload
-      }
     default:
       return state
   }
@@ -66,11 +57,12 @@ export const initializeStore = (preloadedState: Partial<AppState>) => {
   let _store = store ?? initStore(preloadedState)
 
   if (preloadedState && store) {
-    store.dispatch({
-      type: PAGE_STATE_UPDATE,
-      payload: preloadedState
+    _store = initStore({
+      ...store.getState(),
+      ...preloadedState,
     })
-    return store;
+    // Reset the current store
+    store = undefined
   }
 
   // For SSG and SSR always create a new store

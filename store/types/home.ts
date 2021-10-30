@@ -32,6 +32,7 @@ export interface HorizontalCardSection extends BasicItem {
 }
 export interface DynamicForm extends BasicItem {
     type: 'DynamicForm',
+    name: string,
     fields: (IFormField | ISubmitOverride)[]
 }
 

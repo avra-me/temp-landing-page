@@ -1,5 +1,5 @@
 export const CHANGE_THEME_MODE = "setTheme" as const
-export const TOGGLE_THEME_MODE = "toggleTheme" as const
+export const DARKMODE_COOKIE_KEY = 'app-user-dark-mode-pref'
 
 export type PaletteMode = 'light' | 'dark'
 

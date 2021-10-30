@@ -9,7 +9,8 @@ import SectionContainer from "../SectionContainer";
 const FormContainer: FunctionComponent<IContactFormSection> = (
   {
     content,
-    fields
+    name,
+    fields,
   }) => {
   return (
 
@@ -19,7 +20,7 @@ const FormContainer: FunctionComponent<IContactFormSection> = (
       </Grid>
       <Grid container item alignItems={"center"} justifyContent={"space-evenly"} xs={12} sm={6}>
         <AppearOnScroll duration={2}>
-          <DynamicForm fields={fields}/>
+          <DynamicForm name={name} fields={fields}/>
         </AppearOnScroll>
       </Grid>
     </SectionContainer>
