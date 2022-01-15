@@ -33,7 +33,9 @@ const reducer: Reducer<AppState> = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_THEME_MODE:
       if (action.payload) {
-        Object.assign(state.themes.palette, {mode: action.payload})
+        if(action.payload === 'light' || action.payload ==='dark'){
+          Object.assign(state.themes.palette, {mode: action.payload})
+        }
       }
       localStorage.setItem(DARKMODE_COOKIE_KEY, action.payload)
       return {...state}

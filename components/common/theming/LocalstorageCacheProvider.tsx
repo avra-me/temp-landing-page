@@ -6,10 +6,10 @@ export const LocalstorageCacheProvider: FC = () => {
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    const darkMode = localStorage.getItem(DARKMODE_COOKIE_KEY)
+    let darkMode = localStorage.getItem(DARKMODE_COOKIE_KEY)
     dispatch({
       type: CHANGE_THEME_MODE,
-      payload: darkMode
+      payload: darkMode || 'light'
     })
   }, [dispatch])
 
