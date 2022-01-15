@@ -8,7 +8,7 @@ import React, {
   useEffect,
   useState
 } from "react";
-import {styled} from '@mui/material/styles';
+import {styled} from '@mui/system';
 import Toolbar from "@mui/material/Toolbar";
 import AppBar from "@mui/material/AppBar";
 import RightHandNavigation from "./RightHandNavigation";
@@ -19,6 +19,7 @@ import {useRouter} from "next/router";
 import {sortBy} from "lodash-es";
 import Animate from "react-anime";
 import RootThemeProvider from "../common/theming/RootThemeProvider";
+import {TypographyVariants} from "@mui/material";
 
 const PREFIX = 'NavBar';
 
@@ -40,7 +41,7 @@ const StyledAppBar = styled(AppBar)((
   },
 
   [`& .${classes.brandIcon}`]: {
-    height: theme.typography.h4.fontSize,
+    height: (theme.typography as TypographyVariants).h4.fontSize,
   },
 
   [`& .${classes.noDecoration}`]: {

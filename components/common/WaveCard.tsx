@@ -3,7 +3,7 @@ import clsx from "clsx";
 import CardMedia from "@mui/material/CardMedia";
 import React, {FunctionComponent, ReactNode} from "react";
 import {Grid} from "@mui/material";
-import {useTheme} from '@mui/material/styles';
+import {useTheme} from '@mui/system';
 import Paper from "@mui/material/Paper";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 import AppearOnScroll from "./elements/AppearOnScroll";

@@ -6,7 +6,7 @@ const plugins = [
             libraryDirectory: '',
             camel2DashComponentName: false,
         },
-        'core',
+        'material',
     ],
     [
         'babel-plugin-import',

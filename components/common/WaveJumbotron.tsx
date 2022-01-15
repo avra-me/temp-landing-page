@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {useTheme} from '@mui/material/styles';
+import {useTheme} from '@mui/system';
 import Container from "@mui/material/Container";
 import WaveBorderCanvas from "./elements/WaveBorderCanvas";
 import RootThemeProvider from "./theming/RootThemeProvider";

@@ -1,5 +1,5 @@
 import Hidden from "@mui/material/Hidden";
-import {styled} from '@mui/material/styles';
+import {styled} from '@mui/system';
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, {FunctionComponent} from "react";
@@ -7,6 +7,7 @@ import MenuButton from "./MenuButton";
 import {MenuItem} from "../../store/types/navigation";
 import {trimEnd} from "lodash-es";
 import {Settings} from "@mui/icons-material";
+import {TypographyVariants} from "@mui/material";
 
 const PREFIX = 'RightHandNavigation';
 
@@ -23,8 +24,8 @@ const Root = styled('div')((
   }
 ) => ({
   [`& .${classes.menuButtonText}`]: {
-    fontSize: theme.typography.body1.fontSize,
-    fontWeight: theme.typography.h6.fontWeight,
+    fontSize: (theme.typography as TypographyVariants).body1.fontSize,
+    fontWeight: (theme.typography as TypographyVariants).h6.fontWeight,
   },
 
   [`& .${classes.link}`]: {

@@ -1,9 +1,10 @@
 import Button from "@mui/material/Button";
-import {styled} from '@mui/material/styles';
+import {styled} from '@mui/system';
 import Link from "next/link";
 import React, {FunctionComponent} from "react";
 import smoothScrollTop from "../../utilities/smoothScrollTop";
 import {MenuItem} from "../../store/types/navigation";
+import {TypographyVariants} from "@mui/material";
 
 const StyledButton = styled(Button)(({theme}) => ({
   textDecoration: "none !important",
@@ -25,8 +26,8 @@ const StyledButton = styled(Button)(({theme}) => ({
       width: "100%"
     }
   },
-  fontSize: theme.typography.body1.fontSize,
-  fontWeight: theme.typography.h6.fontWeight,
+  fontSize: (theme.typography as TypographyVariants).body1.fontSize,
+  fontWeight: (theme.typography as any).h6.fontWeight,
   color: theme.palette.text.primary,
 }))
 

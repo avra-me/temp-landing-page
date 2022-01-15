@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import {Box, Grid, Hidden, IconButton, Typography} from "@mui/material";
 
 import {darken, styled} from "@mui/system"
-import {useTheme,} from '@mui/material/styles';
+import {useTheme,} from '@mui/system';
 
 import Avatar from "@mui/material/Avatar";
 import {AttributionItem, SocialButton} from "../../store/types/footer";

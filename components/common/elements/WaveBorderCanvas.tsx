@@ -1,13 +1,12 @@
 import React, {FunctionComponent, useCallback, useEffect, useRef} from "react";
-import {alpha} from '@mui/material/styles';
+import {alpha} from '@mui/system';
 import {styled} from "@mui/system";
 import {css} from "@emotion/react";
 
 const FillCanvas = styled('canvas')(css`
   width: 100%;
   height: 100%;
-  padding-top: -1px;
-  padding-bottom: -1px;
+  padding-top: 2px;
 `)
 
 interface IWaveBorder {

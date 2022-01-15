@@ -11,7 +11,7 @@ import Header from '../components/sections/Header';
 import NavigationBar from '../components/sections/NavigationBar';
 import createEmotionCache from "../utilities/createEmotionCache";
 import {CacheProvider, EmotionCache} from '@emotion/react';
-import {NoSsr} from "@mui/core";
+import {NoSsr} from "@mui/material";
 import {LocalstorageCacheProvider} from 'components/common/theming/LocalstorageCacheProvider';
 import dynamic from "next/dynamic";
 
