@@ -56,6 +56,7 @@ const Footer: FunctionComponent<IFooterProps> = (props) => {
         </Box>
         <Grid sx={{
           bgcolor: theme.palette.grey["900"],
+          mt: 0,
           pt: [8, 10],
           pb: [8, 10],
           pl: [2, 10],
