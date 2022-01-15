@@ -12,10 +12,12 @@ interface IMonogramProps {
 const Monogram: FunctionComponent<IMonogramProps> = ({logo}) => {
   return (
     <Box height={1}>
-      {logo &&
-      <Button onClick={smoothScrollTop}>
-          <AssetSVG path={logo} width={48} height={25}/>
-      </Button>}
+      {
+        logo &&
+        <Button onClick={smoothScrollTop} color={"inherit"}>
+            <AssetSVG path={logo} width={48} height={25}/>
+        </Button>
+      }
     </Box>
   );
 };

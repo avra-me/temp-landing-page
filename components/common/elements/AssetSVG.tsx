@@ -6,7 +6,7 @@ interface IUserUploadedSvg {
 }
 
 const AssetSVG: FC<IUserUploadedSvg> = ({path, ...rest}) => {
-  return <img src={path} alt={"Unable to load image"} {...rest}/>
+  return <img src={path} alt={`Unable to load ${path}`} {...rest}/>
   // Revisit this once suspense is properly implemented server side
   // const matchResult = /\/assets\/(.+)\.svg/.exec(path)
   // if (matchResult) {
