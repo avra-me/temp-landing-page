@@ -7,5 +7,5 @@ siteUrl: "https://theredfox.com.au/"
 logo: "/assets/monogram.svg"
 #sitePreview: "/assets/128x128-animated.gif"
 icons:
-  - {size: "16x16", path: /assets/favicon-16x16.ico}
-  - {size: "32x32", path: /assets/favicon-32x32.ico}
+  - {size: "16x16", path: /assets/favicon-16x16.png}
+  - {size: "32x32", path: /assets/favicon-32x32.png}
