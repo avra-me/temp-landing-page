@@ -6,7 +6,7 @@ import React, {FC} from "react";
 import InputLabel from "@mui/material/InputLabel";
 import FilledInput from "@mui/material/FilledInput";
 import {DynamicForm as IDynamicForm, IFormField} from "../../../store/types/home";
-import {styled, useTheme} from "@mui/system";
+import {styled} from "@mui/system";
 import {css} from "@emotion/react";
 
 const TypeInnerFieldMapping: Record<IFormField["type"], FC<any>> = {
