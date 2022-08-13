@@ -1,5 +1,5 @@
 type: email
-title: Your Email
+title: Email
 name: email
 required: true
 placeholder: 'email@example.com'

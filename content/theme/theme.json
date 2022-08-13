@@ -1,11 +1,11 @@
 {
   "palette": {
-    "waveAngle": "45",
+    "waveAngle": "0",
     "primary": {
-      "main": "#A51D27"
+      "main": "#d55930"
     },
     "secondary": {
-      "main": "#5B215F"
+      "main": "#FFFFFF"
     },
     "tonalOffset": 0.2,
     "spacing": 16

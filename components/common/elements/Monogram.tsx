@@ -15,7 +15,7 @@ const Monogram: FunctionComponent<IMonogramProps> = ({logo}) => {
       {
         logo &&
         <Button onClick={smoothScrollTop} color={"inherit"}>
-            <AssetSVG path={logo} width={48} height={25}/>
+            <AssetSVG path={logo} width={48} height={48}/>
         </Button>
       }
     </Box>

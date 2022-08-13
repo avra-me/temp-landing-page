@@ -8,7 +8,7 @@ const SectionContainer: FunctionComponent = ({children}) => {
   return (
     <Container>
       <Box>
-        <Grid container spacing={3} justifyContent={"space-evenly"} alignItems={"stretch"}>
+        <Grid container spacing={3} justifyContent={"space-evenly"} alignItems={"stretch"} >
           {children}
         </Grid>
       </Box>

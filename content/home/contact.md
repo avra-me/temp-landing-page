@@ -6,4 +6,7 @@ children:
     source: home/formFields
     key: fields
 ---
-#### Contact Me *Have something you want to discuss? Send me a message!*
+<img src="/assets/full-logo.svg" style="margin-bottom: -100px; margin-top: -100px"/>
+<h5 style="color:#d4592f">
+Book your wedding photos, or just reach out to have a chat.
+</h5>

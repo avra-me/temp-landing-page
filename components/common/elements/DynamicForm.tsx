@@ -6,6 +6,8 @@ import React, {FC} from "react";
 import InputLabel from "@mui/material/InputLabel";
 import FilledInput from "@mui/material/FilledInput";
 import {DynamicForm as IDynamicForm, IFormField} from "../../../store/types/home";
+import {styled, useTheme} from "@mui/system";
+import {css} from "@emotion/react";
 
 const TypeInnerFieldMapping: Record<IFormField["type"], FC<any>> = {
   email(props: any) {
@@ -22,6 +24,11 @@ const TypeInnerFieldMapping: Record<IFormField["type"], FC<any>> = {
   },
 
 };
+
+const StyledForm = styled("form")(({theme}) => css`
+  background: ${theme.palette.background.paper};
+  border-radius: 4px;
+`)
 
 const DynamicFormField: FC<IFormField> = ({type, title, name, placeholder, icon}) => {
   const InnerFormField = TypeInnerFieldMapping[type]
@@ -48,8 +55,8 @@ const DynamicForm: FC<Omit<IDynamicForm, 'content' | 'order' | 'type'>> = ({fiel
   // hack to get around broke placeholder layout
   let submitButtonText = "Send Message"
 
-  return <form data-netlify="true" name={name} method="post"
-               netlify-honeypot="totally-a-field" action={"/?alert=sent"}>
+  return <StyledForm data-netlify="true" name={name} method="post"
+               netlify-honeypot="totally-a-field" action={"/?alert=sent"} >
     <TextField aria-hidden={true} name="totally-a-field" sx={{
       display: "none"
     }}/>
@@ -72,7 +79,7 @@ const DynamicForm: FC<Omit<IDynamicForm, 'content' | 'order' | 'type'>> = ({fiel
         {submitButtonText}
       </Button>
     </FormControl>
-  </form>;
+  </StyledForm>;
 };
 
 
