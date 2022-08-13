@@ -11,7 +11,7 @@ const BackgroundImage = styled(Image)(css`
 
 const Home: NextPage = () => {
   return <>
-    <BackgroundImage src={HomeImage} layout={"fill"} objectFit={"cover"}/>
+    <BackgroundImage src={HomeImage} layout={"fill"} objectFit={"cover"} quality={100} placeholder={"blur"}/>
     <DynamicContent source={"home"}/>
   </>
 }

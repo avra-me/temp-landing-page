@@ -14,5 +14,8 @@ module.exports = withBundleAnalyzer(withTM({
         config.resolve.alias["@files"] = path.resolve(__dirname, 'public')
 
         return config;
+    },
+    images: {
+        minimumCacheTTL: 99999999,
     }
 }))
